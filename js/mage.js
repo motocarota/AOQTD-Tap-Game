@@ -4,8 +4,8 @@
 	CAAT.Mage = function( ) {
 		CAAT.Mage.superclass.constructor.call( this );
 
-		this.x = 20;
-		this.y = 40;
+		this.x = 140;
+		this.y = 120;
 		
 		this.mana = 100;
 		this.level = 1;
@@ -43,25 +43,21 @@
 
 			this.setScale( 0.7, 0.7 ).
 				setLocation( this.x, this.y ).
+				setPositionAnchor( 0.5, 0.5 ).
 				setBackgroundImage( playerImage );
 			
 			game.bg.addChild( this );
 			game.bg.addChild( this.label );
 			
 			this.playAnimation("fall");
-			this.playIntro();
 		},
-
-		playIntro : function () {
-			// Animazione in cui sd2 corre verso l'albero e si arrampica
-			// "GAME START!" al centro, on click inizia il gioco
-		},
-
+		
 		
 		castSpell : function ( id, x, y ) {
 			
 			if ( _DEBUG ) CAAT.log('[Mage] casts a spell id:'+id+' at ('+x+','+y+')');
 			var spell = null;
+			
 			// Wand and Scroll
 			if( this.item.charges > 0 ) {
 				this.playAnimation("cast");
@@ -91,6 +87,7 @@
 
 		
 		tick : function () {
+			
 			for ( c in this.cooldowns ){
 				this.cooldowns[ c ]--;
 			}

@@ -1,7 +1,7 @@
 ( function( ) {	
 	
-	CAAT.DEBUG = 0;
-	var _DEBUG = 0,
+	CAAT.DEBUG = false;
+	var _DEBUG = false,
 		_FILE_VERSION = 1001,
 		_CELL_SIZE = 5,
 		_MAX_BAR_HEIGHT = 15,
@@ -143,16 +143,15 @@
 	
 	function setupTimers () { 
 		
-		game.time = game.options.tick_time;
+		game.time = game.options.global_cooldown;
 		game.mainTimer = gameScene.createTimer(
 			0,
 			Number.MAX_VALUE, 
 			null,
 			function(){ 
 				if( game.time-- < 0 ) {
-					// c.attack(); 
 					tick();
-					game.time = game.options.tick_time;
+					game.time = game.options.global_cooldown;
 				} 
 			},
 			null 
@@ -231,7 +230,9 @@
 		// if ( game.enemies.length < game.options.enemies.maxNumber && Math.random() < (game.options.enemies.spawnRate || 0.2) ) {
 		if ( !_DEBUG && game.enemies.length < 5 && c < 4 ) {
 			var enemy = new CAAT.Enemy( );
-			enemy.add( game.enemiesList[ c ] );
+			// enemy.add( game.enemiesList[ roll( 1, game.enemiesList.length ) ] );
+			enemy.add( 'kobold' );
+			enemy.move( );
 		}
 		
 		//UPDATE UI

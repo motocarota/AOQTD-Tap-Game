@@ -1,4 +1,5 @@
-game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
+// game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
+game.enemiesList = [ 'kobold' ];
 game.enemiesBook = {
 	
 	kobold: {

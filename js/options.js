@@ -9,7 +9,7 @@ function setupOptions( ) {
 		max_hp: 			100,
 		max_mana: 			100,
 		tick_mana: 			4,
-		tick_time :			40,
+		global_cooldown :	40,
 		volume :			10,
 		font :				"Arial",
 		dropChance: 		50,
@@ -18,7 +18,7 @@ function setupOptions( ) {
 		},
 		enemies : {
 			wave: 			50,
-			baseSpeed : 	60000
+			baseSpeed : 	100
 		},
 		
 		drop : {
