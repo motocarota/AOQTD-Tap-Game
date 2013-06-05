@@ -7,6 +7,9 @@ game.enemiesBook = {
 		speed: 0.8,
 		frameW: 3, 
 		frameH: 2,
+		dropTable: [
+			{ chance: 90, id: 'coins', qty: 4 }
+		],
 		animations: {
 			walk: {
 				frames: [2,2,3,4,4,3], duration: 200
@@ -16,7 +19,7 @@ game.enemiesBook = {
 			},
 			attack: {
 				frames: [3,2,4], duration: 200, 
-				reset: function( s ){ s.playAnimation( 'stand' ); CAAT.log('reset'); }
+				reset: function( s ){ s.playAnimation( 'stand' ); }
 			}
 		},
 		damageFilter: function( amount ) {

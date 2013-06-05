@@ -2,17 +2,18 @@ game.dropList = [ 'lifePotion', 'manaPotion', 'scroll', 'wand', 'coins' ];
 game.dropTable = {
 
 	coins : {
-		
-		amount : roll( this.level, 6, 1 ),
+		imageId: 5,
 		effect : function(){ 
-			game.player.notify('You Loot '+this.amount+' gold coins');
-			game.player.money+= this.amount; 
+			var amount = roll( this.level, 6, 1 );
+			game.player.notify( 'You Loot '+amount+' gold coins' );
+			game.player.money+= amount; 
 		}
 	},
 	
 	scroll : {
 		
 		type: 			"scroll",
+		imageId: 		3,
 		spellId : 		0,
 		charges : 		1,
 		level : 		roll( 1, this.level ),
@@ -25,6 +26,7 @@ game.dropTable = {
 	
 	wand : {
 		type: 			"wand",
+		imageId: 		4,
 		spellId : 		0,
 		charges : 		5,
 		level : 		roll( 1, this.level ),
@@ -36,6 +38,8 @@ game.dropTable = {
 	},
 
 	lifePotion : {
+		type: 			"lifePotion",
+		imageId: 		1,
 		amount: 		roll( 2, 8, 5 ),
 		effect: 		function(){ 
 			game.player.notify( 'You loot a Health Potion' );
@@ -44,6 +48,8 @@ game.dropTable = {
 	},
 	
 	manaPotion: {
+		type: 			"manaPotion",
+		imageId: 		2,
 		effect: function(){ 
 			game.player.notify( 'You loot a Mana Potion' );
 			game.player.mana += 25; 
