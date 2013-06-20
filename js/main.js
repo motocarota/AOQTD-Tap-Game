@@ -33,6 +33,7 @@
 			addElement( "kobold",	"img/sprites/kobold.png" ).
 			addElement( "zombie",	"img/sprites/zombie.png" ).
 			//other
+			addElement( "cover",	"img/aoqtd-cover.png" ).
 			addElement( "bg",		"img/bg.png" ).
 			
 			load( function onAllAssetsLoaded( images ) {
@@ -45,204 +46,149 @@
 	function startGame( images ) {
 
 		setupOptions( );
-		setupScene( images );
-		setupBackground( );
-		setupPlayer( );
-		setupButtons( );
-		setupTimers( );
-		setupUI( );
-
+		setupMenuScene( images );
 		CAAT.loop( 30 );
 	}
 	
 
-	function setupScene( images ) {
+	function setupMenuScene( images ) {
 		
 		window.director = new CAAT.Foundation.Director( ).initialize( 900, 600, 'experiment-canvas' );
 		window.director.setImagesCache( images );
-		window.gameScene = director.createScene( );
 		window.menuScene = director.createScene( );
+		window.gameScene = director.createScene( );
+		window.optionsScene = director.createScene( );
+		window.creditsScene = director.createScene( );
 		
 		menuScene.activated = function() {
 			director.setClear( CAAT.Foundation.Director.CLEAR_ALL );
 		};
-		var btn = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'spell' ), 1, 3 ),
-				0, 0, 0, 0,
-				function( button ){
-					director.switchToPrevScene( 2000, false	, true );
-				} ).
-			setLocation( 300, 300 );
-		menuScene.addChild( btn );
-
-		//NOTA this could be useful for invisibles objects
-		gameScene.emptySprite = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 );
-	}
-	
-	
-	function setupBackground( ) {
 		
-		// Background
-		game.bg = new CAAT.Foundation.ActorContainer( ).
-			setBounds( 0, 0, director.width, director.height ).
-			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
-			enableEvents( true ).
-			cacheAsBitmap( );
-
-		gameScene.addChild( game.bg );
-		
-		game.bg.mouseDown = function( ev ) {
-			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
-		};
-	}
-	
-	
-	function setupButtons( ) {
-		
-		game.enemies = [];
-		game.spells = [];
-		var btn = [];
-		
-		btn[0] = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
-				0, 0, 0, 0, 
-				function( button ){ game.player.notify( spellIndex-- ); } ).
-			setLocation( 50, 540 );
-			
-		btn[1] = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
-				0, 0, 0, 0,
-				function( button ){ game.player.notify( spellIndex++ ); } ).
-			setLocation( 250, 540 );
-				
-		btn[2] = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
-				0, 0, 0, 0,
-				function( button ){
-					new CAAT.Enemy( ).add( game.enemiesList[ roll( 1, game.enemiesList.length ) -1 ] );
-				} ).
-			setLocation( 650, 540 );
-
-		gameScene.addChild( btn[0] );
-		gameScene.addChild( btn[1] );
-		gameScene.addChild( btn[2] );
-	}
-	
-	
-	function setupPlayer() {
-		
-		game.player = new CAAT.Mage( );
-		game.player.add();
-		game.killCount = 0;
-	}
-	
-	
-	function setupTimers () { 
-		
-		game.time = game.options.global_cooldown;
-		game.mainTimer = gameScene.createTimer(
-			0,
-			Number.MAX_VALUE, 
-			null,
-			function(){ 
-				if( game.time-- < 0 ) {
-					tick();
-					game.time = game.options.global_cooldown;
-				} 
-			},
-			null 
+		// Menu
+		menuScene.addChild( 
+			new CAAT.Foundation.ActorContainer( ).
+				setBounds( 0, 0, director.width, director.height ).
+				setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'cover' ), 1, 1 ) ).
+				enableEvents( true ).
+				cacheAsBitmap( )
 		);
-	}
-	
-	
-	function setupUI () {
 		
-		game.UI = {};
-		game.UI.pauseBtn = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base'  ),  2, 10 ),
-				1, 2, 3, 4, 
-				function( button ){ 
-					CAAT.log('[Main] Game Paused = '+!gameScene.paused )
-					gameScene.setPaused( !gameScene.paused );
-					// director.switchToNextScene( 2000, false, true );
-				} ).
-			setPositionAnchor( 0.5, 0 ).
-			setLocation( director.width/2, 5 );
-		
-		game.UI.mainString = new CAAT.Foundation.UI.TextActor( ).
-			setText( "hello" ).
-			setFont( "30px "+game.options.font ).
-			setTextFillStyle( "red" ).
-			setTextAlign('center').
-			setLocation( director.width/2, 50 );
-		
-		gameScene.addChild( game.UI.mainString );
-		
-		game.UI.healthBar = new CAAT.Foundation.UI.ShapeActor().
-		setLocation( 500, 10 ).
-				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
-				setFillStyle( '#f55' ).
-				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
-				enableEvents( false ).
-				setStrokeStyle( '#fff' );
-		
-		game.UI.manaBar = new CAAT.Foundation.UI.ShapeActor().
-				setLocation( 40, 10 ).
-				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
-				setFillStyle( '#79f' ).
-				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
-				enableEvents( false ).
-				setStrokeStyle( '#fff' );
-		
-		if ( _DEBUG ) {
-			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).
-				setText( "file version: "+_FILE_VERSION ).
-				setFont( "20px arial" ).
+		menuScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Play" ).
+				setFont( "30px "+game.options.font ).
+				setTextFillStyle( "red" ).
 				setTextAlign('right').
-				setLocation( director.width-5, director.height-25 );
-
-			gameScene.addChild( game.UI.debugString );
-		}
-		gameScene.addChild( game.UI.pauseBtn );
-		gameScene.addChild( game.UI.healthBar );
-		gameScene.addChild( game.UI.manaBar );
-	}
-	
-	
-	function tick() {
+				setLocation( director.width, 150 ).
+				setAsButton( 
+					null, 1, 2, 3, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Menu] PLAY' );
+						director.switchToScene( 1, 2000, false, true );
+					} 
+				) 
+		);
+		menuScene.addChild( 
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Options" ).
+				setFont( "30px "+game.options.font ).
+				setTextFillStyle( "red" ).
+				setTextAlign('right').
+				setLocation( director.width, 200 ).
+				setAsButton( 
+					null, 1, 2, 3, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Menu] OPTIONS' );
+						director.switchToScene( 2, 2000, false, true );
+					} 
+				)
+		);
+		menuScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Credits" ).
+				setFont( "30px "+game.options.font ).
+				setTextFillStyle( "red" ).
+				setTextAlign('right').
+				setLocation( director.width, 250 ).
+				setAsButton( 
+					null, 1, 2, 3, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Menu] CREDITS' );
+						director.switchToScene( 3, 2000, false, true );
+					} 
+				)
+		);
 		
-		//UPDATE PLAYER
-		game.player.tick();
+		//Credits
+		creditsScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Menu" ).
+				setFont( "30px "+game.options.font ).
+				setTextFillStyle( "red" ).
+				setLocation( 50, 50 ).
+				setAsButton( 
+					null, 1, 2, 3, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Credits] Menu' );
+						director.switchToScene( 0, 2000, false, true );
+					} 
+				) 
+		);
+		creditsScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "AOQTD: the game" ).
+				setFont( "20px "+game.options.font ).
+				setTextFillStyle( "black" ).
+				setTextAlign('center').
+				setLocation( director.width/2, 100 )
+		);
 		
-		//UPDATE ENEMIES
-		for ( e in game.enemies ) {
-			game.enemies[ e ].tick();
-		}
+		//Options
+		optionsScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Menu" ).
+				setFont( "30px "+game.options.font ).
+				setTextFillStyle( "red" ).
+				setLocation( 50, 50 ).
+				setAsButton( 
+					null, 1, 2, 3, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Options] Menu' );
+						director.switchToScene( 0, 2000, false, true );
+					}
+				) 
+		);
+		optionsScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Opzioni blablabla" ).
+				setFont( "20px "+game.options.font ).
+				setTextFillStyle( "black" ).
+				setTextAlign('center').
+				setLocation( director.width/2, 100 )
+		);
 		
-		// Enemies generation
-		var c = roll( 1, 10 );
-		//improved version
-		// if ( game.enemies.length < game.options.enemies.maxNumber && Math.random() < (game.options.enemies.spawnRate || 0.2) ) {
-		if ( !_DEBUG && game.enemies.length < 5 && c < 4 ) {
-			var enemy = new CAAT.Enemy( );
-			// enemy.add( game.enemiesList[ roll( 1, game.enemiesList.length ) ] );
-			enemy.add( 'kobold' );
-			enemy.move( );
-		}
-		
-		//UPDATE UI
-		game.UI.healthBar.setSize( game.player.hp / 100 * _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
-			setLocation( 500 - ( game.player.hp - 100 ) / 100 * _MAX_BAR_WIDTH, 10 );
-			
-		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / 100, _MAX_BAR_HEIGHT );
-		
-		if ( game.killCount > game.options.enemies.wave )
-			game.player.win();
+		//Game
+		gameScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Gioca" ).
+				setFont( "20px "+game.options.font ).
+				setTextFillStyle( "black" ).
+				setTextAlign( 'center' ).
+				setLocation( director.width/2, 100 )
+		);
+		gameScene.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Menu" ).
+				setFont( "30px "+game.options.font ).
+				setTextFillStyle( "red" ).
+				setLocation( 50, 50 ).
+				setAsButton( 
+					null, 1, 2, 3, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Game] Pausa' );
+						director.switchToScene( 0, 2000, false, true );
+					} ) 
+		);
 	}
 
 } )( );

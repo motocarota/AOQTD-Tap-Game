@@ -12,15 +12,25 @@ Domanda:
 
 Come implemento i duelli di magia?
 
+Li implementiamo come boss non necessariamente maghi:
+
+Si passa dal bruto che rigenera
+
 
 ## TODO
+* setup di un db locale che memorizzi i livelli completati (con punteggio)
+	es. var playerStatus = {
+		xp: 	1000,
+		level: 	3,
+		score: [ 3, 2, 3, 1 ] // i livelli successivi non completati NON hanno punteggio
+	};
+	
+* capire perche' gli eventi touch non vengono presi (bg e pulsanti)
+	vedere se CAAT.TOUCH_AS_MOUSE c'entra qualcosa
 * fare disegni e note per i livelli ed i mostri da dare poi a meky e alla Cla
 
 (SPELL)
 * fare in modo di applicare gli effetti anche tramite travel, se sono definiti
-* sistemare le rotazioni delle esplosioni
-* impostare lo z-index dei nemici = director.height - y
-* applicare il trattamento ricevuto dal spell anche a drop ed enemy (base data)
 * creare scene
 	- intro screen (play info about)
 	- level list
@@ -31,17 +41,17 @@ Come implemento i duelli di magia?
 * studiare bene una UI
 	pausa px mo hp mp spells e BANNER :D
 
-* creare 
-	incantesimi
-	mostri
+* creare incantesimi (lista, implementazione, sprites)
+* creare mostri (implementazione, sprites)
 
 * Tabelle dei nemici da generare
 	- Timer che genera i nemici in base al livello di gioco
 		a fine ciclo crea il boss
+	- script / json ce determini cosa succede nella scena:
+		es. spawn di N nemici di tipo X
 		
 * pensare a come implementare il boss fight
-	(sd2 giu' dall'albero, il mago avversario di fronte che si muove, lancia incantesimi, evoca mostri)
-* Creare sprites animati (superdrow, incantesimi, nemici)
+	comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
 * Suoni
 * Musica
 
@@ -50,13 +60,12 @@ Come implemento i duelli di magia?
 * Versionare il codice
 * Documentare il codice
 * Riogranizzare il codice in modo da avere la seguente gerarchia
-
 	Actor
 		Entity
 			Player
-			Enemy
-			Spell
-			Drop
+			Enemy 	( moveable, damageable )
+			Spell 	( moveable )
+			Drop 	( active )
 	
 * html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
@@ -86,7 +95,7 @@ Livello 1
 Livello 2
 	* Raggio infuocato
 	* Unto
-	* Charme
+	* Freccia Acida
 
 Livello 3
 	* Palla di Fuoco
@@ -150,35 +159,37 @@ Livello 5
 
 ## BOSS	
 
-	* Lich : Superbia ( viola )
+	* Demi-Lich : Superbia ( viola )
 		desiderio irrefrenabile di essere superiori, fino al disprezzo di ordini, leggi, rispetto altrui
 		- Piano Astrale / tutto assurdo e fuori dal tempo
 
-	* Drago : Avarizia ( azzurro )
-		scarsa disponibilità a spendere e a donare ciò che si possiede
-		- Tana del drago / Grotta con diamanti azzurri sulle pareti di roccia
-
-	* Elfo Mago/Beholder : Invidia ( blu )
+	* Golem di Ferro : Invidia ( blu )
 		tristezza per il bene altrui, percepito come male proprio
 		- Torre del mago / Librerie, corridoi
 
-	* Stregone (fuoco) : Ira ( rosso )
+	* Drago (fuoco) : Ira ( rosso )
 		irrefrenabile desiderio di vendicare violentemente un torto subito
-		- Piano elementale del fuoco / Vulcani in eruzione, magma e roccia bruciata
+		- Tana del drago / Vulcano in eruzione, magma e roccia bruciata
 
 	* Ninfa Druida : Lussuria ( giallo )
 		desiderio irrefrenabile del piacere sessuale fine a sé stesso
 		- Bosco fatato / Fitta vegetazione, sberluccichi luminosi strani, rovine tipo greche
+		Strategia: legarsi, quindi quando sta per fare il canto ammaliatore, bisogna rallentarsi facendo unto/ragnatela
 
-	* Chierico Nano : Gola ( arancione )
-		meglio conosciuta come ingordigia, abbandono ed esagerazione nei piaceri della tavola, e non solo
+	* Rospo / Vermone gigante : Gola ( arancione )
+		meglio conosciuta come ingordigia, abbandono ed esagerazione nei piaceri della tavola
+		- Deserto
+		Strategia: scappare dal mostro per 3 minuti, la cui fame cresce man mano (jetpack joyride)
+
+	* Avventurieri : Avarizia ( azzurro )
+		scarsa disponibilità a spendere e a donare ciò che si possiede
 		- Citta' / strade, locanda, arena
 
-	* Gnomo Bardo : Accidia ( verde )
+	* Ogre : Accidia ( verde )
 		torpore malinconico, inerzia nel vivere e nel compiere opere di bene
 		- Greenhill / Campagna, colline e pianure irlandesi
+		
 
 ## BUGS
 
-* Fare in modo di lasciare l'etichetta dei danni se il nemico muore
-* Capire perche' mi viene creato a troie un nuovo incantesimo 
+* impostare lo z-index dei nemici = director.height - y
