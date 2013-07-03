@@ -1,72 +1,22 @@
 ( function( ) {	
 	
-	CAAT.DEBUG = false;
 	var _DEBUG = false,
 		_FILE_VERSION = 1001,
-		_CELL_SIZE = 5,
 		_MAX_BAR_HEIGHT = 15,
 		_MAX_BAR_WIDTH = 360;
 		
 	window.spellIndex = 0;
 	
-	window.addEventListener( 'load', load, false );
-    function load( ) {
-
-		new CAAT.Module.Preloader.Preloader( ).
-			//debug base sprite for animations
-			addElement( "base",		"img/sprites/sprite.png" ).
-			addElement( "empty",	"img/empty.png" ).
-			addElement( "boom",		"img/sprites/peperone.png" ).
-			addElement( "items",	"img/sprites/items.png" ).
-			//player
-			addElement( "tree",		"img/sprites/tree.png" ).
-			addElement( "player",	"img/sprites/sd2.png" ).
-			//spells
-			addElement( "mmissile",	"img/sprites/magic_missile.png" ).
-			addElement( "lightning","img/sprites/lightning.png" ).
-			addElement( "fireball",	"img/sprites/fireball.png" ).
-			addElement( "spell",	"img/sprites/sprite.png" ).
-			//monsters
-			addElement( "bat",		"img/sprites/bat.png" ).
-			addElement( "wolf",		"img/sprites/wolf.png" ).
-			addElement( "dragon",	"img/sprites/dragon.png" ).
-			addElement( "kobold",	"img/sprites/kobold.png" ).
-			addElement( "zombie",	"img/sprites/zombie.png" ).
-			//other
-			addElement( "bg",		"img/bg.png" ).
-			
-			load( function onAllAssetsLoaded( images ) {
-				startGame( images );
-			} 
-		);
-    }
-
-
-	function startGame( images ) {
-
-		setupOptions( );
-		setupScene( images );
-		setupBackground( );
-		setupPlayer( );
-		setupButtons( );
-		setupTimers( );
-		setupUI( );
-
-		CAAT.loop( 30 );
-	}
-	
-
-	function setupScene( images ) {
+	game.setup = function( images ) {
 		
-		window.director = new CAAT.Foundation.Director( ).initialize( 900, 600, 'experiment-canvas' );
-		window.director.setImagesCache( images );
-		window.gameScene = director.createScene( );
-		window.menuScene = director.createScene( );
-		
-		menuScene.activated = function() {
-			director.setClear( CAAT.Foundation.Director.CLEAR_ALL );
-		};
-		var btn = new CAAT.Foundation.Actor( ).
+		//Inizializza l'area di gioco:
+		// carica 
+		// 		livello (bg)
+		// 		lista dei nemici
+		//		stat/spell personaggio (from localstorage)
+		//			exp power defense mana [ talenti ]
+				
+		menuScene.addChild( new CAAT.Foundation.Actor( ).
 			setAsButton( 
 				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'spell' ), 1, 3 ),
 				0, 0, 0, 0,
@@ -74,15 +24,11 @@
 					director.switchToPrevScene( 2000, false	, true );
 				} ).
 			setLocation( 300, 300 );
-		menuScene.addChild( btn );
+		);
 
 		//NOTA this could be useful for invisibles objects
 		gameScene.emptySprite = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 );
-	}
-	
-	
-	function setupBackground( ) {
-		
+
 		// Background
 		game.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -95,13 +41,16 @@
 		game.bg.mouseDown = function( ev ) {
 			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
 		};
-	}
-	
-	
-	function setupButtons( ) {
+		
+		//Player
+		game.player = new CAAT.Mage( );
+		game.player.add();
+		game.killCount = 0;
 		
 		game.enemies = [];
 		game.spells = [];
+		
+		//UI - Buttons
 		var btn = [];
 		
 		btn[0] = new CAAT.Foundation.Actor( ).
@@ -130,37 +79,8 @@
 		gameScene.addChild( btn[0] );
 		gameScene.addChild( btn[1] );
 		gameScene.addChild( btn[2] );
-	}
-	
-	
-	function setupPlayer() {
-		
-		game.player = new CAAT.Mage( );
-		game.player.add();
-		game.killCount = 0;
-	}
-	
-	
-	function setupTimers () { 
-		
-		game.time = game.options.global_cooldown;
-		game.mainTimer = gameScene.createTimer(
-			0,
-			Number.MAX_VALUE, 
-			null,
-			function(){ 
-				if( game.time-- < 0 ) {
-					tick();
-					game.time = game.options.global_cooldown;
-				} 
-			},
-			null 
-		);
-	}
-	
-	
-	function setupUI () {
-		
+				
+		// UI - Strings and Bars
 		game.UI = {};
 		game.UI.pauseBtn = new CAAT.Foundation.Actor( ).
 			setAsButton( 
@@ -211,10 +131,24 @@
 		gameScene.addChild( game.UI.pauseBtn );
 		gameScene.addChild( game.UI.healthBar );
 		gameScene.addChild( game.UI.manaBar );
+		
+		//Timers
+		game.time = game.options.global_cooldown;
+		game.mainTimer = gameScene.createTimer(
+			0,
+			Number.MAX_VALUE, 
+			null,
+			function(){ 
+				if( game.time-- < 0 ) {
+					game.tick();
+					game.time = game.options.global_cooldown;
+				} 
+			},
+			null 
+		);
 	}
 	
-	
-	function tick() {
+	game.tick = function() {
 		
 		//UPDATE PLAYER
 		game.player.tick();

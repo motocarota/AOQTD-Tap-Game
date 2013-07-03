@@ -6,9 +6,9 @@ game.enemiesBook = {
 		level: 1,
 		speed: 0.8,
 		frameW: 3, 
-		frameH: 2,
+		frameH: 3,
 		dropTable: [
-			{ chance: 90, id: 'coins', qty: 4 }
+			{ chance: 50, id: 'coins', qty: 4 }
 		],
 		animations: {
 			walk: {
@@ -18,8 +18,7 @@ game.enemiesBook = {
 				frames: [0,1], duration: 200
 			},
 			attack: {
-				frames: [3,2,4], duration: 200, 
-				reset: function( s ){ s.playAnimation( 'stand' ); }
+				frames: [5,6,7,8,6,5], duration: 150
 			}
 		},
 		damageFilter: function( amount ) {

@@ -6,19 +6,17 @@ game.spellBook = {
 		element: 		"force",
 		school:			"invocation", 
 		cooldown: 		1,
+		// icon: 		"id" su cui cercare nell'immagine che contiene tutte le icone, che sara' simile al file "base"
 			
 		travel : {
 			duration: 		800,
 			path: 			null,
 			interpolator: 	null,
 			rotation: 		false, 
-			image: 	{
+			image: {
 				name: 		'mmissile', 
 				sprite: 	null,
-				frame: {
-					h:		2,
-					w:		3
-				}
+				frame: 		{ h: 2, w: 3 }
 			},
 			animation: {
 				frames: 	[0, 1, 2],

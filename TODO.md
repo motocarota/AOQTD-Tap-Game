@@ -17,7 +17,24 @@ Li implementiamo come boss non necessariamente maghi:
 Si passa dal bruto che rigenera
 
 
+----
+
+(1) Spell - come funzionano:
+
+Normalmente si lancia a brettio il dardo incantato: basso costo ( tipo quello attuale : )
+Poi quando si ricevono incantesimi extra e si caricano in memoria, si ha una serie di pulsanti in basso
+click sullo spell scelto -> si lancia l'incantesimo, poi lo spell torna ad essere il dardo incantato
+
+tutti gli spell di alto livello hanno una sorta di cooldown 
+
+
 ## TODO
+
+* fare UI con:
+ 	- cooldown visivi
+	- icone per gli incantesimi
+	- xp / livello
+	- pause/end game
 * setup di un db locale che memorizzi i livelli completati (con punteggio)
 	es. var playerStatus = {
 		xp: 	1000,
@@ -29,29 +46,24 @@ Si passa dal bruto che rigenera
 	vedere se CAAT.TOUCH_AS_MOUSE c'entra qualcosa
 * fare disegni e note per i livelli ed i mostri da dare poi a meky e alla Cla
 
-(SPELL)
-* fare in modo di applicare gli effetti anche tramite travel, se sono definiti
-* creare scene
-	- intro screen (play info about)
-	- level list
-	- game scene
-	- info
-	- about
-
 * studiare bene una UI
 	pausa px mo hp mp spells e BANNER :D
 
-* creare incantesimi (lista, implementazione, sprites)
-* creare mostri (implementazione, sprites)
-
-* Tabelle dei nemici da generare
-	- Timer che genera i nemici in base al livello di gioco
-		a fine ciclo crea il boss
-	- script / json ce determini cosa succede nella scena:
-		es. spawn di N nemici di tipo X
+( SPELL )
+	* implementare logica spell descritta sopra(1)
+	* [ later: fare in modo di applicare gli effetti anche tramite travel, se sono definiti]
+	* creare incantesimi (lista, implementazione, sprites)
+	
+( ENEMIES )
+	* creare mostri (implementazione, sprites)
+	* Tabelle dei nemici da generare
+		- Timer che genera i nemici in base al livello di gioco
+			a fine ciclo crea il boss
+		- script / json ce determini cosa succede nella scena:
+			es. spawn di N nemici di tipo X
 		
-* pensare a come implementare il boss fight
-	comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
+	* pensare a come implementare il boss fight
+		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
 * Suoni
 * Musica
 
@@ -159,19 +171,19 @@ Livello 5
 
 ## BOSS	
 
-	* Demi-Lich : Superbia ( viola )
-		desiderio irrefrenabile di essere superiori, fino al disprezzo di ordini, leggi, rispetto altrui
-		- Piano Astrale / tutto assurdo e fuori dal tempo
-
-	* Golem di Ferro : Invidia ( blu )
+	* Demi-Lich : Invidia ( blu )
 		tristezza per il bene altrui, percepito come male proprio
-		- Torre del mago / Librerie, corridoi
+		- Piano Astrale / tutto assurdo e fuori dal tempo
 
 	* Drago (fuoco) : Ira ( rosso )
 		irrefrenabile desiderio di vendicare violentemente un torto subito
 		- Tana del drago / Vulcano in eruzione, magma e roccia bruciata
 
-	* Ninfa Druida : Lussuria ( giallo )
+	* Golem di Ferro : Superbia ( viola )
+		desiderio irrefrenabile di essere superiori, fino al disprezzo di ordini, leggi, rispetto altrui
+		- Torre del mago / Librerie, corridoi, terrazza
+
+	* Ninfa Druida : Lussuria ( azzurro )
 		desiderio irrefrenabile del piacere sessuale fine a sé stesso
 		- Bosco fatato / Fitta vegetazione, sberluccichi luminosi strani, rovine tipo greche
 		Strategia: legarsi, quindi quando sta per fare il canto ammaliatore, bisogna rallentarsi facendo unto/ragnatela
@@ -181,8 +193,8 @@ Livello 5
 		- Deserto
 		Strategia: scappare dal mostro per 3 minuti, la cui fame cresce man mano (jetpack joyride)
 
-	* Avventurieri : Avarizia ( azzurro )
-		scarsa disponibilità a spendere e a donare ciò che si possiede
+	* Avventurieri : Avarizia ( giallo )
+		scarsa disponibilità a spendere e a donare ciò che si possiede, cieca sete di ricchezza
 		- Citta' / strade, locanda, arena
 
 	* Ogre : Accidia ( verde )
