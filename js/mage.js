@@ -75,7 +75,11 @@
 				if ( this.mana > spell.cost ) {
 					spell.add( );
 					this.mana -= spell.cost;
-					this.cooldowns[ id ] = spell.cooldown;
+					if ( spell.cooldown ) {
+						this.cooldowns[ id ] = spell.cooldown;
+						spellIndex = 0;
+						game.player.notify('back to mm	')
+					}
 				} else { 
 					CAAT.log( "[Mage] out of mana "+this.mana+" / "+spell.cost ) 
 				}

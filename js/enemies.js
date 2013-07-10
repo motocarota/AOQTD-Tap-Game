@@ -1,4 +1,5 @@
 // game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
+// enemies list verra' popolato a seconda del livello
 game.enemiesList = [ 'kobold' ];
 game.enemiesBook = {
 	

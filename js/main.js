@@ -4,8 +4,8 @@
 	var _DEBUG = false,
 		_FILE_VERSION = 1001,
 		_CELL_SIZE = 5,
-		_MAX_BAR_HEIGHT = 15,
-		_MAX_BAR_WIDTH = 360;
+		_MAX_BAR_HEIGHT = 22,
+		_MAX_BAR_WIDTH = 380;
 		
 	window.spellIndex = 0;
 	
@@ -15,9 +15,12 @@
 		new CAAT.Module.Preloader.Preloader( ).
 			//debug base sprite for animations
 			addElement( "base",		"img/sprites/sprite.png" ).
-			// addElement( "icons",	"img/icons.png" ).
+			//UI
+			addElement( "icons",		"img/UI/icons.png" ).
+			addElement( "game-btns",	"img/UI/game-btns.png" ).
+			addElement( "empty-bar",	"img/UI/empty-bar.png" ).
+
 			addElement( "empty",	"img/empty.png" ).
-			addElement( "boom",		"img/sprites/peperone.png" ).
 			addElement( "items",	"img/sprites/items.png" ).
 			//player
 			addElement( "tree",		"img/sprites/tree.png" ).
@@ -27,6 +30,7 @@
 			addElement( "lightning","img/sprites/lightning.png" ).
 			addElement( "fireball",	"img/sprites/fireball.png" ).
 			addElement( "spell",	"img/sprites/sprite.png" ).
+			addElement( "boom",		"img/sprites/peperone.png" ).
 			//monsters
 			addElement( "bat",		"img/sprites/bat.png" ).
 			addElement( "wolf",		"img/sprites/wolf.png" ).
@@ -58,11 +62,18 @@
 		window.director.setImagesCache( images );
 		window.menuScene = director.createScene( );
 		window.gameScene = director.createScene( );
-		window.optionsScene = director.createScene( );
+		window.infoScene = director.createScene( );
 		window.creditsScene = director.createScene( );
 		
 		menuScene.activated = function() {
 			director.setClear( CAAT.Foundation.Director.CLEAR_ALL );
+		};
+		
+		// UI - Strings and Bars
+		game.UI = {
+			emptySprite : 	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
+			btns : 			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 4 ),
+			emptyBar : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty-bar' ), 1, 1 )
 		};
 		
 		// Menu
@@ -75,14 +86,13 @@
 		);
 		menuScene.setGestureEnabled(true);
 		menuScene.addChild(
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Play" ).
-				setFont( "30px "+game.options.font ).
-				setTextFillStyle( "red" ).
-				setTextAlign('right').
-				setLocation( director.width, 150 ).
+			new CAAT.Foundation.Actor( ).
+				setLocation( director.width-50, 120 ).
+				setScale( 1.6, 1.6 ).
+				setPositionAnchor( 1, 0 ).
 				setAsButton( 
-					null, 1, 2, 3, 4, 
+					game.UI.btns,
+					1, 1, 5, 5, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] PLAY' );
 						director.switchToScene( 1, 2000, false, true );
@@ -91,7 +101,7 @@
 		);
 		menuScene.addChild( 
 			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Options" ).
+				setText( "Info" ).
 				setFont( "30px "+game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign('right').
@@ -99,7 +109,7 @@
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] OPTIONS' );
+						if( _DEBUG ) CAAT.log('[Menu] INFO' );
 						director.switchToScene( 2, 2000, false, true );
 					} 
 				)
@@ -121,47 +131,43 @@
 		);
 		
 		//Credits
-		creditsScene.addChild(
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Menu" ).
-				setFont( "30px "+game.options.font ).
-				setTextFillStyle( "red" ).
-				setLocation( 50, 50 ).
-				setAsButton( 
-					null, 1, 2, 3, 4, 
-					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Credits] Menu' );
-						director.switchToScene( 0, 2000, false, true );
-					} 
-				) 
-		);
+		creditsScene.bg = new CAAT.Foundation.ActorContainer( ).
+			setBounds( 0, 0, director.width, director.height ).
+			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
+			enableEvents( true ).
+			cacheAsBitmap( );
+		creditsScene.addChild( creditsScene.bg );
+
+		creditsScene.bg.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log('[Credits] Menu' );
+			director.switchToScene( 0, 2000, false, true );
+		};
+		
 		creditsScene.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "AOQTD: the game" ).
 				setFont( "20px "+game.options.font ).
 				setTextFillStyle( "black" ).
 				setTextAlign('center').
+				enableEvents( false ).
 				setLocation( director.width/2, 100 )
 		);
 		
-		//Options
-		optionsScene.addChild(
+		//Info
+		infoScene.bg = new CAAT.Foundation.ActorContainer( ).
+			setBounds( 0, 0, director.width, director.height ).
+			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
+			enableEvents( true ).
+			cacheAsBitmap( );
+		infoScene.addChild( infoScene.bg );
+
+		infoScene.bg.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log('[Info] Menu' );
+			director.switchToScene( 0, 2000, false, true );
+		};
+		infoScene.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Menu" ).
-				setFont( "30px "+game.options.font ).
-				setTextFillStyle( "red" ).
-				setLocation( 50, 50 ).
-				setAsButton( 
-					null, 1, 2, 3, 4, 
-					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Options] Menu' );
-						director.switchToScene( 0, 2000, false, true );
-					}
-				) 
-		);
-		optionsScene.addChild(
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Opzioni blablabla" ).
+				setText( "Info blablabla" ).
 				setFont( "20px "+game.options.font ).
 				setTextFillStyle( "black" ).
 				setTextAlign('center').
@@ -171,10 +177,7 @@
 		game.setup();
 	}
 	
-	game.setup = function( images ) {
-
-		//NOTA this could be useful for invisibles objects
-		gameScene.emptySprite = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 );
+	game.setup = function( images ) {		
 
 		// Background
 		game.bg = new CAAT.Foundation.ActorContainer( ).
@@ -202,42 +205,38 @@
 		
 		btn[0] = new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
-				0, 0, 0, 0, 
+				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
+				1, 1, 1, 1, 
 				function( button ){ game.player.notify( spellIndex-- ); } ).
-			setLocation( 50, 540 );
+			setLocation( 50, 530 );
 			
 		btn[1] = new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
-				0, 0, 0, 0,
+				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
+				2, 2, 2, 2,
 				function( button ){ game.player.notify( spellIndex++ ); } ).
-			setLocation( 250, 540 );
+			setLocation( 250, 530 );
 				
 		btn[2] = new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
+				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
 				0, 0, 0, 0,
 				function( button ){
 					new CAAT.Enemy( ).add( game.enemiesList[ roll( 1, game.enemiesList.length ) -1 ] );
 				} ).
-			setLocation( 650, 540 );
+			setLocation( 650, 530 );
 
 		gameScene.addChild( btn[0] );
 		gameScene.addChild( btn[1] );
 		gameScene.addChild( btn[2] );
 				
-		// UI - Strings and Bars
-		game.UI = {};
 		gameScene.addChild(
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Menu" ). //TODO replace with an image
-				setFont( "30px "+game.options.font ).
-				setTextFillStyle( "red" ).
-				setLocation( director.width/2, 15 ).
+			new CAAT.Foundation.Actor( ).
+				setLocation( director.width/2, 50 ).
 				setPositionAnchor( 0.5, 0.5 ).
 				setAsButton( 
-					null, 1, 2, 3, 4, 
+					game.UI.btns,
+					0, 0, 4, 4, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Game] Paused' );
 						window.spellIndex = 0;
@@ -247,14 +246,14 @@
 		
 		gameScene.addChild( new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base'  ),  2, 10 ),
-				1, 2, 3, 4, 
+				game.UI.btns,
+				3, 3, 7, 7, 
 				function( button ){ 
 					CAAT.log('[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
 					gameScene.setPaused( !gameScene.paused );
 				} ).
 			setPositionAnchor( 0.5, 0 ).
-			setLocation( 20, 5 )
+			setLocation( 20, 40 )
 		);
 		
 		game.UI.mainString = new CAAT.Foundation.UI.TextActor( ).
@@ -262,11 +261,11 @@
 			setFont( "30px "+game.options.font ).
 			setTextFillStyle( "red" ).
 			setTextAlign('center').
-			setLocation( director.width/2, 50 );
+			setLocation( director.width/2, 80 );
 		gameScene.addChild( game.UI.mainString );
 		
 		game.UI.healthBar = new CAAT.Foundation.UI.ShapeActor().
-				setLocation( 500, 10 ).
+				setLocation( 500, 9 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#f55' ).
 				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
@@ -275,13 +274,26 @@
 		gameScene.addChild( game.UI.healthBar );
 		
 		game.UI.manaBar = new CAAT.Foundation.UI.ShapeActor().
-				setLocation( 40, 10 ).
+				setLocation( 20, 9 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#79f' ).
 				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
 				enableEvents( false ).
 				setStrokeStyle( '#fff' );
+	
+		var emptyManaBar = new CAAT.Foundation.Actor().
+			enableEvents( false ).
+			setLocation( 10, 0 ).
+			setBackgroundImage( game.UI.emptyBar );
+			
+		var emptyHpBar = new CAAT.Foundation.Actor().
+			enableEvents( false ).
+			setLocation( 490, 0 ).
+			setBackgroundImage( game.UI.emptyBar );
+				
 		gameScene.addChild( game.UI.manaBar );
+		gameScene.addChild( emptyManaBar );
+		gameScene.addChild( emptyHpBar );
 		
 		if ( _DEBUG ) {
 			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).

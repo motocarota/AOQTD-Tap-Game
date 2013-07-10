@@ -3,30 +3,17 @@
 L'obiettivo e' creare un gioco tipo tower defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
-Ogni nemico ucciso da punti esperienza, e ha una percentuale di lasciar cadere oggetti utili
-	pozioni
-	pergamene
-	monete
-
-Domanda:
-
-Come implemento i duelli di magia?
-
-Li implementiamo come boss non necessariamente maghi:
-
-Si passa dal bruto che rigenera
-
-
 ----
+	SUMON
+----
+prendo questo gioco come riferimento per quanto riguarda complessita', codice e features
 
-(1) Spell - come funzionano:
-
-Normalmente si lancia a brettio il dardo incantato: basso costo ( tipo quello attuale : )
-Poi quando si ricevono incantesimi extra e si caricano in memoria, si ha una serie di pulsanti in basso
-click sullo spell scelto -> si lancia l'incantesimo, poi lo spell torna ad essere il dardo incantato
-
-tutti gli spell di alto livello hanno una sorta di cooldown 
-
+	COS'HA di meglio?
+		loading screen
+		fullscreen
+		gratifiche
+		
+----
 
 ## TODO
 
@@ -35,27 +22,28 @@ tutti gli spell di alto livello hanno una sorta di cooldown
 	- icone per gli incantesimi
 	- xp / livello
 	- pause/end game
+	
 * setup di un db locale che memorizzi i livelli completati (con punteggio)
 	es. var playerStatus = {
 		xp: 	1000,
 		level: 	3,
-		score: [ 3, 2, 3, 1 ] // i livelli successivi non completati NON hanno punteggio
+		score: [ 3, 2, 3, 1 ] //in 1..3 stelle
+		// i livelli successivi non completati NON hanno punteggio
 	};
 	
 * capire perche' gli eventi touch non vengono presi (bg e pulsanti)
 	vedere se CAAT.TOUCH_AS_MOUSE c'entra qualcosa
+
 * fare disegni e note per i livelli ed i mostri da dare poi a meky e alla Cla
 
 * studiare bene una UI
 	pausa px mo hp mp spells e BANNER :D
 
 ( SPELL )
-	* implementare logica spell descritta sopra(1)
 	* [ later: fare in modo di applicare gli effetti anche tramite travel, se sono definiti]
 	* creare incantesimi (lista, implementazione, sprites)
 	
 ( ENEMIES )
-	* creare mostri (implementazione, sprites)
 	* Tabelle dei nemici da generare
 		- Timer che genera i nemici in base al livello di gioco
 			a fine ciclo crea il boss
@@ -67,9 +55,9 @@ tutti gli spell di alto livello hanno una sorta di cooldown
 * Suoni
 * Musica
 
+
 ## DOPO
 
-* Versionare il codice
 * Documentare il codice
 * Riogranizzare il codice in modo da avere la seguente gerarchia
 	Actor
@@ -81,14 +69,20 @@ tutti gli spell di alto livello hanno una sorta di cooldown
 	
 * html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
+
 ## LISTA SCENE
 
-* welcome 	[ levels, options ]
-* options 	[ welcome ]
-* levels 	[ game, welcome ]
+* main 		[ levels, options ]
+* options 	[ main ]
+* levels 	[ game, main ]
 * game 		[ pause, levels ]
 * pause 	[ game, levels ]
 
+Sumon:
+	MAIN [ info help play ]
+	PLAY [ main ]
+	
+	
 ## LISTA OGGETTI
 
 * monete
@@ -97,22 +91,28 @@ tutti gli spell di alto livello hanno una sorta di cooldown
 * bacchette
 * gold (cosa ci si compra?)
 
-## LISTA INCANTESIMI
+
+## INCANTESIMI
+
+Come funzionano:
+	Con un tap si lancia il dardo incantato: basso costo, no cooldown
+	Poi quando si ricevono incantesimi nuovi si ha una serie di pulsanti in basso
+	Select spell -> cast spell -> [ se ha cd ] autoselect dardo incantato
 
 Livello 1
-	* Dardo incantato
+	* Dardo incantato	1d6 no cd
 	* Sonno
-	* Paura
+	* Unto
 
 Livello 2
-	* Raggio infuocato
-	* Unto
-	* Freccia Acida
+	* Raggio infuocato	4d6 cd medio-breve
+	* Freccia Acida		6d4 dot, cd breve
+	* 
 
 Livello 3
-	* Palla di Fuoco
-	* Confusione
-	* Evoca mostri
+	* Palla di Fuoco	10d6 cd medio 
+	* Confusione		
+	* Fulmine			10d6 cd medio
 
 Livello 4
 	* Muro di pietra
@@ -126,17 +126,10 @@ Livello 5
 
 ## LISTA MOSTRI
 
-* Coboldo
-* Goblin
-* Scheletro
-* Orco
-* Zombie
-* Mummia
-	
-##	Bestiario
-
-						stand	walk	attack		damage		die
-	Kobold
+con implementazione
+						stand	walk	att		stun	data
+----------------------------------------------------------------livello 1						
+	Kobold				ok		ok		ok				ok
 	Goblin
 	Orco
 	Troll
@@ -160,7 +153,8 @@ Livello 5
 	luci fatue
 
 ## LISTA LIVELLI
-
+							bg			music
+----
 	* Campagna
 	* Locanda / Arena
 	* Bosco Fatato
