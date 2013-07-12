@@ -9,17 +9,17 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 prendo questo gioco come riferimento per quanto riguarda complessita', codice e features
 
 	COS'HA di meglio?
-		loading screen
 		fullscreen
+		loading screen
 		gratifiche
 		
 ----
 
 ## TODO
 
+* rifare completamente il main.js per rispecchiare maggiormente lo schema di sumon
 * fare UI con:
  	- cooldown visivi
-	- icone per gli incantesimi
 	- xp / livello
 	- pause/end game
 	
@@ -27,12 +27,13 @@ prendo questo gioco come riferimento per quanto riguarda complessita', codice e 
 	es. var playerStatus = {
 		xp: 	1000,
 		level: 	3,
-		score: [ 3, 2, 3, 1 ] //in 1..3 stelle
-		// i livelli successivi non completati NON hanno punteggio
+		score: [ 3, 2, 3, 1 ] //in 1..3 stelle, se null livello da fare
 	};
 	
 * capire perche' gli eventi touch non vengono presi (bg e pulsanti)
 	vedere se CAAT.TOUCH_AS_MOUSE c'entra qualcosa
+	vedere se sumon/demo supporta il touch
+	probabilmente e' dovuto al mancato setup di touchEnd (ora bindato, riprovare)
 
 * fare disegni e note per i livelli ed i mostri da dare poi a meky e alla Cla
 
@@ -40,16 +41,20 @@ prendo questo gioco come riferimento per quanto riguarda complessita', codice e 
 	pausa px mo hp mp spells e BANNER :D
 
 ( SPELL )
+
 	* [ later: fare in modo di applicare gli effetti anche tramite travel, se sono definiti]
 	* creare incantesimi (lista, implementazione, sprites)
 	
 ( ENEMIES )
+
 	* Tabelle dei nemici da generare
 		- Timer che genera i nemici in base al livello di gioco
-			a fine ciclo crea il boss
-		- script / json ce determini cosa succede nella scena:
-			es. spawn di N nemici di tipo X
-		
+			wave = [
+				{ time: null, n:2,  type:[ 'fey' ] }, 				// dopo random sec evoca 2 fey
+				{ time:  120, n:12, type:[ 'kobold', 'duck' ] }, 	// dopo 120 sec evoca 12 nemici tra koboldi e duck
+				{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
+			];
+
 	* pensare a come implementare il boss fight
 		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
 * Suoni
@@ -62,7 +67,7 @@ prendo questo gioco come riferimento per quanto riguarda complessita', codice e 
 * Riogranizzare il codice in modo da avere la seguente gerarchia
 	Actor
 		Entity
-			Player
+			Player	( damageable )
 			Enemy 	( moveable, damageable )
 			Spell 	( moveable )
 			Drop 	( active )
@@ -72,16 +77,14 @@ prendo questo gioco come riferimento per quanto riguarda complessita', codice e 
 
 ## LISTA SCENE
 
-* main 		[ levels, options ]
-* options 	[ main ]
-* levels 	[ game, main ]
-* game 		[ pause, levels ]
-* pause 	[ game, levels ]
+	main 		[ levels, info, help ]
+	info, help	[ main ]
+	levels 		[ game(lev), main ]
+	game 		[ main, levels ]
 
 Sumon:
-	MAIN [ info help play ]
-	PLAY [ main ]
-	
+	MAIN 	[ info help play ]
+	PLAY 	[ main ]
 	
 ## LISTA OGGETTI
 
@@ -89,7 +92,7 @@ Sumon:
 * pozioni
 * pergamene
 * bacchette
-* gold (cosa ci si compra?)
+* gold (serve solo per il tuo ego)
 
 
 ## INCANTESIMI

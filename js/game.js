@@ -41,6 +41,9 @@
 		game.bg.mouseDown = function( ev ) {
 			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
 		};
+		game.bg.touchStart = function( ev ) {
+			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
+		}; 
 		
 		//Player
 		game.player = new CAAT.Mage( );

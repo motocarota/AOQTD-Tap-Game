@@ -1,16 +1,15 @@
 ( function( ) {	
 	
-	CAAT.DEBUG = false;
+	CAAT.DEBUG = 1;
 	var _DEBUG = false,
 		_FILE_VERSION = 1001,
-		_CELL_SIZE = 5,
 		_MAX_BAR_HEIGHT = 22,
 		_MAX_BAR_WIDTH = 380;
 		
 	window.spellIndex = 0;
-	
 	window.addEventListener( 'load', load, false );
-    function load( ) {
+	
+	function load( ) {
 
 		new CAAT.Module.Preloader.Preloader( ).
 			//debug base sprite for animations
@@ -39,6 +38,7 @@
 			addElement( "zombie",	"img/sprites/zombie.png" ).
 			//other
 			addElement( "cover",	"img/aoqtd-cover.png" ).
+			addElement( "splash",	"img/splash/splash0.jpg" ).
 			addElement( "bg",		"img/bg.png" ).
 			
 			load( function onAllAssetsLoaded( images ) {
@@ -50,24 +50,55 @@
 
 	function startGame( images ) {
 
+		WW= window.innerWidth;
+        HH= window.innerHeight;
+
+        if ( WW>HH ) {
+            if ( WW<700 ) {
+                WW=700;
+                HH=500;
+            }
+        } else {
+            if ( HH<700 ) {
+                WW=500;
+                HH=700;
+            }
+        }
+
 		setupOptions( );
 		setupMenuScene( images );
 		CAAT.loop( 30 );
 	}
 	
+	function createCSS() {
+        return new CAAT.Director().initialize( WW, HH, document.getElementById('game')).setClear( false );
+    }
+
+    function createCanvas() {
+        return new CAAT.Director().
+			initialize( WW, HH, 'game-el' ).
+			setClear( 
+				// false 							// more performance
+				CAAT.Foundation.Director.CLEAR_ALL 	// less glitches
+			).
+			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
+    }
+
+    function createGL() {
+        return new CAAT.Director().initializeGL( WW, HH ).setClear( false );
+    }
 
 	function setupMenuScene( images ) {
 		
-		window.director = new CAAT.Foundation.Director( ).initialize( 900, 600, 'experiment-canvas' );
+		window.director = createCanvas();
 		window.director.setImagesCache( images );
 		window.menuScene = director.createScene( );
 		window.gameScene = director.createScene( );
 		window.infoScene = director.createScene( );
 		window.creditsScene = director.createScene( );
-		
-		menuScene.activated = function() {
-			director.setClear( CAAT.Foundation.Director.CLEAR_ALL );
-		};
+				
+		//This should improve performance... TODO CONTROLLARE
+		CAAT.setCoordinateClamping(false);
 		
 		// UI - Strings and Bars
 		game.UI = {
@@ -77,14 +108,13 @@
 		};
 		
 		// Menu
-		menuScene.addChild( 
-			new CAAT.Foundation.ActorContainer( ).
-				setBounds( 0, 0, director.width, director.height ).
-				setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'cover' ), 1, 1 ) ).
-				enableEvents( true ).
-				cacheAsBitmap( )
-		);
-		menuScene.setGestureEnabled(true);
+		var bg = new CAAT.Foundation.ActorContainer( ).
+			setBackgroundImage( director.getImage( 'cover' ), false ).
+			setBounds( 0, 0, director.width, director.height ).
+			setImageTransformation( CAAT.SpriteImage.prototype.TR_FIXED_TO_SIZE );
+			
+		menuScene.addChild( bg );
+		
 		menuScene.addChild(
 			new CAAT.Foundation.Actor( ).
 				setLocation( director.width-50, 120 ).
@@ -94,11 +124,32 @@
 					game.UI.btns,
 					1, 1, 5, 5, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] PLAY' );
-						director.switchToScene( 1, 2000, false, true );
+						// if( _DEBUG ) CAAT.log('[Menu] PLAY' );
+						// director.easeIn(
+						// 		1,
+						// 		CAAT.Foundation.Scene.EASE_TRANSLATE,
+						// 		1000,
+						// 		false,
+						// 		CAAT.Foundation.Actor.ANCHOR_TOP,
+						// 		new CAAT.Interpolator().createExponentialInOutInterpolator(5,false) 
+						// 	)
+						// director.switchToScene( 1, 2000, false );
+						director.easeInOut(
+							1,
+							CAAT.Foundation.Scene.EASE_TRANSLATE,
+							CAAT.Foundation.Actor.ANCHOR_TOP,
+							0,
+							CAAT.Foundation.Scene.EASE_TRANSLATE,
+							CAAT.Foundation.Actor.ANCHOR_BOTTOM,
+							1000,
+							false,
+							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
+							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
+						);
 					} 
 				) 
 		);
+		
 		menuScene.addChild( 
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "Info" ).
@@ -114,6 +165,7 @@
 					} 
 				)
 		);
+		
 		menuScene.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "Credits" ).
@@ -126,6 +178,7 @@
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] CREDITS' );
 						director.switchToScene( 3, 2000, false, true );
+										//NOTA scena time alpha transition
 					} 
 				)
 		);
