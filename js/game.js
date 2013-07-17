@@ -100,7 +100,19 @@
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Game] Paused' );
 						window.spellIndex = 0;
-						director.switchToScene( 0, 2000, false, true );
+						// director.switchToScene( 0, 2000, false, true );
+						director.easeInOut(
+							0,
+							CAAT.Foundation.Scene.EASE_TRANSLATE,
+							CAAT.Foundation.Actor.ANCHOR_TOP,
+							2,
+							CAAT.Foundation.Scene.EASE_TRANSLATE,
+							CAAT.Foundation.Actor.ANCHOR_BOTTOM,
+							1000,
+							false,
+							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
+							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
+						);
 					} ) 
 		);
 		
