@@ -3,42 +3,24 @@
 L'obiettivo e' creare un gioco tipo tower defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
-----
-	SUMON
-----
-prendo questo gioco come riferimento per quanto riguarda complessita', codice e features
-
-	COS'HA di meglio?
-		fullscreen
-		loading screen
-		gratifiche
-		
-----
-
 ## TODO
 
-* rifare completamente il main.js per rispecchiare maggiormente lo schema di sumon
-* fare UI con:
- 	- cooldown visivi
-	- xp / livello
-	- pause/end game
+	* riposizionare / ingrandire il danno ricevuto dal giocatore
+	* rifare completamente il main.js per rispecchiare lo schema di sumon
+	* fare UI con:
+	 	- cooldown visivi
+		- xp / livello
+		- pause/end game
 	
-* setup di un db locale che memorizzi i livelli completati (con punteggio)
-	es. var playerStatus = {
-		xp: 	1000,
-		level: 	3,
-		score: [ 3, 2, 3, 1 ] //in 1..3 stelle, se null livello da fare
-	};
-	
-* capire perche' gli eventi touch non vengono presi (bg e pulsanti)
-	vedere se CAAT.TOUCH_AS_MOUSE c'entra qualcosa
-	vedere se sumon/demo supporta il touch
-	probabilmente e' dovuto al mancato setup di touchEnd (ora bindato, riprovare)
+	* setup di un db locale che memorizzi i livelli completati (con punteggio)
+		es. var playerStatus = {
+			xp: 	1000,
+			level: 	3,
+			score: [ 3, 2, 3, 1 ] //in 1..3 stelle, se null livello da fare
+		};
 
-* fare disegni e note per i livelli ed i mostri da dare poi a meky e alla Cla
-
-* studiare bene una UI
-	pausa px mo hp mp spells e BANNER :D
+	* studiare bene una UI
+		pausa px mo hp mp spells e BANNER :D
 
 ( SPELL )
 
@@ -57,27 +39,21 @@ prendo questo gioco come riferimento per quanto riguarda complessita', codice e 
 
 	* pensare a come implementare il boss fight
 		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
-* Suoni
+* Suoni 
 * Musica
 
 
 ## DOPO
 
 * Documentare il codice
-* Riogranizzare il codice in modo da avere la seguente gerarchia
-	Actor
-		Entity
-			Player	( damageable )
-			Enemy 	( moveable, damageable )
-			Spell 	( moveable )
-			Drop 	( active )
+* Riogranizzare il codice di enemy per usare le componenti (skill particolari: undead, beast, construct)
 	
 * html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
 
 ## LISTA SCENE
 
-	main 		[ levels, info, help ]
+	main 		[ info, help, levels ]
 	info, help	[ main ]
 	levels 		[ game(lev), main ]
 	game 		[ main, levels ]

@@ -30,7 +30,6 @@
 				setScale( 0.9, 0.9 ).
 				enableEvents( false ).
 				setBackgroundImage( treeImage );
-			game.bg.addChild( treeSprite );
 
 			var reset= function( s, time ) {
 				s.playAnimation( "stand" );
@@ -45,9 +44,9 @@
 				setLocation( this.x, this.y ).
 				setPositionAnchor( 0.5, 0.5 ).
 				setBackgroundImage( playerImage );
-			
+						
+			game.bg.addChild( treeSprite );
 			game.bg.addChild( this );
-			game.bg.addChild( this.label );
 			
 			this.playAnimation("fall");
 		},

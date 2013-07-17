@@ -50,21 +50,10 @@
 
 	function startGame( images ) {
 
-		WW= window.innerWidth;
-        HH= window.innerHeight;
-
-        if ( WW>HH ) {
-            if ( WW<700 ) {
-                WW=700;
-                HH=500;
-            }
-        } else {
-            if ( HH<700 ) {
-                WW=500;
-                HH=700;
-            }
-        }
-
+		// WW= window.innerWidth;
+		// HH= window.innerHeight;
+		WW= 900; HH = 600;
+		
 		setupOptions( );
 		setupMenuScene( images );
 		CAAT.loop( 30 );
@@ -76,12 +65,12 @@
 
     function createCanvas() {
         return new CAAT.Director().
-			initialize( WW, HH, 'game-el' ).
+			initialize( WW, HH, 'game' ).
 			setClear( 
-				// false 							// more performance
-				CAAT.Foundation.Director.CLEAR_ALL 	// less glitches
-			).
-			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
+				false 									// more performance and glitches
+				// CAAT.Foundation.Director.CLEAR_ALL 	// less performance and glitches
+			)
+			// .enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
     }
 
     function createGL() {
@@ -96,8 +85,8 @@
 		window.gameScene = director.createScene( );
 		window.infoScene = director.createScene( );
 		window.creditsScene = director.createScene( );
-				
-		//This should improve performance... TODO CONTROLLARE
+		
+		// This should improve performance... TODO CONTROLLARE
 		CAAT.setCoordinateClamping(false);
 		
 		// UI - Strings and Bars
@@ -108,32 +97,36 @@
 		};
 		
 		// Menu
-		var bg = new CAAT.Foundation.ActorContainer( ).
-			setBackgroundImage( director.getImage( 'cover' ), false ).
+
+		
+		menuScene.bg = new CAAT.Foundation.ActorContainer( ).
+			// setBackgroundImage( director.getImage( 'cover' ), false ).
 			setBounds( 0, 0, director.width, director.height ).
-			setImageTransformation( CAAT.SpriteImage.prototype.TR_FIXED_TO_SIZE );
+			setFillStyle( 'white' )//.
+			// setImageTransformation( CAAT.SpriteImage.prototype.TR_FIXED_TO_SIZE );
 			
-		menuScene.addChild( bg );
+		menuScene.addChild( menuScene.bg );
+		menuScene.bg.addChild(
+			new CAAT.Foundation.Actor().
+				setBounds( 0, 0, director.width, director.height ).
+				setBackgroundImage( director.getImage( 'cover' ), false ).
+				setLocation( 1, 1 )
+		);
 		
 		menuScene.addChild(
 			new CAAT.Foundation.Actor( ).
-				setLocation( director.width-50, 120 ).
+				setLocation( WW-100, 120 ).
 				setScale( 1.6, 1.6 ).
-				setPositionAnchor( 1, 0 ).
+				setPositionAnchor( 0.5, 0.5 ).
 				setAsButton( 
 					game.UI.btns,
 					1, 1, 5, 5, 
 					function( button ){ 
-						// if( _DEBUG ) CAAT.log('[Menu] PLAY' );
-						// director.easeIn(
-						// 		1,
-						// 		CAAT.Foundation.Scene.EASE_TRANSLATE,
-						// 		1000,
-						// 		false,
-						// 		CAAT.Foundation.Actor.ANCHOR_TOP,
-						// 		new CAAT.Interpolator().createExponentialInOutInterpolator(5,false) 
-						// 	)
+						if( _DEBUG ) CAAT.log('[Menu] PLAY' );
+						// Old
 						// director.switchToScene( 1, 2000, false );
+
+						// New
 						director.easeInOut(
 							1,
 							CAAT.Foundation.Scene.EASE_TRANSLATE,
@@ -156,7 +149,7 @@
 				setFont( "30px "+game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign('right').
-				setLocation( director.width, 200 ).
+				setLocation( director.width-80, 200 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
@@ -172,18 +165,18 @@
 				setFont( "30px "+game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign('right').
-				setLocation( director.width, 250 ).
+				setLocation( director.width-80, 250 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] CREDITS' );
 						director.switchToScene( 3, 2000, false, true );
-										//NOTA scena time alpha transition
 					} 
 				)
 		);
 		
-		//Credits
+		// Credits
+		
 		creditsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
 			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
@@ -196,7 +189,7 @@
 			director.switchToScene( 0, 2000, false, true );
 		};
 		
-		creditsScene.addChild(
+		creditsScene.bg.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "AOQTD: the game" ).
 				setFont( "20px "+game.options.font ).
@@ -206,7 +199,8 @@
 				setLocation( director.width/2, 100 )
 		);
 		
-		//Info
+		// Info
+		
 		infoScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
 			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
@@ -218,7 +212,7 @@
 			if( _DEBUG ) CAAT.log('[Info] Menu' );
 			director.switchToScene( 0, 2000, false, true );
 		};
-		infoScene.addChild(
+		infoScene.bg.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "Info blablabla" ).
 				setFont( "20px "+game.options.font ).
@@ -226,6 +220,8 @@
 				setTextAlign('center').
 				setLocation( director.width/2, 100 )
 		);
+		
+		// Game
 		
 		game.setup();
 	}
