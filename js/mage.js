@@ -1,5 +1,5 @@
 (function() {	
-	var _DEBUG = false;
+	var _DEBUG = 1;
 	
 	CAAT.Mage = function( ) {
 		CAAT.Mage.superclass.constructor.call( this );
@@ -8,15 +8,12 @@
 		this.y = 120;
 		
 		this.mana = 100;
-		this.level = 1;
-		this.xp = 0;
-		this.money = 0;
-		
 		this.targetSpell = 0;
 		this.item = { charges : 0 };
 		this.cooldowns = {};
 		return this;
 	}
+	
 	CAAT.Mage.prototype = {
 		
 		add : function () {
@@ -38,7 +35,6 @@
 			var playerImage = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'player' ), 2, 3).
 				addAnimation("stand",   [0,1], 200).
 				addAnimation("cast",    [2,3,4,3,5,3,2], 150, reset);
-				// addAnimation("fall",    [0,1,2,3,4], 100, reset);
 
 			this.setScale( 0.7, 0.7 ).
 				setLocation( this.x, this.y ).
@@ -87,7 +83,6 @@
 			}
 			return spell;
 		},
-
 		
 		tick : function () {
 			

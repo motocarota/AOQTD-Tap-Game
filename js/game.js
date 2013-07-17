@@ -2,33 +2,43 @@
 	
 	var _DEBUG = false,
 		_FILE_VERSION = 1001,
-		_MAX_BAR_HEIGHT = 15,
-		_MAX_BAR_WIDTH = 360;
-		
-	window.spellIndex = 0;
+		_MAX_BAR_HEIGHT = 23,
+		_MAX_BAR_WIDTH = 382;
 	
-	game.setup = function( images ) {
+	game.status = {
+		xp:		0,
+		gold: 	0,
+		level:	1,
+		scores:	[ ]
+	};
+	
+	//TODO rimuovere
+	game.debugLS = function() {
+		var s = game.status;
+		var str = "lev."+s.level+" xp."+s.xp+" g."+s.gold+" s."+s.scores.toString();
+		CAAT.log( str );
+	};
+	
+	game.save = function() {
+		localStorage.setItem( "status", JSON.stringify( this.status ) );
+	};
+	
+	game.load = function() {
 		
-		//Inizializza l'area di gioco:
-		// carica 
-		// 		livello (bg)
-		// 		lista dei nemici
-		//		stat/spell personaggio (from localstorage)
-		//			exp power defense mana [ talenti ]
-				
-		menuScene.addChild( new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'spell' ), 1, 3 ),
-				0, 0, 0, 0,
-				function( button ){
-					director.switchToPrevScene( 2000, false	, true );
-				} ).
-			setLocation( 300, 300 );
-		);
+		var info = {
+			xp:		0,
+			gold: 	0,
+			level:	1,
+			scores:	[ ]
+		};
+		this.status = localStorage.getItem( "status" ) ? JSON.parse( localStorage.getItem( "status" ) ) : info;
+	};
+	
+	game.setupScene = function( images ) {		
 
-		//NOTA this could be useful for invisibles objects
-		gameScene.emptySprite = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 );
-
+		// Load player's info
+		game.load();
+		 
 		// Background
 		game.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -41,9 +51,6 @@
 		game.bg.mouseDown = function( ev ) {
 			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
 		};
-		game.bg.touchStart = function( ev ) {
-			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
-		}; 
 		
 		//Player
 		game.player = new CAAT.Mage( );
@@ -53,61 +60,75 @@
 		game.enemies = [];
 		game.spells = [];
 		
-		//UI - Buttons
+		//UI - Spell Buttons
 		var btn = [];
-		
 		btn[0] = new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
-				0, 0, 0, 0, 
+				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
+				1, 1, 1, 1, 
 				function( button ){ game.player.notify( spellIndex-- ); } ).
-			setLocation( 50, 540 );
+			setLocation( 50, 530 );
 			
 		btn[1] = new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
-				0, 0, 0, 0,
+				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
+				2, 2, 2, 2,
 				function( button ){ game.player.notify( spellIndex++ ); } ).
-			setLocation( 250, 540 );
+			setLocation( 250, 530 );
 				
 		btn[2] = new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base' ), 2, 10 ),
+				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
 				0, 0, 0, 0,
 				function( button ){
 					new CAAT.Enemy( ).add( game.enemiesList[ roll( 1, game.enemiesList.length ) -1 ] );
 				} ).
-			setLocation( 650, 540 );
+			setLocation( 650, 530 );
 
 		gameScene.addChild( btn[0] );
 		gameScene.addChild( btn[1] );
 		gameScene.addChild( btn[2] );
-				
-		// UI - Strings and Bars
-		game.UI = {};
-		game.UI.pauseBtn = new CAAT.Foundation.Actor( ).
+		
+		// Pause game Button
+		gameScene.addChild(
+			new CAAT.Foundation.Actor( ).
+				setLocation( director.width/2, 50 ).
+				setPositionAnchor( 0.5, 0.5 ).
+				setAsButton( 
+					game.UI.btns,
+					0, 0, 4, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Game] Paused' );
+						window.spellIndex = 0;
+						director.switchToScene( 0, 2000, false, true );
+					} ) 
+		);
+		
+		// Lock game Button - rimuovere
+		gameScene.addChild( new CAAT.Foundation.Actor( ).
 			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'base'  ),  2, 10 ),
-				1, 2, 3, 4, 
+				game.UI.btns,
+				3, 3, 7, 7, 
 				function( button ){ 
-					CAAT.log('[Main] Game Paused = '+!gameScene.paused )
+					CAAT.log('[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
 					gameScene.setPaused( !gameScene.paused );
-					// director.switchToNextScene( 2000, false, true );
 				} ).
 			setPositionAnchor( 0.5, 0 ).
-			setLocation( director.width/2, 5 );
+			setLocation( 20, 40 )
+		);
 		
+		// Main string
 		game.UI.mainString = new CAAT.Foundation.UI.TextActor( ).
 			setText( "hello" ).
 			setFont( "30px "+game.options.font ).
 			setTextFillStyle( "red" ).
 			setTextAlign('center').
-			setLocation( director.width/2, 50 );
-		
+			setLocation( director.width/2, 80 );
 		gameScene.addChild( game.UI.mainString );
 		
-		game.UI.healthBar = new CAAT.Foundation.UI.ShapeActor().
-		setLocation( 500, 10 ).
+		// Player bars
+		game.UI.hpBar = new CAAT.Foundation.UI.ShapeActor().
+				setLocation( 500, 9 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#f55' ).
 				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
@@ -115,12 +136,27 @@
 				setStrokeStyle( '#fff' );
 		
 		game.UI.manaBar = new CAAT.Foundation.UI.ShapeActor().
-				setLocation( 40, 10 ).
+				setLocation( 20, 9 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#79f' ).
 				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
 				enableEvents( false ).
 				setStrokeStyle( '#fff' );
+	
+		var emptyManaBar = new CAAT.Foundation.Actor().
+			enableEvents( false ).
+			setLocation( 10, 0 ).
+			setBackgroundImage( game.UI.emptyBar );
+			
+		var emptyHpBar = new CAAT.Foundation.Actor().
+			enableEvents( false ).
+			setLocation( 490, 0 ).
+			setBackgroundImage( game.UI.emptyBar );
+				
+		gameScene.addChild( game.UI.hpBar );
+		gameScene.addChild( game.UI.manaBar );
+		gameScene.addChild( emptyManaBar );
+		gameScene.addChild( emptyHpBar );
 		
 		if ( _DEBUG ) {
 			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).
@@ -131,9 +167,6 @@
 
 			gameScene.addChild( game.UI.debugString );
 		}
-		gameScene.addChild( game.UI.pauseBtn );
-		gameScene.addChild( game.UI.healthBar );
-		gameScene.addChild( game.UI.manaBar );
 		
 		//Timers
 		game.time = game.options.global_cooldown;
@@ -173,8 +206,8 @@
 		}
 		
 		//UPDATE UI
-		game.UI.healthBar.setSize( game.player.hp / 100 * _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
-			setLocation( 500 - ( game.player.hp - 100 ) / 100 * _MAX_BAR_WIDTH, 10 );
+		game.UI.hpBar.setSize( game.player.hp / 100 * _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
+			setLocation( 500 - ( game.player.hp - 100 ) / 100 * _MAX_BAR_WIDTH, 9 );
 			
 		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / 100, _MAX_BAR_HEIGHT );
 		

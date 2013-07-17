@@ -5,30 +5,15 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
+( UI )
+
+	* cooldown / xp / livello / px / gold / Banner / pause game
 	* riposizionare / ingrandire il danno ricevuto dal giocatore
-	* rifare completamente il main.js per rispecchiare lo schema di sumon
-	* fare UI con:
-	 	- cooldown visivi
-		- xp / livello
-		- pause/end game
+	* Suoni 
+	* Musica
+
+( CODE )
 	
-	* setup di un db locale che memorizzi i livelli completati (con punteggio)
-		es. var playerStatus = {
-			xp: 	1000,
-			level: 	3,
-			score: [ 3, 2, 3, 1 ] //in 1..3 stelle, se null livello da fare
-		};
-
-	* studiare bene una UI
-		pausa px mo hp mp spells e BANNER :D
-
-( SPELL )
-
-	* [ later: fare in modo di applicare gli effetti anche tramite travel, se sono definiti]
-	* creare incantesimi (lista, implementazione, sprites)
-	
-( ENEMIES )
-
 	* Tabelle dei nemici da generare
 		- Timer che genera i nemici in base al livello di gioco
 			wave = [
@@ -37,38 +22,38 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 				{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
 			];
 
+( SPELL )
+
+	* fare in modo di applicare gli effetti anche tramite travel, se sono definiti
+	* creare incantesimi (lista, implementazione, sprites)
+
+( ENEMIES )
+
+	* classi di mostro (undead, beast, construct)
 	* pensare a come implementare il boss fight
 		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
-* Suoni 
-* Musica
 
+( DOPO )
 
-## DOPO
-
-* Documentare il codice
-* Riogranizzare il codice di enemy per usare le componenti (skill particolari: undead, beast, construct)
-	
-* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
+	* Documentare il codice
+	* rifare completamente il main.js per rispecchiare lo schema di sumon
+	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
 
 ## LISTA SCENE
 
-	main 		[ info, help, levels ]
-	info, help	[ main ]
-	levels 		[ game(lev), main ]
-	game 		[ main, levels ]
+main 		[ info, help, levels ]
+info, help	[ main ]
+levels 		[ game(lev), main ]
+game 		[ main, levels ]
 
-Sumon:
-	MAIN 	[ info help play ]
-	PLAY 	[ main ]
-	
 ## LISTA OGGETTI
 
 * monete
 * pozioni
 * pergamene
 * bacchette
-* gold (serve solo per il tuo ego)
+* gold
 
 
 ## INCANTESIMI
@@ -108,28 +93,28 @@ Livello 5
 con implementazione
 						stand	walk	att		stun	data
 ----------------------------------------------------------------livello 1						
-	Kobold				ok		ok		ok				ok
-	Goblin
-	Orco
-	Troll
+Kobold				ok		ok		ok				ok
+Goblin
+Orco
+Troll
 
-	zombie
-	scheletro
-	ghoul
-	mummia
-	vampiro
+zombie
+scheletro
+ghoul
+mummia
+vampiro
 
-	cubo gelatinoso
-	rakshaaza
-	hill giant
-	golem
-	dragon
-	giant turtle
-	beholder
-	blink dog
-	shadow
-	minotauro
-	luci fatue
+cubo gelatinoso
+rakshaaza
+hill giant
+golem
+dragon
+giant turtle
+beholder
+blink dog
+shadow
+minotauro
+luci fatue
 
 ## LISTA LIVELLI
 							bg			music
