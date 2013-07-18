@@ -72,10 +72,17 @@ game.spellBook = {
 		},
 		
 		splash : {
+			duration:		1000,
+			// rotation:		30,
+			rotation:		false,
+			// rotation: 			true, 
 			image : {
-				name : 		"boom"
+				name : "fb-splash",
+				frame: { w: 3, h: 2 }
 			},
-			rotation: 		0
+			animation: {
+				frames: [0,1,2,3,4,5], duration: 100
+			}
 		},
 		
 		interpolator : new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 5, false ),
@@ -106,6 +113,7 @@ game.spellBook = {
 		school: 		"invocation", 
 		
 		travel: {
+			rotation: 		false,
 			duration: 		500,
 			image : {
 				name : "lightning",

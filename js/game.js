@@ -13,10 +13,11 @@
 	};
 	
 	//TODO rimuovere
-	game.debugLS = function() {
+	game.getStatus = function() {
 		var s = game.status;
-		var str = "lev."+s.level+" xp."+s.xp+" g."+s.gold+" s."+s.scores.toString();
+		var str = "Level:"+s.level+" XP:"+s.xp+" Gold:"+s.gold;
 		CAAT.log( str );
+		return str;
 	};
 	
 	game.save = function() {
@@ -34,11 +35,10 @@
 		this.status = localStorage.getItem( "status" ) ? JSON.parse( localStorage.getItem( "status" ) ) : info;
 	};
 	
-	game.setupScene = function( images ) {		
-
-		// Load player's info
-		game.load();
-		 
+	game.setupScene = function( level ) {
+		
+		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level );
+		
 		// Background
 		game.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -179,6 +179,9 @@
 
 			gameScene.addChild( game.UI.debugString );
 		}
+		
+		game.player.notify( level );
+		CAAT.log("level", level)
 		
 		//Timers
 		game.time = game.options.global_cooldown;

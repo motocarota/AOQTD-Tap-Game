@@ -1,12 +1,21 @@
-# [AOQTD Tap Game](http://www.simone-poggi.com/)
+# [ AOQTD Tap Game ](http://www.simone-poggi.com/)
 
 L'obiettivo e' creare un gioco tipo tower defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
 ## TODO
 
+( GAME )
+
+	* rivedere il game over
+	* intro
+		caricamento del livello (bg, mostri, orde)
+	* animazione iniziale?
+
 ( UI )
 
+	* fare in modo di mostrare il tasto resume onClick sul tasto pausa
+	* trovare / farsi un font custom
 	* cooldown / xp / livello / px / gold / Banner / pause game
 	* riposizionare / ingrandire il danno ricevuto dal giocatore
 	* Suoni 

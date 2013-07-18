@@ -20,7 +20,6 @@ function setupOptions( ) {
 			wave: 			50,
 			baseSpeed : 	100
 		},
-		
 		drop : {
 			lifespan : 		80
 		}

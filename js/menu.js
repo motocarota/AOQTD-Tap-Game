@@ -1,6 +1,6 @@
 ( function( ) {	
 	
-	var _DEBUG = false;
+	var _DEBUG = 2;
 
 	function createCSS() {
         return new CAAT.Director().initialize( WW, HH, document.getElementById('game')).setClear( false );
@@ -35,9 +35,10 @@
 		
 		// UI - Strings and Bars
 		game.UI = {
-			emptySprite : 	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
-			btns : 			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 4 ),
-			emptyBar : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty-bar' ), 1, 1 )
+			emptySprite :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
+			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 4 ),
+			emptyBar :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty-bar' ), 1, 1 ),
+			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 )
 		};
 		
 		// Main menu
@@ -64,7 +65,7 @@
 					1, 1, 5, 5, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] PLAY' );
-						game.setupScene();
+						// game.setupScene();
 						director.easeInOut(
 							1,
 							CAAT.Foundation.Scene.EASE_TRANSLATE,
@@ -168,53 +169,88 @@
 		
 		levelsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
-			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'map' ), 1, 1 ) ).
+			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-bg' ), 1, 1 ) ).
 			enableEvents( true ).
 			cacheAsBitmap( );
 		levelsScene.addChild( levelsScene.bg );
-
-		levelsScene.bg.mouseDown = function( ev ) {
-			if( _DEBUG ) CAAT.log('[Levels] Menu' );
-			director.switchToScene( 0, 2000, false, true );
-		};
 		
-		// Levels - text
+		// Load player's info
+		game.load();
+		
+		// Info - text
 		levelsScene.bg.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Levels LOL" ).
+				setText( game.getStatus() ).
 				setFont( "20px "+game.options.font ).
-				setTextFillStyle( "white" ).
-				setTextAlign('center').
-				setLocation( director.width/4, 100 )
+				setTextFillStyle( "black" ).
+				setLocation( director.width/2, 130 )
 		);
 		
-		// Levels - Static play button
-		levelsScene.addChild(
-			new CAAT.Foundation.Actor( ).
-				setLocation( 120, HH-100 ).
-				setScale( 1.6, 1.6 ).
-				setPositionAnchor( 0.5, 0.5 ).
-				setAsButton( 
-					game.UI.btns,
-					1, 1, 5, 5, 
-					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] PLAY' );
-						game.setupScene();
-						director.easeInOut(
-							2,
-							CAAT.Foundation.Scene.EASE_TRANSLATE,
-							CAAT.Foundation.Actor.ANCHOR_RIGHT,
-							1,
-							CAAT.Foundation.Scene.EASE_TRANSLATE,
-							CAAT.Foundation.Actor.ANCHOR_LEFT,
-							1000,
-							false,
-							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
-							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
-						);
-					} 
-				) 
-		);
+		// Levels - Buttons
+		for (var i=0; i < 8; i++) {
+			
+			var x = 25 + ( WW*i/4 ),
+				y = 20 + ( HH/4 );
+			if ( i > 3 ) {
+				x = 25 + ( WW*(i-4)/4 );
+				y = 20 + ( HH/2 );
+			}
+			//TODO rifare a modino
+			if ( i === 0 ) {
+				levelsScene.addChild(
+					new CAAT.Foundation.Actor( ).
+						setLocation( x, y ).
+						setAsButton( 
+							game.UI.listBtns,
+							i, i, i, i, 
+							function( button ){ 
+								if( _DEBUG ) CAAT.log('[List] Back to menu' );
+								director.easeInOut(
+									0,
+									CAAT.Foundation.Scene.EASE_TRANSLATE,
+									CAAT.Foundation.Actor.ANCHOR_TOP,
+									1,
+									CAAT.Foundation.Scene.EASE_TRANSLATE,
+									CAAT.Foundation.Actor.ANCHOR_BOTTOM,
+									1000,
+									false,
+									new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
+									new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
+								);
+							} 
+						) 
+				);
+			} else {
+				levelsScene.addChild(
+					new CAAT.Foundation.Actor( ).
+						setLocation( x, y ).
+						setAsButton( 
+							game.UI.listBtns,
+							i, i, i, i, 
+							helper( i )
+						) 
+				);
+			}
+		};
 	}
 	
+	function helper( i ) {
+		
+		return function( ) {
+			if( _DEBUG ) CAAT.log('[List] PLAY level i:'+i );
+			game.setupScene( i );
+			director.easeInOut(
+				2,
+				CAAT.Foundation.Scene.EASE_TRANSLATE,
+				CAAT.Foundation.Actor.ANCHOR_RIGHT,
+				1,
+				CAAT.Foundation.Scene.EASE_TRANSLATE,
+				CAAT.Foundation.Actor.ANCHOR_LEFT,
+				1000,
+				false,
+				new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
+				new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
+			);
+		}
+	}
 } )( );
