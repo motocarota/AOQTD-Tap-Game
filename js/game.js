@@ -12,11 +12,10 @@
 		scores:	[ ]
 	};
 	
-	//TODO rimuovere
 	game.getStatus = function() {
 		var s = game.status;
 		var str = "Level:"+s.level+" XP:"+s.xp+" Gold:"+s.gold;
-		CAAT.log( str );
+		if ( _DEBUG ) CAAT.log( str );
 		return str;
 	};
 	
@@ -39,6 +38,17 @@
 		
 		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level );
 		
+		if ( !is( "Number", level ) ) {
+			CAAT.log( "[Game] level is fucked up: "+level+" so I set it to 1" );
+			game.level = 1;
+		} else {
+			game.level = level;
+		}
+		game.enemiesList = game.enemiesTable[ game.level ];
+		
+		//TODO
+		//load custom song, based on level
+		
 		// Background
 		game.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -60,6 +70,8 @@
 		
 		//Player
 		game.player = new CAAT.Mage( );
+		//TODO
+		// facciamo 
 		game.player.add();
 		game.killCount = 0;
 		
@@ -105,7 +117,6 @@
 					0, 0, 4, 4, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Game] Paused' );
-						window.spellIndex = 0;
 						// director.switchToScene( 0, 2000, false, true );
 						director.easeInOut(
 							0,
@@ -218,9 +229,9 @@
 		// if ( game.enemies.length < game.options.enemies.maxNumber && Math.random() < (game.options.enemies.spawnRate || 0.2) ) {
 		if ( !_DEBUG && game.enemies.length < 5 && c < 4 ) {
 			var enemy = new CAAT.Enemy( );
-			// enemy.add( game.enemiesList[ roll( 1, game.enemiesList.length ) ] );
-			enemy.add( 'kobold' );
-			enemy.move( );
+			enemy.add( game.enemiesList[ roll( game.enemiesList ) ] );
+			// enemy.add( 'kobold' );
+			enemy.ai( );
 		}
 		
 		//UPDATE UI

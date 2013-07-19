@@ -8,8 +8,6 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 ( GAME )
 
 	* rivedere il game over
-	* intro
-		caricamento del livello (mostri, orde)
 	* animazione iniziale?
 
 ( UI )

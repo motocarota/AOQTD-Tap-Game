@@ -1,6 +1,6 @@
 ( function( ) {	
 	
-	var _DEBUG = 2;
+	var _DEBUG = false;
 
 	function createCSS() {
         return new CAAT.Director().initialize( WW, HH, document.getElementById('game')).setClear( false );
@@ -94,7 +94,7 @@
 					null, 1, 2, 3, 4, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] INFO' );
-						director.switchToScene( 3, 2000, false, true );
+						director.switchToScene( 3, 1000, false, false );
 					} 
 				)
 		);
@@ -111,7 +111,24 @@
 					null, 1, 2, 3, 4, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] CREDITS' );
-						director.switchToScene( 4, 2000, false, true );
+						director.switchToScene( 4, 1000, false, false );
+					} 
+				)
+		);
+		
+		// Main menu - resume Button
+		menuScene.addChild( 
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Resume" ).
+				setFont( "30px "+game.options.font ).
+				setTextFillStyle( "red" ).
+				setTextAlign('right').
+				setLocation( director.width-80, 300 ).
+				setAsButton( 
+					null, 1, 2, 3, 4, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log('[Menu] INFO' );
+						director.switchToScene( 2, 1000, false, false );
 					} 
 				)
 		);
@@ -233,9 +250,7 @@
 				var c = game.status.scores[i-1],
 					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
 					
-				if ( game.status.scores[i-1] === undefined ) {
-					console.log( "Non hai ancora fatto il livello "+i );
-				} else {
+				if ( game.status.scores[i-1] ) {
 					levelsScene.addChild(
 						new CAAT.Foundation.Actor( ).
 							setLocation( x+25, y+75 ).

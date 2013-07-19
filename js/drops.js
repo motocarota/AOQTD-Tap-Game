@@ -6,7 +6,7 @@ game.dropTable = {
 		effect : function(){ 
 			var amount = roll( this.level, 6, 1 );
 			game.player.notify( 'You Loot '+amount+' gold coins' );
-			game.player.money+= amount; 
+			game.status.gold+= amount; 
 		}
 	},
 	

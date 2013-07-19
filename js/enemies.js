@@ -1,6 +1,17 @@
 // game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
 // enemies list verra' popolato a seconda del livello
-game.enemiesList = [ 'kobold' ];
+game.enemiesTable = [
+	null,
+	[ 'kobold' ],
+	[ 'bat' ],
+	[ 'wolf' ],
+	[ 'kobold', 'bat' ],
+	[ 'kobold', 'wolf' ],
+	[ 'kobold', 'bat', 'wolf', 'zombie' ],
+	[ 'dragon' ] 
+];
+game.enemiesList = [];
+
 game.enemiesBook = {
 	
 	kobold: {
@@ -21,20 +32,25 @@ game.enemiesBook = {
 			attack: {
 				frames: [5,6,7,8,6,5], duration: 150
 			}
-		}// ,
+		},
+		// ,
 		// 		damageFilter: function( amount ) {
 		// 			return amount + 2;
 		// 		}
 	},
 	
 	bat: {
-		level: 1,
-		speed: .3
+		level:  3,
+		speed: .3,
+		ai: function(){
+			game.player.notifyAt("hahaha", this);
+			this.move( 500, 300 );
+		}
 	},
 	
 	wolf: {
-		level: 2,
-		speed: .3
+		level:  2,
+		speed: .4
 	},
 	
 	zombie: {
