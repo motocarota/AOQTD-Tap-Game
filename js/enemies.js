@@ -62,7 +62,7 @@ game.enemiesBook = {
 	dragon: {
 		element: "fire",
 		level: 8,
-		speed: .7,
+		speed: .9,
 		damageFilter: function( amount, source ) {
 			var c = amount;
 			if ( this.element === source )

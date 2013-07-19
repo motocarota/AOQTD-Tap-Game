@@ -21,13 +21,13 @@
 			if ( _DEBUG ) CAAT.log('[Mage] add');
 
 			// Tree
-			var treeImage = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'tree' ), 1, 1 );
-			var treeSprite = new CAAT.Foundation.Actor( ).
+			var treeSprite = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'tree' ), 1, 1 );
+			this.tree = new CAAT.Foundation.Actor( ).
 				setLocation( -15, -30 ).
 				setScale( 0.9, 0.9 ).
 				enableEvents( false ).
-				setBackgroundImage( treeImage );
-
+				setBackgroundImage( treeSprite );
+			
 			var reset= function( s, time ) {
 				s.playAnimation( "stand" );
 			};
@@ -41,10 +41,10 @@
 				setPositionAnchor( 0.5, 0.5 ).
 				setBackgroundImage( playerImage );
 						
-			game.bg.addChild( treeSprite );
+			game.bg.addChild( this.tree );
 			game.bg.addChild( this );
 			
-			this.playAnimation("fall");
+			this.playAnimation( "stand" );
 		},
 		
 		
@@ -92,9 +92,28 @@
 			this.mana = ( this.mana < game.options.max_mana ) ? 
 				this.mana + game.options.tick_mana : 
 				game.options.max_mana;
+		},
+		
+		die: function() {
+			
+			game.over();
 		}
 	};
 	
 	extend( CAAT.Mage, CAAT.Player );
 	
+	// Roots e' l'elemento che i nemici attaccheranno per abbattere l'albero su cui e' superdrow
+	game.roots = {
+		
+		x: 75, y: 250,
+		height: 250, width: 50,
+		
+		damage : function( amount, element ) {
+			
+			if ( _DEBUG ) CAAT.log('[Roots] receive '+amount+' points of '+element+" damage" );
+			
+			game.player.notifyAt( "-"+amount, { x: this.x, y: this.y }, 'red' );
+			game.player.damage( amount, element );
+		}
+	};
 })();

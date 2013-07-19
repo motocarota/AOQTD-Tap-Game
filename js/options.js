@@ -18,7 +18,9 @@ function setupOptions( ) {
 		},
 		enemies : {
 			wave: 			50,
-			baseSpeed : 	100
+			baseSpeed : 	100,
+			maxNumber : 	10,
+			spawnRate : 	0.3
 		},
 		drop : {
 			lifespan : 		80

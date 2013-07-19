@@ -49,6 +49,8 @@
 		//TODO
 		//load custom song, based on level
 		
+		game.UI.resumeBtn.setVisible( true );
+		
 		// Background
 		game.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -71,7 +73,6 @@
 		//Player
 		game.player = new CAAT.Mage( );
 		//TODO
-		// facciamo 
 		game.player.add();
 		game.killCount = 0;
 		
@@ -224,13 +225,11 @@
 		}
 		
 		// Enemies generation
-		var c = roll( 1, 10 );
-		//improved version
-		// if ( game.enemies.length < game.options.enemies.maxNumber && Math.random() < (game.options.enemies.spawnRate || 0.2) ) {
-		if ( !_DEBUG && game.enemies.length < 5 && c < 4 ) {
+		if ( game.enemies.length < game.options.enemies.maxNumber && 
+			Math.random() < ( game.options.enemies.spawnRate || 0.2 ) ) {
 			var enemy = new CAAT.Enemy( );
 			enemy.add( game.enemiesList[ roll( game.enemiesList ) ] );
-			// enemy.add( 'kobold' );
+			enemy.target = game.roots;
 			enemy.ai( );
 		}
 		
@@ -242,6 +241,12 @@
 		
 		if ( game.killCount > game.options.enemies.wave )
 			game.player.win();
+	}
+	
+	game.over = function() {
+		
+		game.UI.resumeBtn.setVisible( false );
+		//switch to level scene with message
 	}
 
 } )( );

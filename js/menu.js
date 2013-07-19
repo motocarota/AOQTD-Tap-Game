@@ -117,21 +117,21 @@
 		);
 		
 		// Main menu - resume Button
-		menuScene.addChild( 
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Resume" ).
-				setFont( "30px "+game.options.font ).
-				setTextFillStyle( "red" ).
-				setTextAlign('right').
-				setLocation( director.width-80, 300 ).
-				setAsButton( 
-					null, 1, 2, 3, 4, 
-					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] INFO' );
-						director.switchToScene( 2, 1000, false, false );
-					} 
-				)
-		);
+		game.UI.resumeBtn = new CAAT.Foundation.UI.TextActor( ).
+			setText( "Resume" ).
+			setFont( "30px "+game.options.font ).
+			setTextFillStyle( "red" ).
+			setTextAlign('right').
+			setLocation( director.width-80, 300 ).
+			setVisible( false ).
+			setAsButton( 
+				null, 1, 2, 3, 4, 
+				function( button ){ 
+					if( _DEBUG ) CAAT.log('[Menu] INFO' );
+					director.switchToScene( 2, 1000, false, false );
+				} 
+			)
+		menuScene.addChild( game.UI.resumeBtn );
 		
 		// Credits
 		
