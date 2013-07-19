@@ -261,6 +261,10 @@
 						) 
 				);
 			} else {
+				var score = game.status.scores[i-1],
+					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
+				
+				if ( i === 1 || score || game.status.scores[i-2] )
 				levelsScene.addChild(
 					new CAAT.Foundation.Actor( ).
 						setLocation( x, y ).
@@ -271,8 +275,6 @@
 						)
 				);
 				// List - Stars
-				var score = game.status.scores[i-1],
-					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
 				
 				if ( score ) {
 					CAAT.log( '[Menu] level '+i+' already done' );
@@ -282,10 +284,7 @@
 							setBackgroundImage( stars ).
 							setSpriteIndex( score-1 )
 					);
-				} else {
-					CAAT.log( '[Menu] level '+i+' to be done yet' );
 				}
-				
 			}
 		};
 	}
@@ -295,24 +294,18 @@
 		return function( ) {
 			if( _DEBUG ) CAAT.log('[List] PLAY level i:'+i );
 			
-			if ( i === 1 || game.status.scores[i-2] ){
-				game.setupScene( i );
-				director.easeInOut(
-					2,
-					CAAT.Foundation.Scene.EASE_TRANSLATE,
-					CAAT.Foundation.Actor.ANCHOR_RIGHT,
-					1,
-					CAAT.Foundation.Scene.EASE_TRANSLATE,
-					CAAT.Foundation.Actor.ANCHOR_LEFT,
-					1000,
-					new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
-					new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
-				);
-			} else { 
-				//TODO
-				// Notificare in qualche modo all'utente che prima deve fare i livelli precedenti
-				CAAT.log("Non puoi giocare ancora a questo livello")
-			}
+			game.setupScene( i );
+			director.easeInOut(
+				2,
+				CAAT.Foundation.Scene.EASE_TRANSLATE,
+				CAAT.Foundation.Actor.ANCHOR_RIGHT,
+				1,
+				CAAT.Foundation.Scene.EASE_TRANSLATE,
+				CAAT.Foundation.Actor.ANCHOR_LEFT,
+				1000,
+				new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
+				new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
+			);
 		}
 	}
 } )( );
