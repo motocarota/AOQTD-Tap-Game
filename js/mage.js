@@ -64,10 +64,10 @@
 			}
 			
 			if ( !this.cooldowns[ id ] || this.cooldowns[ id ] < 0 ) {
-				this.playAnimation("cast");
-				spell = new CAAT.Spell( id, x, y );
 				
+				spell = new CAAT.Spell( id, x, y );
 				if ( this.mana > spell.cost ) {
+					this.playAnimation("cast");
 					spell.add( );
 					this.mana -= spell.cost;
 					if ( spell.cooldown ) {
@@ -76,7 +76,8 @@
 						game.player.notify('back to mm	')
 					}
 				} else { 
-					CAAT.log( "[Mage] out of mana "+this.mana+" / "+spell.cost ) 
+					game.player.notify( "Out of Mana!" );
+					if ( _DEBUG ) CAAT.log( "[Mage] out of mana "+this.mana+" / "+spell.cost ) 
 				}
 			} else {  
 				if ( _DEBUG ) CAAT.log('[Mage] cant cast, spell is in cooldown '+this.cooldowns[ id ] );

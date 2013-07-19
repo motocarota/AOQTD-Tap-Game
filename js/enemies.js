@@ -20,7 +20,8 @@ game.enemiesBook = {
 		frameW: 3, 
 		frameH: 3,
 		dropTable: [
-			{ chance: 50, id: 'coins', qty: 4 }
+			{ chance: 50, id: 'coins', qty: (roll()) },
+			{ chance: 50, id: 'wand', qty: 1 }
 		],
 		animations: {
 			walk: {

@@ -149,7 +149,7 @@
 		
 		// Main string
 		game.UI.mainString = new CAAT.Foundation.UI.TextActor( ).
-			setText( "hello" ).
+			setText( "" ).
 			setFont( "30px "+game.options.font ).
 			setTextFillStyle( "red" ).
 			setTextAlign('center').
