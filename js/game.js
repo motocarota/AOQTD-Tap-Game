@@ -245,6 +245,7 @@
 	
 	game.over = function() {
 		
+		director.switchToScene( 5, 1000, false, true );
 		game.UI.resumeBtn.setVisible( false );
 		//switch to level scene with message
 	}

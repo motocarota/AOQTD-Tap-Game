@@ -1,34 +1,22 @@
 # [ AOQTD Tap Game ](http://www.simone-poggi.com/)
 
-L'obiettivo e' creare un gioco tipo tower defense in cui il giocatore e' attaccato da orde di nemici 
+L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
 ## TODO
 
 ( GAME )
 
-	* rivedere il game over
-	* animazione iniziale?
+	* rivedere il game over, sia win che die
+		scena di fine gioco (bonus) che onclick ti riporta al level list
 
 ( UI )
 
 	* rifare l'immagine dei pulsanti in modo da posizionarli correttamente
-	* fare in modo di mostrare il tasto resume onClick sul tasto pausa
 	* trovare / farsi un font custom
 	* cooldown / xp / livello / px / gold / Banner / pause game
-	* riposizionare / ingrandire il danno ricevuto dal giocatore
 	* Suoni 
 	* Musica
-
-( CODE )
-	
-	* Tabelle dei nemici da generare
-		- Timer che genera i nemici in base al livello di gioco
-			wave = [
-				{ time: null, n:2,  type:[ 'fey' ] }, 				// dopo random sec evoca 2 fey
-				{ time:  120, n:12, type:[ 'kobold', 'duck' ] }, 	// dopo 120 sec evoca 12 nemici tra koboldi e duck
-				{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
-			];
 
 ( SPELL )
 
@@ -43,9 +31,17 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( DOPO )
 
-	* Documentare il codice
-	* rifare completamente il main.js per rispecchiare lo schema di sumon
-	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
+* animazione iniziale?
+* Documentare il codice
+* rifare completamente il main.js per rispecchiare lo schema di sumon
+* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
+* Timer che genera i nemici in base al livello di gioco
+		wave = [
+			{ time: null, n:2,  type:[ 'fey' ] }, 				// dopo random sec evoca 2 fey
+			{ time:  120, n:12, type:[ 'kobold', 'duck' ] }, 	// dopo 120 sec evoca 12 nemici tra koboldi e duck
+			{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
+		];
+
 
 
 ## LISTA SCENE

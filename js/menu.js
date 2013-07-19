@@ -29,6 +29,7 @@
 		window.gameScene = director.createScene( );
 		window.infoScene = director.createScene( );
 		window.creditsScene = director.createScene( );
+		window.endgameScene = director.createScene( );
 		
 		// This should improve performance... TODO CONTROLLARE
 		CAAT.setCoordinateClamping(false);
@@ -41,7 +42,7 @@
 			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 )
 		};
 		
-		// (Scene) Main menu
+		// (Scene 0) Main menu
 		menuScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
 			setFillStyle( 'white' );
@@ -133,7 +134,7 @@
 			)
 		menuScene.addChild( game.UI.resumeBtn );
 		
-		// (Scene) Credits
+		// (Scene 4) Credits
 		
 		creditsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -158,7 +159,7 @@
 				setLocation( director.width/2, 100 )
 		);
 		
-		// (Scene) Info
+		// (Scene 3) Info
 		
 		infoScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -182,7 +183,29 @@
 				setLocation( director.width/2, 100 )
 		);
 		
-		// (Scene) List
+		// (Scene 5) Endgame
+		
+		endgameScene.bg = new CAAT.Foundation.ActorContainer( ).
+			setBounds( 0, 0, director.width, director.height ).
+			setFillStyle( 'white' ).
+			enableEvents( true );
+		endgameScene.addChild( endgameScene.bg );
+
+		endgameScene.bg.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log('[Endgame] Menu' );
+			director.switchToScene( 0, 1000, false, true );
+		};
+		
+		// Endgame - text
+		endgameScene.bg.addChild(
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Bravo o hai vinto o hai perso... meh" ).
+				setFont( "20px "+game.options.font ).
+				setTextAlign('center').
+				setLocation( director.width/2, 100 )
+		);
+		
+		// (Scene 1) List
 		
 		levelsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -203,6 +226,7 @@
 		);
 		
 		// List - Buttons
+		game.load();
 		for (var i=0; i < 8; i++) {
 			
 			var x = 25 + ( WW*i/4 ),
@@ -237,9 +261,6 @@
 						) 
 				);
 			} else {
-				var score = game.status.scores[i-1],
-					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
-				
 				levelsScene.addChild(
 					new CAAT.Foundation.Actor( ).
 						setLocation( x, y ).
@@ -249,15 +270,22 @@
 							helper( i )
 						)
 				);
+				// List - Stars
+				var score = game.status.scores[i-1],
+					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
 				
 				if ( score ) {
+					CAAT.log( '[Menu] level '+i+' already done' );
 					levelsScene.addChild(
 						new CAAT.Foundation.Actor( ).
 							setLocation( x+25, y+75 ).
 							setBackgroundImage( stars ).
 							setSpriteIndex( score-1 )
 					);
+				} else {
+					CAAT.log( '[Menu] level '+i+' to be done yet' );
 				}
+				
 			}
 		};
 	}
@@ -268,7 +296,6 @@
 			if( _DEBUG ) CAAT.log('[List] PLAY level i:'+i );
 			
 			if ( i === 1 || game.status.scores[i-2] ){
-
 				game.setupScene( i );
 				director.easeInOut(
 					2,
@@ -284,6 +311,7 @@
 			} else { 
 				//TODO
 				// Notificare in qualche modo all'utente che prima deve fare i livelli precedenti
+				CAAT.log("Non puoi giocare ancora a questo livello")
 			}
 		}
 	}
