@@ -230,6 +230,19 @@
 							helper( i )
 						) 
 				);
+				var c = game.status.scores[i-1],
+					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
+					
+				if ( game.status.scores[i-1] === undefined ) {
+					console.log( "Non hai ancora fatto il livello "+i );
+				} else {
+					levelsScene.addChild(
+						new CAAT.Foundation.Actor( ).
+							setLocation( x+25, y+75 ).
+							setBackgroundImage( stars ).
+							setSpriteIndex( game.status.scores[i-1]-1 )
+					);
+				}
 			}
 		};
 	}
