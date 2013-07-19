@@ -42,11 +42,17 @@
 		// Background
 		game.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
-			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
-			enableEvents( true ).
-			cacheAsBitmap( );
+			setFillStyle( 'white' ).
+			enableEvents( true );
 
 		gameScene.addChild( game.bg );
+		
+		game.bg.addChild( 
+			new CAAT.Foundation.Actor().
+				setBounds( 0, 0, director.width, director.height ).
+				setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg-'+level ), 1, 1 ) ).
+				enableEvents( false )	
+		);
 		
 		game.bg.mouseDown = function( ev ) {
 			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
@@ -179,10 +185,7 @@
 
 			gameScene.addChild( game.UI.debugString );
 		}
-		
-		game.player.notify( level );
-		CAAT.log("level", level)
-		
+				
 		//Timers
 		game.time = game.options.global_cooldown;
 		game.mainTimer = gameScene.createTimer(

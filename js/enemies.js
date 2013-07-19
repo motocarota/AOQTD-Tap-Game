@@ -21,10 +21,10 @@ game.enemiesBook = {
 			attack: {
 				frames: [5,6,7,8,6,5], duration: 150
 			}
-		},
-		damageFilter: function( amount ) {
-			return amount * 2;
-		}
+		}// ,
+		// 		damageFilter: function( amount ) {
+		// 			return amount + 2;
+		// 		}
 	},
 	
 	bat: {

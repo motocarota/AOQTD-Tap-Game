@@ -35,7 +35,7 @@ game.spellBook = {
 			return [
 				null,
 				function( target ){
-					target && target.damage( roll( 1, 6, 1 ), 'force' );
+					target && target.damage( roll( 1, 6, 1, 2 ), 'force' );
 					return true;
 				}
 			];

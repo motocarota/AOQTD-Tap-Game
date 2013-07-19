@@ -14,6 +14,7 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( UI )
 
+	* impostare le stelline a seconda dei livelli completati
 	* fare in modo di mostrare il tasto resume onClick sul tasto pausa
 	* trovare / farsi un font custom
 	* cooldown / xp / livello / px / gold / Banner / pause game

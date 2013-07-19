@@ -1,5 +1,5 @@
 (function() {	
-	var _DEBUG = 1;
+	var _DEBUG = false;
 	
 	CAAT.Mage = function( ) {
 		CAAT.Mage.superclass.constructor.call( this );

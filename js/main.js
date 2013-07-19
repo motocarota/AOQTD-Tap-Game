@@ -25,7 +25,15 @@
 			addElement( "items",		"img/sprites/items.png" ).
 			addElement( "cover",		"img/aoqtd-cover.png" ).
 			addElement( "splash",		"img/splash/splash0.jpg" ).
+			//backgrounds
 			addElement( "bg",			"img/bg.png" ).
+			addElement( "bg-1",			"img/bg/1.png" ).
+			addElement( "bg-2",			"img/bg/2.jpeg" ).
+			addElement( "bg-3",			"img/bg/3.jpeg" ).
+			addElement( "bg-4",			"img/bg/4.jpeg" ).
+			addElement( "bg-5",			"img/bg/5.jpeg" ).
+			addElement( "bg-6",			"img/bg/6.jpeg" ).
+			addElement( "bg-7",			"img/bg/7.jpeg" ).
 			//player
 			addElement( "tree",			"img/sprites/tree.png" ).
 			addElement( "player",		"img/sprites/sd2.png" ).
