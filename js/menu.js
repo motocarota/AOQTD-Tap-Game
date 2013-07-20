@@ -1,6 +1,12 @@
 ( function( ) {	
 	
 	var _DEBUG = false;
+	var MENU_SCENE_ID 		= 0,
+		LIST_SCENE_ID 		= 1,
+		GAME_SCENE_ID 		= 2,
+		INFO_SCENE_ID 		= 3,
+		CREDITS_SCENE_ID 	= 4,
+		ENDGAME_SCENE_ID 	= 5;
 
 	function createCSS() {
         return new CAAT.Director().initialize( WW, HH, document.getElementById('game')).setClear( false );
@@ -65,20 +71,9 @@
 					game.UI.btns,
 					1, 1, 5, 5, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] PLAY' );
+						if( _DEBUG ) CAAT.log('[Menu] Play (List)' );
 						game.load();
-						director.easeInOut(
-							1,
-							CAAT.Foundation.Scene.EASE_TRANSLATE,
-							CAAT.Foundation.Actor.ANCHOR_BOTTOM,
-							0,
-							CAAT.Foundation.Scene.EASE_TRANSLATE,
-							CAAT.Foundation.Actor.ANCHOR_TOP,
-							1000,
-							false,
-							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
-							new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
-						);
+						game.slideTo( LIST_SCENE_ID, true, false );
 					} 
 				) 
 		);
@@ -94,8 +89,8 @@
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] INFO' );
-						director.switchToScene( 3, 1000, false, false );
+						if( _DEBUG ) CAAT.log('[Menu] Info' );
+						game.slideTo( INFO_SCENE_ID, false, false );
 					} 
 				)
 		);
@@ -111,8 +106,8 @@
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] CREDITS' );
-						director.switchToScene( 4, 1000, false, false );
+						if( _DEBUG ) CAAT.log('[Menu] Credits' );
+						game.slideTo( CREDITS_SCENE_ID, false, true );
 					} 
 				)
 		);
@@ -128,8 +123,8 @@
 			setAsButton( 
 				null, 1, 2, 3, 4, 
 				function( button ){ 
-					if( _DEBUG ) CAAT.log('[Menu] INFO' );
-					director.switchToScene( 2, 1000, false, false );
+					if( _DEBUG ) CAAT.log('[Menu] Resume game' );
+					game.slideTo( GAME_SCENE_ID, false, false );
 				} 
 			)
 		menuScene.addChild( game.UI.resumeBtn );
@@ -142,11 +137,6 @@
 			enableEvents( true ).
 			cacheAsBitmap( );
 		creditsScene.addChild( creditsScene.bg );
-
-		creditsScene.bg.mouseDown = function( ev ) {
-			if( _DEBUG ) CAAT.log('[Credits] Menu' );
-			director.switchToScene( 0, 2000, false, true );
-		};
 		
 		// Credits - text
 		creditsScene.bg.addChild(
@@ -159,6 +149,12 @@
 				setLocation( director.width/2, 100 )
 		);
 		
+		// Credits - events
+		creditsScene.bg.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log('[Credits] Menu' );
+			game.slideTo( MENU_SCENE_ID, false, false );
+		};
+		
 		// (Scene 3) Info
 		
 		infoScene.bg = new CAAT.Foundation.ActorContainer( ).
@@ -167,11 +163,6 @@
 			enableEvents( true ).
 			cacheAsBitmap( );
 		infoScene.addChild( infoScene.bg );
-
-		infoScene.bg.mouseDown = function( ev ) {
-			if( _DEBUG ) CAAT.log('[Info] Menu' );
-			director.switchToScene( 0, 2000, false, true );
-		};
 		
 		// Info - text
 		infoScene.bg.addChild(
@@ -183,6 +174,12 @@
 				setLocation( director.width/2, 100 )
 		);
 		
+		//Info - Events
+		infoScene.bg.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log('[Info] Menu' );
+			game.slideTo( MENU_SCENE_ID, false, true );
+		};
+		
 		// (Scene 5) Endgame
 		
 		endgameScene.bg = new CAAT.Foundation.ActorContainer( ).
@@ -190,20 +187,22 @@
 			setFillStyle( 'white' ).
 			enableEvents( true );
 		endgameScene.addChild( endgameScene.bg );
-
-		endgameScene.bg.mouseDown = function( ev ) {
-			if( _DEBUG ) CAAT.log('[Endgame] Menu' );
-			director.switchToScene( 0, 1000, false, true );
-		};
 		
 		// Endgame - text
-		endgameScene.bg.addChild(
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Bravo o hai vinto o hai perso... meh" ).
-				setFont( "20px "+game.options.font ).
-				setTextAlign('center').
-				setLocation( director.width/2, 100 )
-		);
+		endgameScene.label = new CAAT.Foundation.UI.TextActor( ).
+			setText( "" ).
+			setTextFillStyle( "black" ).
+			setFont( "28px "+game.options.font ).
+			setTextAlign('center').
+			setLocation( director.width/2, 100 );
+			
+		endgameScene.bg.addChild( endgameScene.label );
+		
+		//Endgame - Events
+		endgameScene.bg.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log('[Endgame] Menu' );
+			game.slideTo( MENU_SCENE_ID, true, true );
+		};
 		
 		// (Scene 1) List
 		
@@ -221,9 +220,7 @@
 			setTextFillStyle( "black" ).
 			setLocation( director.width/2, 130 );
 		
-		levelsScene.bg.addChild(
-			game.UI.listStr
-		);
+		levelsScene.bg.addChild( game.UI.listStr );
 		
 		// List - Buttons
 		game.load();
@@ -235,32 +232,24 @@
 				x = 25 + ( WW*(i-4)/4 );
 				y = 20 + ( HH/2 );
 			}
-			//TODO rifare a modino
+			
+			// List - Menu button
 			if ( i === 0 ) {
 				levelsScene.addChild(
 					new CAAT.Foundation.Actor( ).
 						setLocation( x, y ).
 						setAsButton( 
 							game.UI.listBtns,
-							i, i, i, i, 
+							i, i, i, i,
 							function( button ){ 
-								if( _DEBUG ) CAAT.log('[List] Back to menu' );
-								director.easeInOut(
-									0,
-									CAAT.Foundation.Scene.EASE_TRANSLATE,
-									CAAT.Foundation.Actor.ANCHOR_TOP,
-									1,
-									CAAT.Foundation.Scene.EASE_TRANSLATE,
-									CAAT.Foundation.Actor.ANCHOR_BOTTOM,
-									1000,
-									false,
-									new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
-									new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
-								);
+								if( _DEBUG ) CAAT.log('[List] Menu' );
+								game.slideTo( MENU_SCENE_ID, true, true );
 							} 
 						) 
 				);
 			} else {
+				
+				//List - Levels Button
 				var score = game.status.scores[i-1],
 					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
 				
@@ -274,10 +263,12 @@
 							helper( i )
 						)
 				);
-				// List - Stars
 				
+				// List - Stars
 				if ( score ) {
-					CAAT.log( '[Menu] level '+i+' already done' );
+					if( _DEBUG ) CAAT.log( '[List] level '+i+' already done' );
+					if ( !is( 'Number', score ) || score < 0 || score > 3 )
+						score = 1;
 					levelsScene.addChild(
 						new CAAT.Foundation.Actor( ).
 							setLocation( x+25, y+75 ).
@@ -292,20 +283,11 @@
 	function helper( i ) {
 		
 		return function( ) {
-			if( _DEBUG ) CAAT.log('[List] PLAY level i:'+i );
+			if( _DEBUG ) CAAT.log('[List] Play level: '+i );
 			
 			game.setupScene( i );
-			director.easeInOut(
-				2,
-				CAAT.Foundation.Scene.EASE_TRANSLATE,
-				CAAT.Foundation.Actor.ANCHOR_RIGHT,
-				1,
-				CAAT.Foundation.Scene.EASE_TRANSLATE,
-				CAAT.Foundation.Actor.ANCHOR_LEFT,
-				1000,
-				new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
-				new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
-			);
+			game.slideTo( GAME_SCENE_ID, false, false );
 		}
-	}
+	}	
+	
 } )( );

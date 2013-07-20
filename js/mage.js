@@ -95,9 +95,14 @@
 				game.options.max_mana;
 		},
 		
+		win: function() {
+			
+			game.over( "WIN" );
+		},
+		
 		die: function() {
 			
-			game.over();
+			game.over( "PROT" );
 		}
 	};
 	

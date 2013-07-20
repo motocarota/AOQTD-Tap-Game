@@ -17,7 +17,7 @@ function setupOptions( ) {
 			
 		},
 		enemies : {
-			wave: 			50,
+			wave: 			20,
 			baseSpeed : 	100,
 			maxNumber : 	10,
 			spawnRate : 	0.3

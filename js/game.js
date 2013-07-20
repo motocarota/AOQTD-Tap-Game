@@ -243,8 +243,41 @@
 			game.player.win();
 	}
 	
-	game.over = function() {
+	game.slideTo = function( to, vertical, reverse ) {
 		
+		var anchorOne, anchorTwo;
+		if ( vertical ) {
+			//verticale verso il basso
+			anchorOne = CAAT.Foundation.Actor.ANCHOR_BOTTOM;
+			anchorTwo = CAAT.Foundation.Actor.ANCHOR_TOP;
+		} else {
+			//orizzontale verso dx
+			anchorOne = CAAT.Foundation.Actor.ANCHOR_RIGHT;
+			anchorTwo = CAAT.Foundation.Actor.ANCHOR_LEFT;
+		}
+		if ( reverse ) {
+			var tmp = anchorOne;
+			anchorOne = anchorTwo;
+			anchorTwo = tmp;
+		}
+		
+		director.easeInOut(
+			to,
+			CAAT.Foundation.Scene.EASE_TRANSLATE,
+			anchorOne,
+			director.getCurrentSceneIndex(),
+			CAAT.Foundation.Scene.EASE_TRANSLATE,
+			anchorTwo,
+			1000,
+			false,
+			new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
+			new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
+		);
+	}
+	
+	game.over = function( txt ) {
+		
+		endgameScene.label.setText( txt );
 		director.switchToScene( 5, 1000, false, true );
 		game.UI.resumeBtn.setVisible( false );
 		//switch to level scene with message
