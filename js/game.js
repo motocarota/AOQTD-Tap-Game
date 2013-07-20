@@ -212,7 +212,7 @@
 			},
 			null 
 		);
-	}
+	};
 	
 	game.tick = function() {
 		
@@ -241,46 +241,22 @@
 		
 		if ( game.killCount > game.options.enemies.wave )
 			game.player.win();
-	}
-	
-	game.slideTo = function( to, vertical, reverse ) {
+	};
+
+	game.over = function( victory ) {
 		
-		var anchorOne, anchorTwo;
-		if ( vertical ) {
-			//verticale verso il basso
-			anchorOne = CAAT.Foundation.Actor.ANCHOR_BOTTOM;
-			anchorTwo = CAAT.Foundation.Actor.ANCHOR_TOP;
-		} else {
-			//orizzontale verso dx
-			anchorOne = CAAT.Foundation.Actor.ANCHOR_RIGHT;
-			anchorTwo = CAAT.Foundation.Actor.ANCHOR_LEFT;
-		}
-		if ( reverse ) {
-			var tmp = anchorOne;
-			anchorOne = anchorTwo;
-			anchorTwo = tmp;
-		}
-		
-		director.easeInOut(
-			to,
-			CAAT.Foundation.Scene.EASE_TRANSLATE,
-			anchorOne,
-			director.getCurrentSceneIndex(),
-			CAAT.Foundation.Scene.EASE_TRANSLATE,
-			anchorTwo,
-			1000,
-			false,
-			new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
-			new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
-		);
-	}
-	
-	game.over = function( txt ) {
-		
-		endgameScene.label.setText( txt );
-		director.switchToScene( 5, 1000, false, true );
+		menu.slideTo( 5, false, false ); //ENDGAME_SCENE_ID
 		game.UI.resumeBtn.setVisible( false );
-		//switch to level scene with message
+		if ( victory ) {
+			var score = Math.floor( game.player.hp / 50 )+1;
+			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
+				game.status.scores[ game.level-1 ] = score;
+				game.save();
+			}
+			endgameScene.label.setText( "WIN, hai fatto "+score+" stelle, GG" );
+		} else {
+			endgameScene.label.setText( "SCEMO, hai perso! ci godo!" );
+		}
 	}
 
 } )( );

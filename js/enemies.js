@@ -42,7 +42,6 @@ game.enemiesBook = {
 	
 	bat: {
 		level:  3,
-		speed: .3,
 		ai: function(){
 			game.player.notifyAt("hahaha", this);
 			this.move( 500, 300 );
@@ -51,7 +50,7 @@ game.enemiesBook = {
 	
 	wolf: {
 		level:  2,
-		speed: .4
+		speed: .85
 	},
 	
 	zombie: {

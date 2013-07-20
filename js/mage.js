@@ -97,12 +97,12 @@
 		
 		win: function() {
 			
-			game.over( "WIN" );
+			game.over( true );
 		},
 		
 		die: function() {
 			
-			game.over( "PROT" );
+			game.over( false );
 		}
 	};
 	

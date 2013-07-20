@@ -67,7 +67,7 @@
 		WW= 900; HH = 600;
 		
 		setupOptions( );
-		game.setupMenu( images );
+		menu.setupScene( images );
 		CAAT.loop( 30 );
 	}
 

@@ -1,32 +1,16 @@
 ( function( ) {	
 	
-	var _DEBUG = false;
+	var _DEBUG 				= false;
 	var MENU_SCENE_ID 		= 0,
 		LIST_SCENE_ID 		= 1,
 		GAME_SCENE_ID 		= 2,
 		INFO_SCENE_ID 		= 3,
 		CREDITS_SCENE_ID 	= 4,
 		ENDGAME_SCENE_ID 	= 5;
+		
+	window.menu = {};
 
-	function createCSS() {
-        return new CAAT.Director().initialize( WW, HH, document.getElementById('game')).setClear( false );
-    }
-
-    function createCanvas() {
-        return new CAAT.Director().
-			initialize( WW, HH, 'game' ).
-			setClear( 
-				false 									// more performance and glitches
-				// CAAT.Foundation.Director.CLEAR_ALL 	// less performance and glitches
-			)
-			// .enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
-    }
-
-    function createGL() {
-        return new CAAT.Director().initializeGL( WW, HH ).setClear( false );
-    }
-
-	game.setupMenu = function( images ) {
+	menu.setupScene = function( images ) {
 		
 		window.director = createCanvas();
 		window.director.setImagesCache( images );
@@ -73,7 +57,7 @@
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] Play (List)' );
 						game.load();
-						game.slideTo( LIST_SCENE_ID, true, false );
+						menu.slideTo( LIST_SCENE_ID, true, false );
 					} 
 				) 
 		);
@@ -90,7 +74,7 @@
 					null, 1, 2, 3, 4, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] Info' );
-						game.slideTo( INFO_SCENE_ID, false, false );
+						menu.slideTo( INFO_SCENE_ID, false, false );
 					} 
 				)
 		);
@@ -107,7 +91,7 @@
 					null, 1, 2, 3, 4, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] Credits' );
-						game.slideTo( CREDITS_SCENE_ID, false, true );
+						menu.slideTo( CREDITS_SCENE_ID, false, true );
 					} 
 				)
 		);
@@ -124,7 +108,7 @@
 				null, 1, 2, 3, 4, 
 				function( button ){ 
 					if( _DEBUG ) CAAT.log('[Menu] Resume game' );
-					game.slideTo( GAME_SCENE_ID, false, false );
+					menu.slideTo( GAME_SCENE_ID, false, false );
 				} 
 			)
 		menuScene.addChild( game.UI.resumeBtn );
@@ -152,7 +136,7 @@
 		// Credits - events
 		creditsScene.bg.mouseDown = function( ev ) {
 			if( _DEBUG ) CAAT.log('[Credits] Menu' );
-			game.slideTo( MENU_SCENE_ID, false, false );
+			menu.slideTo( MENU_SCENE_ID, false, false );
 		};
 		
 		// (Scene 3) Info
@@ -177,7 +161,7 @@
 		//Info - Events
 		infoScene.bg.mouseDown = function( ev ) {
 			if( _DEBUG ) CAAT.log('[Info] Menu' );
-			game.slideTo( MENU_SCENE_ID, false, true );
+			menu.slideTo( MENU_SCENE_ID, false, true );
 		};
 		
 		// (Scene 5) Endgame
@@ -201,7 +185,7 @@
 		//Endgame - Events
 		endgameScene.bg.mouseDown = function( ev ) {
 			if( _DEBUG ) CAAT.log('[Endgame] Menu' );
-			game.slideTo( MENU_SCENE_ID, true, true );
+			menu.slideTo( LIST_SCENE_ID, false, true );
 		};
 		
 		// (Scene 1) List
@@ -222,20 +206,66 @@
 		
 		levelsScene.bg.addChild( game.UI.listStr );
 		
+		levelsScene.grid = new CAAT.Foundation.ActorContainer( ).
+			setBounds( 0, 0, director.width, director.height );
+		levelsScene.addChild( levelsScene.grid );
+		
 		// List - Buttons
+		levelsScene.activated = function( ) {
+			menu.updateGrid();
+		};
+	}
+	
+	menu.slideTo = function( to, vertical, reverse ) {
+		
+		if ( _DEBUG ) CAAT.log( "[Menu] slide to scene "+to+" vertical:"+vertical+" reverse:"+reverse );
+		
+		var anchorOne, anchorTwo;
+		if ( vertical ) {
+			//verticale verso il basso
+			anchorOne = CAAT.Foundation.Actor.ANCHOR_BOTTOM;
+			anchorTwo = CAAT.Foundation.Actor.ANCHOR_TOP;
+		} else {
+			//orizzontale verso dx
+			anchorOne = CAAT.Foundation.Actor.ANCHOR_RIGHT;
+			anchorTwo = CAAT.Foundation.Actor.ANCHOR_LEFT;
+		}
+		if ( reverse ) {
+			var tmp = anchorOne;
+			anchorOne = anchorTwo;
+			anchorTwo = tmp;
+		}
+		
+		director.easeInOut(
+			to,
+			CAAT.Foundation.Scene.EASE_TRANSLATE,
+			anchorOne,
+			director.getCurrentSceneIndex(),
+			CAAT.Foundation.Scene.EASE_TRANSLATE,
+			anchorTwo,
+			1000,
+			false,
+			new CAAT.Interpolator().createExponentialInOutInterpolator(3,false),
+			new CAAT.Interpolator().createExponentialInOutInterpolator(3,false) 
+		);
+	}
+	
+	menu.updateGrid = function() {
+		
+		if( _DEBUG ) CAAT.log('[List] update grid');
+		var x, y;
 		game.load();
-		for (var i=0; i < 8; i++) {
-			
-			var x = 25 + ( WW*i/4 ),
-				y = 20 + ( HH/4 );
+		levelsScene.grid.emptyChildren();
+		for ( var i=0; i < 8; i++ ) {
+			x = 25 + ( WW*i/4 ),
+			y = 20 + ( HH/4 );
 			if ( i > 3 ) {
 				x = 25 + ( WW*(i-4)/4 );
 				y = 20 + ( HH/2 );
 			}
-			
 			// List - Menu button
 			if ( i === 0 ) {
-				levelsScene.addChild(
+				levelsScene.grid.addChild(
 					new CAAT.Foundation.Actor( ).
 						setLocation( x, y ).
 						setAsButton( 
@@ -243,18 +273,17 @@
 							i, i, i, i,
 							function( button ){ 
 								if( _DEBUG ) CAAT.log('[List] Menu' );
-								game.slideTo( MENU_SCENE_ID, true, true );
+								menu.slideTo( MENU_SCENE_ID, true, true );
 							} 
 						) 
 				);
 			} else {
-				
 				//List - Levels Button
 				var score = game.status.scores[i-1],
 					stars = new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 );
 				
 				if ( i === 1 || score || game.status.scores[i-2] )
-				levelsScene.addChild(
+				levelsScene.grid.addChild(
 					new CAAT.Foundation.Actor( ).
 						setLocation( x, y ).
 						setAsButton( 
@@ -263,13 +292,11 @@
 							helper( i )
 						)
 				);
-				
 				// List - Stars
 				if ( score ) {
 					if( _DEBUG ) CAAT.log( '[List] level '+i+' already done' );
-					if ( !is( 'Number', score ) || score < 0 || score > 3 )
-						score = 1;
-					levelsScene.addChild(
+					if ( is( 'Number', score ) && score >= 0 && score <= 3 ) 
+					levelsScene.grid.addChild(
 						new CAAT.Foundation.Actor( ).
 							setLocation( x+25, y+75 ).
 							setBackgroundImage( stars ).
@@ -278,7 +305,7 @@
 				}
 			}
 		};
-	}
+	};
 	
 	function helper( i ) {
 		
@@ -286,8 +313,26 @@
 			if( _DEBUG ) CAAT.log('[List] Play level: '+i );
 			
 			game.setupScene( i );
-			game.slideTo( GAME_SCENE_ID, false, false );
+			menu.slideTo( GAME_SCENE_ID, false, false );
 		}
-	}	
+	}
+	
+	function createCSS() {
+        return new CAAT.Director().initialize( WW, HH, document.getElementById('game')).setClear( false );
+    }
+
+    function createCanvas() {
+        return new CAAT.Director().
+			initialize( WW, HH, 'game' ).
+			setClear( 
+				false 									// more performance and glitches
+				// CAAT.Foundation.Director.CLEAR_ALL 	// less performance and glitches
+			)
+			// .enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
+    }
+
+    function createGL() {
+        return new CAAT.Director().initializeGL( WW, HH ).setClear( false );
+    }
 	
 } )( );

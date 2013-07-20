@@ -8,13 +8,17 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 ( GAME )
 
 	* rivedere il game over, sia win che die
-		scena di fine gioco (bonus) che onclick ti riporta al level list
+		mostrare statistiche 
+			numero di nemici uccisi
+			salute dell'albero
+			soldi presi
+			xp guadagnati
 
 ( UI )
 
 	* rifare l'immagine dei pulsanti in modo da posizionarli correttamente
 	* trovare / farsi un font custom
-	* cooldown / xp / livello / px / gold / Banner / pause game
+	* cooldown / xp / livello / px / gold / Banner
 	* Suoni 
 	* Musica
 
@@ -49,7 +53,8 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 main 		[ info, help, levels ]
 info, help	[ main ]
 levels 		[ game(lev), main ]
-game 		[ main, levels ]
+game 		[ main, levels, endgame ]
+endgame		[ list ]
 
 ## LISTA OGGETTI
 
