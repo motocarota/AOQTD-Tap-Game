@@ -4,7 +4,7 @@
 	var MENU_SCENE_ID 		= 0,
 		LIST_SCENE_ID 		= 1,
 		GAME_SCENE_ID 		= 2,
-		INFO_SCENE_ID 		= 3,
+		HELP_SCENE_ID 		= 3,
 		CREDITS_SCENE_ID 	= 4,
 		ENDGAME_SCENE_ID 	= 5;
 		
@@ -17,7 +17,7 @@
 		window.menuScene = director.createScene( );
 		window.levelsScene = director.createScene( );
 		window.gameScene = director.createScene( );
-		window.infoScene = director.createScene( );
+		window.helpScene = director.createScene( );
 		window.creditsScene = director.createScene( );
 		window.endgameScene = director.createScene( );
 		
@@ -32,7 +32,9 @@
 			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 )
 		};
 		
-		// (Scene 0) Main menu
+
+	// (Scene 0) Main menu
+
 		menuScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
 			setFillStyle( 'white' );
@@ -62,19 +64,19 @@
 				) 
 		);
 		
-		// Main menu - Info Button
+		// Main menu - Help Button
 		menuScene.addChild( 
 			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Info" ).
-				setFont( "30px "+game.options.font ).
+				setText( "Help" ).
+				setFont( game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign('right').
-				setLocation( director.width-80, 200 ).
+				setLocation( director.width-80, 250 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Menu] Info' );
-						menu.slideTo( INFO_SCENE_ID, false, false );
+						if( _DEBUG ) CAAT.log('[Menu] Help' );
+						menu.slideTo( HELP_SCENE_ID, false, false );
 					} 
 				)
 		);
@@ -83,10 +85,10 @@
 		menuScene.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "Credits" ).
-				setFont( "30px "+game.options.font ).
+				setFont( game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign('right').
-				setLocation( director.width-80, 250 ).
+				setLocation( director.width-80, 350 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
@@ -99,7 +101,7 @@
 		// Main menu - resume Button
 		game.UI.resumeBtn = new CAAT.Foundation.UI.TextActor( ).
 			setText( "Resume" ).
-			setFont( "30px "+game.options.font ).
+			setFont( game.options.font ).
 			setTextFillStyle( "red" ).
 			setTextAlign('right').
 			setLocation( director.width-80, 300 ).
@@ -113,7 +115,8 @@
 			)
 		menuScene.addChild( game.UI.resumeBtn );
 		
-		// (Scene 4) Credits
+		
+	// (Scene 4) Credits
 		
 		creditsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -126,7 +129,7 @@
 		creditsScene.bg.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "AOQTD: the game" ).
-				setFont( "20px "+game.options.font ).
+				setFont( game.options.font ).
 				setTextFillStyle( "black" ).
 				setTextAlign('center').
 				enableEvents( false ).
@@ -139,32 +142,34 @@
 			menu.slideTo( MENU_SCENE_ID, false, false );
 		};
 		
-		// (Scene 3) Info
 		
-		infoScene.bg = new CAAT.Foundation.ActorContainer( ).
+	// (Scene 3) Help
+		
+		helpScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
 			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
 			enableEvents( true ).
 			cacheAsBitmap( );
-		infoScene.addChild( infoScene.bg );
+		helpScene.addChild( helpScene.bg );
 		
 		// Info - text
-		infoScene.bg.addChild(
+		helpScene.bg.addChild(
 			new CAAT.Foundation.UI.TextActor( ).
 				setText( "Info blablabla" ).
-				setFont( "20px "+game.options.font ).
+				setFont( game.options.font ).
 				setTextFillStyle( "black" ).
 				setTextAlign('center').
 				setLocation( director.width/2, 100 )
 		);
 		
 		//Info - Events
-		infoScene.bg.mouseDown = function( ev ) {
+		helpScene.bg.mouseDown = function( ev ) {
 			if( _DEBUG ) CAAT.log('[Info] Menu' );
 			menu.slideTo( MENU_SCENE_ID, false, true );
 		};
 		
-		// (Scene 5) Endgame
+		
+	// (Scene 5) Endgame
 		
 		endgameScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -176,7 +181,7 @@
 		endgameScene.label = new CAAT.Foundation.UI.TextActor( ).
 			setText( "" ).
 			setTextFillStyle( "black" ).
-			setFont( "28px "+game.options.font ).
+			setFont( game.options.font ).
 			setTextAlign('center').
 			setLocation( director.width/2, 100 );
 			
@@ -188,7 +193,8 @@
 			menu.slideTo( LIST_SCENE_ID, false, true );
 		};
 		
-		// (Scene 1) List
+		
+	// (Scene 1) List
 		
 		levelsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, director.width, director.height ).
@@ -200,9 +206,9 @@
 		// List - text
 		game.UI.listStr = new CAAT.Foundation.UI.TextActor( ).
 			setText( game.getStatus() ).
-			setFont( "20px "+game.options.font ).
+			setFont( game.options.fontAlt ).
 			setTextFillStyle( "black" ).
-			setLocation( director.width/2, 130 );
+			setLocation( 10+director.width/2, 120 );
 		
 		levelsScene.bg.addChild( game.UI.listStr );
 		

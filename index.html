@@ -24,15 +24,18 @@
 	<script type="text/javascript" src="js/mage.js"></script>
 	<script type="text/javascript" src="js/menu.js"></script>
 	<script type="text/javascript" src="js/game.js"></script>
-	<script type="text/javascript" src="js/main.js"></script>	
+	<script type="text/javascript" src="js/main.js"></script>
+	<style type="text/css" media="screen">
+		@font-face {
+			font-family: 'fof';
+			font-style: normal;
+			font-weight: 400;
+			src: url( 'lib/fof.ttf' );
+		}
+	</style>
 </head>
 <body>
-	<body bgcolor="#999" style="margin:0; padding:0; text-align: center" >
-		<canvas id="game" style="border: 1px solid; overflow:hidden; left:0%; top:0%; width:900px; height:600px" screencanvas='true'></canvas>
-		<!-- NOTA: Questo file serve solo per provare il gioco su device!
-			1- rinomina questo file 
-			2- mettilo al livello delle directory OrcTech-CAAGE e aoqtd-tap-game
-			3- comprimi tutto e fai l'uplad al device
-		-->
+	<body bgcolor="#999">
+		<canvas id="game"></canvas>
 	</body>
 </html>

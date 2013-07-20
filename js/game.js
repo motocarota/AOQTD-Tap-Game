@@ -251,6 +251,7 @@
 			var score = Math.floor( game.player.hp / 50 )+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
+				game.status.gold += game.player.gold;
 				game.save();
 			}
 			endgameScene.label.setText( "WIN, hai fatto "+score+" stelle, GG" );

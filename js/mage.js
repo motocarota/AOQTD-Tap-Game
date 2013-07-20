@@ -7,6 +7,7 @@
 		this.x = 140;
 		this.y = 120;
 		
+		this.gold = 0;
 		this.mana = 100;
 		this.targetSpell = 0;
 		this.item = { charges : 0 };

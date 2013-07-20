@@ -5,6 +5,14 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
+CAPIRE perche' non mi aumenta il gold
+RIFARE i cazzo di pulsanti degli incantesimi
+
+( GRAPHICS )
+
+	* mostri, spell, livelli
+	* UI e menu +fonts
+
 ( GAME )
 
 	* rivedere il game over, sia win che die

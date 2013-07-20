@@ -11,7 +11,9 @@ function setupOptions( ) {
 		tick_mana: 			4,
 		global_cooldown :	40,
 		volume :			10,
-		font :				"Arial",
+		font :				'50px fof',
+		fontAlt : 			'50px md',
+			
 		dropChance: 		50,
 		player: {
 			
