@@ -5,6 +5,11 @@
 		_MAX_BAR_HEIGHT = 23,
 		_MAX_BAR_WIDTH = 382;
 	
+	game.data = {
+		xpToLevel: function(){ return ( ( 2 * game.status.level ) + 1 ) * 1000; }
+	};
+	
+	
 	game.status = {
 		xp:		0,
 		gold: 	0,
@@ -81,20 +86,18 @@
 		//UI - Spell Buttons
 		game.UI.spellsBtn = [];
 		for ( var i=0; i < game.spellList.length; i++ ) {
-			game.UI.spellsBtn[i] = new CAAT.Foundation.Actor( ).
-				setLocation( 30+i*120, director.height-70 ).
-				// setAsButton( 
-				// 	game.UI.icons,
-				// 	i, i, i+5, i+10, 
-				// 	loopHelper( i ) );
+			if ( game.status.level / 2 > i ) {
+				game.UI.spellsBtn[i] = new CAAT.Foundation.Actor( ).
+					setLocation( 30+i*120, director.height-70 ).
+					setBackgroundImage( game.UI.icons ).
+					enableEvents( true ).
+					setSpriteIndex( i );
 				
-				setBackgroundImage( game.UI.icons ).
-				enableEvents( true ).
-				setSpriteIndex( i );
-				
-			game.UI.spellsBtn[i].mouseDown = loopHelper( i );
-			// function( ev ) { loopHelper( i ); };
-			gameScene.addChild( game.UI.spellsBtn[i] );
+				game.UI.spellsBtn[i].mouseDown = loopHelper( i );
+				gameScene.addChild( game.UI.spellsBtn[i] );
+			} else {
+				if ( _DEBUG ) CAAT.log("[Game] Non puoi lanciare incantesimi di liv"+i+" dato che sei di "+game.status.level)
+			}
 		};
 		
 		function loopHelper( i ) {

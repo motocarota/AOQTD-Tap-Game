@@ -1,5 +1,5 @@
 game.spellBook = {
-	'magic missile':{
+	'Magic Missile':{
 
 		level: 			1,
 		cost: 			10,
@@ -57,7 +57,7 @@ game.spellBook = {
 		}
 	},
 	
-	'fireball': {
+	'Fireball': {
 		level: 			3,
 		cost: 			30, 
 		element: 		"fire",
@@ -106,7 +106,7 @@ game.spellBook = {
 		}
 	},
 	//TODO risistemare
-	'lightning': {
+	'Lightning Storm': {
 		level: 			3,
 		cost: 			10, 
 		element: 		"nature",
@@ -152,7 +152,7 @@ game.spellBook = {
 		level: 0
 	}
 };
-game.spellList = [ 'magic missile', 'fireball', 'lightning', 'abc', 'def' ];
+game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning Storm', 'Horrid Wilting' ];
 
 //NOTA gia' meglio ma non mi garantisce l'ordine
 // game.spellList = Object.keys( game.spellBook );

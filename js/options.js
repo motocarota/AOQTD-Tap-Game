@@ -12,7 +12,7 @@ function setupOptions( ) {
 		global_cooldown :	40,
 		volume :			10,
 		font :				'50px fof',
-		fontAlt : 			'50px md',
+		fontAlt : 			'40px md',
 			
 		dropChance: 		50,
 		player: {

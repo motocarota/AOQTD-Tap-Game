@@ -209,7 +209,8 @@
 			setText( game.getStatus() ).
 			setFont( game.options.fontAlt ).
 			setTextFillStyle( "black" ).
-			setLocation( 10+director.width/2, 120 );
+			setTextAlign( 'right' ).
+			setLocation( director.width-30, 130 );
 		
 		levelsScene.bg.addChild( game.UI.listStr );
 		
@@ -312,6 +313,8 @@
 				}
 			}
 		};
+		//UPDATE list String, too
+		game.UI.listStr.setText( game.getStatus() );
 	};
 	
 	function helper( i ) {
