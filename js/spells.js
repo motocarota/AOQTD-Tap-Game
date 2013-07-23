@@ -152,7 +152,7 @@ game.spellBook = {
 		level: 0
 	}
 };
-game.spellList = [ 'magic missile', 'fireball', 'lightning' ];
+game.spellList = [ 'magic missile', 'fireball', 'lightning', 'abc', 'def' ];
 
 //NOTA gia' meglio ma non mi garantisce l'ordine
 // game.spellList = Object.keys( game.spellBook );

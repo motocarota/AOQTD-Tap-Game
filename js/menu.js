@@ -27,9 +27,10 @@
 		// UI - Strings and Bars
 		game.UI = {
 			emptySprite :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
-			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 4 ),
+			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 5 ),
 			emptyBar :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty-bar' ), 1, 1 ),
-			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 )
+			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 ),
+			icons: 			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 )
 		};
 		
 
@@ -55,7 +56,7 @@
 				setPositionAnchor( 0.5, 0.5 ).
 				setAsButton( 
 					game.UI.btns,
-					1, 1, 5, 5, 
+					1, 1, 6, 6, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Menu] Play (List)' );
 						game.load();
@@ -71,7 +72,7 @@
 				setFont( game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign('right').
-				setLocation( director.width-80, 250 ).
+				setLocation( director.width-80, 300 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
@@ -88,7 +89,7 @@
 				setFont( game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign('right').
-				setLocation( director.width-80, 350 ).
+				setLocation( director.width-80, 400 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
@@ -104,7 +105,7 @@
 			setFont( game.options.font ).
 			setTextFillStyle( "red" ).
 			setTextAlign('right').
-			setLocation( director.width-80, 300 ).
+			setLocation( director.width-80, 200 ).
 			setVisible( false ).
 			setAsButton( 
 				null, 1, 2, 3, 4, 

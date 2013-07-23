@@ -72,7 +72,6 @@
 		
 		//Player
 		game.player = new CAAT.Mage( );
-		//TODO
 		game.player.add();
 		game.killCount = 0;
 		
@@ -80,33 +79,31 @@
 		game.spells = [];
 		
 		//UI - Spell Buttons
-		var btn = [];
-		btn[0] = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
-				1, 1, 1, 1, 
-				function( button ){ game.player.notify( spellIndex-- ); } ).
-			setLocation( 50, 530 );
-			
-		btn[1] = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
-				2, 2, 2, 2,
-				function( button ){ game.player.notify( spellIndex++ ); } ).
-			setLocation( 250, 530 );
+		game.UI.spellsBtn = [];
+		for ( var i=0; i < game.spellList.length; i++ ) {
+			game.UI.spellsBtn[i] = new CAAT.Foundation.Actor( ).
+				setLocation( 30+i*120, director.height-70 ).
+				// setAsButton( 
+				// 	game.UI.icons,
+				// 	i, i, i+5, i+10, 
+				// 	loopHelper( i ) );
 				
-		btn[2] = new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 1, 4 ),
-				0, 0, 0, 0,
-				function( button ){
-					new CAAT.Enemy( ).add( game.enemiesList[ roll( 1, game.enemiesList.length ) -1 ] );
-				} ).
-			setLocation( 650, 530 );
-
-		gameScene.addChild( btn[0] );
-		gameScene.addChild( btn[1] );
-		gameScene.addChild( btn[2] );
+				setBackgroundImage( game.UI.icons ).
+				enableEvents( true ).
+				setSpriteIndex( i );
+				
+			game.UI.spellsBtn[i].mouseDown = loopHelper( i );
+			// function( ev ) { loopHelper( i ); };
+			gameScene.addChild( game.UI.spellsBtn[i] );
+		};
+		
+		function loopHelper( i ) {
+			return function( button ) {
+				CAAT.log( "[Game] you choose this spell: ",game.spellList[i] )
+				spellIndex = i;
+				game.refreshSpellsBtn();
+			}
+		}
 		
 		// Pause game Button
 		gameScene.addChild(
@@ -115,10 +112,11 @@
 				setPositionAnchor( 0.5, 0.5 ).
 				setAsButton( 
 					game.UI.btns,
-					0, 0, 4, 4, 
+					0, 0, 5, 5, 
 					function( button ){ 
 						if( _DEBUG ) CAAT.log('[Game] Paused' );
 						// director.switchToScene( 0, 2000, false, true );
+						//TODO passare a menu slideTo( 2, ... )
 						director.easeInOut(
 							0,
 							CAAT.Foundation.Scene.EASE_TRANSLATE,
@@ -138,13 +136,13 @@
 		gameScene.addChild( new CAAT.Foundation.Actor( ).
 			setAsButton( 
 				game.UI.btns,
-				3, 3, 7, 7, 
+				3, 3, 8, 8, 
 				function( button ){ 
 					CAAT.log('[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
 					gameScene.setPaused( !gameScene.paused );
 				} ).
-			setPositionAnchor( 0.5, 0 ).
-			setLocation( 20, 40 )
+			setPositionAnchor( 0, 0 ).
+			setLocation( 40, 40 )
 		);
 		
 		// Main string
@@ -234,6 +232,8 @@
 		}
 		
 		//UPDATE UI
+		game.refreshSpellsBtn();
+		
 		game.UI.hpBar.setSize( game.player.hp / 100 * _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 			setLocation( 500 - ( game.player.hp - 100 ) / 100 * _MAX_BAR_WIDTH, 9 );
 			
@@ -259,5 +259,15 @@
 			endgameScene.label.setText( "SCEMO, hai perso! ci godo!" );
 		}
 	}
-
+	
+	game.refreshSpellsBtn = function( ) {
+		
+		for ( var id=0; id < game.UI.spellsBtn.length; id++ ) {
+			if( id === spellIndex )
+				game.UI.spellsBtn[id].setSpriteIndex( id+5 );
+			else
+				game.UI.spellsBtn[id].setSpriteIndex( id );
+		};
+	}
+	
 } )( );
