@@ -215,7 +215,7 @@
 		//Report - Events		
 		reportScene.bg.mouseDown = function( ev ) {
 			if( _DEBUG ) CAAT.log( '[Report] Menu' );
-			menu.slideTo( LIST_SCENE_ID, false, true );
+			menu.slideTo( LIST_SCENE_ID, false, false );
 		};
 		
 		menu.updateReport = function( victory, score ) {
@@ -224,12 +224,12 @@
 			if( victory ){
 				reportScene.bg.setBackgroundImage( director.getImage( 'eg-win' ), false );
 				reportScene.goldLabel.
-					// setText( "+"+game.player.gold ).
-					setText( game.status.gold ).
+					setText( "+"+game.player.gold ). //gold gained
+					// setText( game.status.gold ).
 					setVisible( true );
 				reportScene.xpLabel.
-					// setText( "+"+game.player.xp );
-					setText( game.status.xp );
+					setText( "+"+game.player.xp ); //experience gained
+					// setText( game.status.xp );
 				reportScene.starsImg.
 					setVisible( true ).
 					setSpriteIndex( score-1 );

@@ -3,7 +3,7 @@
 	var _DEBUG = false,
 		_FILE_VERSION = 1001,
 		_MAX_BAR_HEIGHT = 22,
-		_MAX_BAR_WIDTH = 380;
+		_MAX_BAR_WIDTH = 345;
 	
 	game.status = {
 		xp:		0,
@@ -141,7 +141,7 @@
 		
 		// Player bars
 		game.UI.hpBar = new CAAT.Foundation.UI.ShapeActor( ).
-				setLocation( 43, 15 ).
+				setLocation( 78, 15 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#f55' ).
 				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
@@ -149,21 +149,35 @@
 				setStrokeStyle( '#fff' );
 		
 		game.UI.manaBar = new CAAT.Foundation.UI.ShapeActor( ).
-				setLocation( 43, 35 ).
+				setLocation( 78, 35 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#79f' ).
 				setShape( CAAT.Foundation.UI.ShapeActor.SHAPE_RECTANGLE ).
 				enableEvents( false ).
 				setStrokeStyle( '#fff' );
-	
-		var emptyBar = new CAAT.Foundation.Actor( ).
-			enableEvents( false ).
-			setLocation( 10, 0 ).
-			setBackgroundImage( game.UI.infoCharBg );
-			
+		
 		gameScene.addChild( game.UI.hpBar );
 		gameScene.addChild( game.UI.manaBar );
-		gameScene.addChild( emptyBar );
+		//UI - Player Info
+		
+		//empty bar
+		gameScene.addChild( new CAAT.Foundation.Actor( ).
+			enableEvents( false ).
+			setLocation( 10, 0 ).
+			setBackgroundImage( game.UI.infoCharBg ) 
+		);
+		
+		//level
+		gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
+			setText( game.status.level ).
+			setFont( game.options.font ).
+			setTextFillStyle( "white" ).
+			setTextAlign( 'center' ).
+			setLocation( 53, -10 )
+		);
+		//bg
+		//xp
+		//gold
 		
 		if ( _DEBUG ) {
 			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).
