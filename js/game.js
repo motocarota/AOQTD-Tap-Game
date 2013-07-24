@@ -12,18 +12,18 @@
 		scores:	[ ]
 	};
 	
-	game.getStatus = function() {
+	game.getStatus = function( ) {
 		var s = game.status;
 		var str = "Level "+s.level+"   XP "+s.xp+"   Gold "+s.gold;
 		if ( _DEBUG ) CAAT.log( str );
 		return str;
 	};
 	
-	game.save = function() {
+	game.save = function( ) {
 		localStorage.setItem( "status", JSON.stringify( this.status ) );
 	};
 	
-	game.load = function() {
+	game.load = function( ) {
 		
 		var info = {
 			xp:		0,
@@ -60,11 +60,11 @@
 		gameScene.addChild( game.bg );
 		
 		game.bg.addChild( 
-			new CAAT.Foundation.Actor().
+			new CAAT.Foundation.Actor( ).
 				setBounds( 0, 0, director.width, director.height ).
 				setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg-'+level ), 1, 1 ) ).
 				enableEvents( false )	
-		);
+		 );
 		
 		game.bg.mouseDown = function( ev ) {
 			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
@@ -72,7 +72,7 @@
 		
 		//Player
 		game.player = new CAAT.Mage( );
-		game.player.add();
+		game.player.add( );
 		game.killCount = 0;
 		
 		game.enemies = [];
@@ -91,7 +91,7 @@
 				game.UI.spellsBtn[i].mouseDown = loopHelper( i );
 				gameScene.addChild( game.UI.spellsBtn[i] );
 			} else {
-				if ( _DEBUG ) CAAT.log("[Game] You can't cast "+game.spellList[i]+"! you are level "+game.status.level)
+				if ( _DEBUG ) CAAT.log( "[Game] You can't cast "+game.spellList[i]+"! you are level "+game.status.level )
 			}
 		};
 		
@@ -99,23 +99,23 @@
 			return function( button ) {
 				CAAT.log( "[Game] you choose this spell: ",game.spellList[i] )
 				spellIndex = i;
-				game.refreshSpellsBtn();
+				game.refreshSpellsBtn( );
 			}
 		}
 		
 		// Pause game Button
-		gameScene.addChild(
+		gameScene.addChild( 
 			new CAAT.Foundation.Actor( ).
-				setLocation( (director.width/2)-15, 8 ).
+				setLocation( ( director.width/2 )-15, 8 ).
 				setPositionAnchor( 0, 0 ).
 				setAsButton( 
 					game.UI.btns,
 					0, 0, 5, 5, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log('[Game] Paused' );
+						if( _DEBUG ) CAAT.log( '[Game] Paused' );
 						menu.slideTo( 0, true, true ); //MENU_SCENE_ID
 					} ) 
-		);
+		 );
 		
 		// Lock game Button - rimuovere
 		gameScene.addChild( new CAAT.Foundation.Actor( ).
@@ -123,24 +123,24 @@
 				game.UI.btns,
 				3, 3, 8, 8, 
 				function( button ){ 
-					CAAT.log('[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
+					CAAT.log( '[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
 					gameScene.setPaused( !gameScene.paused );
 				} ).
 			setPositionAnchor( 0, 0 ).
 			setLocation( 40, 40 )
-		);
+		 );
 		
 		// Main string
 		game.UI.mainString = new CAAT.Foundation.UI.TextActor( ).
 			setText( "" ).
 			setFont( "30px "+game.options.font ).
 			setTextFillStyle( "red" ).
-			setTextAlign('center').
+			setTextAlign( 'center' ).
 			setLocation( director.width/2, 80 );
 		gameScene.addChild( game.UI.mainString );
 		
 		// Player bars
-		game.UI.hpBar = new CAAT.Foundation.UI.ShapeActor().
+		game.UI.hpBar = new CAAT.Foundation.UI.ShapeActor( ).
 				setLocation( 43, 15 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#f55' ).
@@ -148,7 +148,7 @@
 				enableEvents( false ).
 				setStrokeStyle( '#fff' );
 		
-		game.UI.manaBar = new CAAT.Foundation.UI.ShapeActor().
+		game.UI.manaBar = new CAAT.Foundation.UI.ShapeActor( ).
 				setLocation( 43, 35 ).
 				setSize( _MAX_BAR_WIDTH, _MAX_BAR_HEIGHT ).
 				setFillStyle( '#79f' ).
@@ -156,7 +156,7 @@
 				enableEvents( false ).
 				setStrokeStyle( '#fff' );
 	
-		var emptyBar = new CAAT.Foundation.Actor().
+		var emptyBar = new CAAT.Foundation.Actor( ).
 			enableEvents( false ).
 			setLocation( 10, 0 ).
 			setBackgroundImage( game.UI.infoCharBg );
@@ -169,7 +169,7 @@
 			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).
 				setText( "file version: "+_FILE_VERSION ).
 				setFont( "20px arial" ).
-				setTextAlign('right').
+				setTextAlign( 'right' ).
 				setLocation( director.width-5, director.height-25 );
 
 			gameScene.addChild( game.UI.debugString );
@@ -177,33 +177,33 @@
 				
 		//Timers
 		game.time = game.options.global_cooldown;
-		game.mainTimer = gameScene.createTimer(
+		game.mainTimer = gameScene.createTimer( 
 			0,
 			Number.MAX_VALUE, 
 			null,
-			function(){ 
+			function( ){ 
 				if( game.time-- < 0 ) {
-					game.tick();
+					game.tick( );
 					game.time = game.options.global_cooldown;
 				} 
 			},
 			null 
-		);
+		 );
 	};
 	
-	game.tick = function() {
+	game.tick = function( ) {
 		
 		//UPDATE PLAYER
-		game.player.tick();
+		game.player.tick( );
 		
 		//UPDATE ENEMIES
 		for ( e in game.enemies ) {
-			game.enemies[ e ].tick();
+			game.enemies[ e ].tick( );
 		}
 		
 		// Enemies generation
 		if ( game.enemies.length < game.options.enemies.maxNumber && 
-			Math.random() < ( game.options.enemies.spawnRate || 0.2 ) ) {
+			Math.random( ) < ( game.options.enemies.spawnRate || 0.2 ) ) {
 			var enemy = new CAAT.Enemy( );
 			enemy.add( game.enemiesList[ roll( game.enemiesList ) ] );
 			enemy.target = game.roots;
@@ -211,7 +211,7 @@
 		}
 		
 		//UPDATE UI
-		game.refreshSpellsBtn();
+		game.refreshSpellsBtn( );
 		
 		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / 100, _MAX_BAR_HEIGHT );
 		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / 100, _MAX_BAR_HEIGHT );
@@ -229,13 +229,13 @@
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
 				game.status.gold += game.player.gold;
-				game.save();
+				game.save( );
 			}
 		} else {
 			//NOTA in caso di sconfitta prendi meta' dei px
 			game.player.xp = game.player.xp/2;
 		}
-		menu.updateEndgame( victory, score );
+		menu.updateReport( victory, score );
 	};
 	
 	game.refreshSpellsBtn = function( ) {
@@ -256,13 +256,13 @@
 		}
 	};
 	
-	game.checkLevelUp = function () {
+	game.checkLevelUp = function ( ) {
 		
 		if ( !is( "Number", game.player.xp ) ){
-			CAAT.log('[Game] warning: error with xp gained format');
+			CAAT.log( '[Game] warning: error with xp gained format' );
 		}
 		if ( !is( "Number", game.status.xp ) || !is( "Number", game.status.level ) ) {
-			CAAT.log('[Game] warning: error with xp / level format');
+			CAAT.log( '[Game] warning: error with xp / level format' );
 			game.status.xp = 0;
 			game.status.level = 1;
 		}
@@ -273,10 +273,10 @@
 		if ( delta > 0 ) {
 			game.status.xp = delta;
 			game.status.level++;
-			game.save();
+			game.save( );
 			return true;
 		} else {
-			game.save();
+			game.save( );
 			return false;
 		}
 	}

@@ -169,4 +169,4 @@ luci fatue
 ## BUGS
 
 * impostare lo z-index dei nemici = director.height - y
-* alcuni nemici (tipo i lupi) sembrano in grado di attaccare anche da distante
+* alcuni nemici sembrano in grado di attaccare anche da subito

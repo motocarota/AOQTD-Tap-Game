@@ -13,6 +13,7 @@ function setupOptions( ) {
 		volume :			10,
 		font :				'50px fof',
 		fontAlt : 			'40px md',
+		fontBig : 			'70px md',
 			
 		dropChance: 		50,
 		player: {

@@ -93,7 +93,6 @@
 				if ( this.cooldowns[ c ] && this.cooldowns[ c ] > 0 ) 
 					this.cooldowns[ c ]--;
 				else {
-					// this.cooldowns[ c ] = null;
 					delete this.cooldowns[ c ];
 				}
 			}
@@ -113,8 +112,8 @@
 	// Roots e' l'elemento che i nemici attaccheranno per abbattere l'albero su cui e' superdrow
 	game.roots = {
 		
-		x: 75, y: 250,
-		height: 250, width: 50,
+		x: 70, y: 250,
+		height: 280, width: 50,
 		
 		damage : function( amount, element ) {
 			
