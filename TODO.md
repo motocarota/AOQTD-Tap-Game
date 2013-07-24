@@ -5,14 +5,10 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
-CAPIRE perche' non mi aumenta il gold
-RIFARE i cazzo di pulsanti degli incantesimi
-
 ( GRAPHICS )
 
 	* mostri, spell, livelli
-	* UI e menu +fonts
-
+	
 ( GAME )
 
 	* rivedere il game over, sia win che die
@@ -54,8 +50,6 @@ RIFARE i cazzo di pulsanti degli incantesimi
 			{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
 		];
 
-
-
 ## LISTA SCENE
 
 main 		[ info, help, levels ]
@@ -71,14 +65,9 @@ endgame		[ list ]
 * pergamene
 * bacchette
 * gold
-
+* xp
 
 ## INCANTESIMI
-
-Come funzionano:
-	Con un tap si lancia il dardo incantato: basso costo, no cooldown
-	Poi quando si ricevono incantesimi nuovi si ha una serie di pulsanti in basso
-	Select spell -> cast spell -> [ se ha cd ] autoselect dardo incantato
 
 Livello 1
 	* Dardo incantato	1d6 no cd
@@ -180,3 +169,4 @@ luci fatue
 ## BUGS
 
 * impostare lo z-index dei nemici = director.height - y
+* alcuni nemici (tipo i lupi) sembrano in grado di attaccare anche da distante

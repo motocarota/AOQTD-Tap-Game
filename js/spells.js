@@ -148,8 +148,9 @@ game.spellBook = {
 		}
 	},
 	
-	"unknown": {
-		level: 0
+	"Acid Arrow": {
+		cooldown: 3,
+		cost: 1
 	}
 };
 game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning Storm', 'Horrid Wilting' ];

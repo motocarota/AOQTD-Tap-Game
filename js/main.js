@@ -15,16 +15,20 @@
 			//debug base sprite for animations
 			//UI
 			addElement( "icons",		"img/UI/icons.png" ).
-			
 			addElement( "list-bg",		"img/UI/list-bg.png" ).
 			addElement( "list-btns",	"img/UI/list-btns.png" ).
 			addElement( "list-stars",	"img/UI/list-stars.png" ).
 			
 			addElement( "game-btns",	"img/UI/game-btns.png" ).
-			addElement( "empty-bar",	"img/UI/empty-bar.png" ).
+			addElement( "info-char-bg",	"img/UI/info-char-bg.png" ).
 			addElement( "items",		"img/sprites/items.png" ).
+			
+			//splash screens
 			addElement( "cover",		"img/aoqtd-cover.png" ).
 			addElement( "splash",		"img/splash/splash0.jpg" ).
+			addElement( "eg-win",		"img/splash/endgame-win.png" ).
+			addElement( "eg-die",		"img/splash/endgame-die.png" ).
+			
 			//backgrounds
 			addElement( "bg",			"img/bg.png" ).
 			addElement( "bg-1",			"img/bg/1.png" ).

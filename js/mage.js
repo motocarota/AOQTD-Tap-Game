@@ -7,6 +7,7 @@
 		this.x = 140;
 		this.y = 120;
 		
+		this.xp = 0;
 		this.gold = 0;
 		this.mana = 100;
 		this.targetSpell = 0;
@@ -89,16 +90,16 @@
 		tick : function () {
 			
 			for ( c in this.cooldowns ){
-				this.cooldowns[ c ]--;
+				if ( this.cooldowns[ c ] && this.cooldowns[ c ] > 0 ) 
+					this.cooldowns[ c ]--;
+				else {
+					// this.cooldowns[ c ] = null;
+					delete this.cooldowns[ c ];
+				}
 			}
 			this.mana = ( this.mana < game.options.max_mana ) ? 
 				this.mana + game.options.tick_mana : 
 				game.options.max_mana;
-		},
-		
-		win: function() {
-			
-			game.over( true );
 		},
 		
 		die: function() {

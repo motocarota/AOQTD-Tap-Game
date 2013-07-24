@@ -1,12 +1,37 @@
-game.dropList = [ 'lifePotion', 'manaPotion', 'scroll', 'wand', 'coins' ];
+game.dropList = [ 'xp', 'lifePotion', 'manaPotion', 'scroll', 'wand', 'coins' ];
 game.dropTable = {
 
+	smallXp : {
+		imageId: 0,
+		effect : function(){ 
+			var amt = 5*roll( 1, 3 );
+			game.player.notify( 'You gain '+amt+' xp' );
+			game.player.xp+= amt; 
+		}
+	},
+	xp : {
+		imageId: 0,
+		effect : function(){ 
+			var amt = 10*roll( 1, 5, 4 );
+			game.player.notify( 'You gain '+amt+' xp' );
+			game.player.xp+= amt; 
+		}
+	},
+	bigXp : {
+		imageId: 0,
+		effect : function(){ 
+			var amt = 50*roll( 1, 6, 1 );
+			game.player.notify( 'You gain '+amt+' xp' );
+			game.player.xp+= amt; 
+		}
+	},
+	
 	coins : {
 		imageId: 5,
 		effect : function(){ 
 			var amount = roll( this.level, 6, 1 );
 			game.player.notify( 'You Loot '+amount+' gold coins' );
-			game.status.gold+= amount; 
+			game.player.gold+= amount; 
 		}
 	},
 	
