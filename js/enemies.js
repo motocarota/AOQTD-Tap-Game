@@ -3,7 +3,7 @@
 game.enemiesTable = [
 	null,
 	[ 'kobold' ],
-	[ 'bat' ],
+	[ 'troll' ],
 	[ 'wolf' ],
 	[ 'kobold', 'bat' ],
 	[ 'kobold', 'wolf' ],
@@ -34,11 +34,28 @@ game.enemiesBook = {
 			attack: {
 				frames: [5,6,7,8,6,5], duration: 150
 			}
-		},
-		// ,
-		// 		damageFilter: function( amount ) {
-		// 			return amount + 2;
-		// 		}
+		}
+	},
+	
+	troll: {
+		level: 5,
+		speed: 0.7,
+		frameW: 3, 
+		frameH: 3,
+		dropTable: [
+			{ chance: 50, id: 'bigXp', qty: (roll()) }
+		],
+		animations: {
+			walk: {
+				frames: [2,2,0,3,3,1], duration: 200
+			},
+			stand: {
+				frames: [0,1], duration: 200
+			},
+			attack: {
+				frames: [4, 5, 6], duration: 150
+			}
+		}
 	},
 	
 	bat: {

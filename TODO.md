@@ -20,8 +20,6 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( UI )
 
-	* rifare l'immagine dei pulsanti in modo da posizionarli correttamente
-	* trovare / farsi un font custom
 	* cooldown / xp / livello / px / gold / Banner
 	* Suoni 
 	* Musica
@@ -69,40 +67,21 @@ endgame		[ list ]
 
 ## INCANTESIMI
 
-Livello 1
-	* Dardo incantato	1d6 no cd
-	* Sonno
-	* Unto
-
-Livello 2
-	* Raggio infuocato	4d6 cd medio-breve
-	* Freccia Acida		6d4 dot, cd breve
-	* 
-
-Livello 3
-	* Palla di Fuoco	10d6 cd medio 
-	* Confusione		
-	* Fulmine			10d6 cd medio
-
-Livello 4
-	* Muro di pietra
-	* Tempesta di ghiaccio
-	* Velocita'
-
-Livello 5
-	* Dito della morte
-	* Dominare Mostri
+	* Dardo incantato ( sprite, data )
+	* Freccia Acida (sprite)
+	* Palla di Fuoco 
 	* Catena di Fulmini
+	* Orrido avvizzimento
 
 ## LISTA MOSTRI
 
 con implementazione
-						stand	walk	att		stun	data
+					stand	walk	att		stun	data
 ----------------------------------------------------------------livello 1						
 Kobold				ok		ok		ok				ok
 Goblin
 Orco
-Troll
+Troll				ok		ok		ok
 
 zombie
 scheletro
@@ -170,3 +149,5 @@ luci fatue
 
 * impostare lo z-index dei nemici = director.height - y
 * alcuni nemici sembrano in grado di attaccare anche da subito
+* alcuni nemici camminano in eterno
+* su android non mi mostra il font custom

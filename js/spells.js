@@ -114,7 +114,7 @@ game.spellBook = {
 		
 		travel: {
 			rotation: 		false,
-			duration: 		500,
+			duration: 		250,
 			image : {
 				name : "lightning",
 				frame: {
@@ -150,7 +150,41 @@ game.spellBook = {
 	
 	"Acid Arrow": {
 		cooldown: 3,
-		cost: 1
+		cost: 1,
+		travel : {
+			duration: 		600,
+			path: 			null,
+			interpolator: 	null,
+			rotation: 		false, 
+			image: {
+				name: 		'aarrow', 
+				frame: 		{ h: 4, w: 1 }
+			},
+			animation: {
+				frames: 	[0, 1, 2],
+				duration: 	100
+			}
+		},
+		initEffect : function(  ){
+			return [
+				null,
+				function( target ){
+					target && target.damage( roll( 2, 6, 1, 2 ), 'acid' );
+					//target slow
+					//target dot
+					return true;
+				}
+			];
+		},
+
+		initPath: function ( x, y ) {
+			return [ 
+				//TODO rivedere la curva per distanze ravvicinate (tipo quando si mira sotto il pg)
+				new CAAT.PathUtil.CurvePath( ).
+					setQuadric( game.player.x, game.player.y, WW/2, 0, x, y ),
+				null
+			]
+		}
 	}
 };
 game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning Storm', 'Horrid Wilting' ];

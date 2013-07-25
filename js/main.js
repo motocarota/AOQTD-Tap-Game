@@ -31,32 +31,34 @@
 			
 			//backgrounds
 			addElement( "bg",			"img/bg.png" ).
-			addElement( "bg-1",			"img/bg/1.png" ).
+			// addElement( "bg-1",			"img/bg/1.png" ).
 			// addElement( "bg-2",			"img/bg/2.jpeg" ).
 			// addElement( "bg-3",			"img/bg/3.jpeg" ).
-			// addElement( "bg-4",			"img/bg/4.jpeg" ).
+			addElement( "bg-4",			"img/bg/4.jpeg" ).
 			addElement( "bg-5",			"img/bg/5.jpeg" ).
 			addElement( "bg-6",			"img/bg/6.jpeg" ).
 			addElement( "bg-7",			"img/bg/7.jpeg" ).
 			
-			addElement( "bg-2",		"img/bg/level-1.png" ).
-			addElement( "bg-3",		"img/bg/level-2.png" ).
-			addElement( "bg-4",		"img/bg/level-3.png" ).
+			addElement( "bg-1",		"img/bg/level-1.png" ).
+			addElement( "bg-2",		"img/bg/level-2.png" ).
+			addElement( "bg-3",		"img/bg/level-3.png" ).
 			
 			//player
 			addElement( "tree",			"img/sprites/tree.png" ).
 			addElement( "player",		"img/sprites/sd2.png" ).
 			//spells
 			addElement( "mmissile",		"img/sprites/magic_missile.png" ).
+			addElement( "aarrow",	"img/sprites/acid_arrow.png" ).
 			addElement( "lightning",	"img/sprites/lightning.png" ).
 			addElement( "fireball",		"img/sprites/fireball.png" ).
 			addElement( "fb-splash",	"img/sprites/fireball-splash.png" ).
 			addElement( "spell",		"img/sprites/sprite.png" ).
 			//monsters
+			addElement( "kobold",		"img/sprites/kobold.png" ).
+			addElement( "troll",		"img/sprites/troll.png" ).
 			addElement( "bat",			"img/sprites/bat.png" ).
 			addElement( "wolf",			"img/sprites/wolf.png" ).
 			addElement( "dragon",		"img/sprites/dragon.png" ).
-			addElement( "kobold",		"img/sprites/kobold.png" ).
 			addElement( "zombie",		"img/sprites/zombie.png" ).
 			//other
 			addElement( "empty",		"img/empty.png" ).
