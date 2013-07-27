@@ -1,13 +1,14 @@
 // game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
 // enemies list verra' popolato a seconda del livello
+
 game.enemiesTable = [
 	null,
 	[ 'kobold' ],
 	[ 'troll' ],
-	[ 'wolf' ],
-	[ 'kobold', 'bat' ],
-	[ 'kobold', 'wolf' ],
-	[ 'kobold', 'bat', 'wolf', 'zombie' ],
+	[ 'gel_cube' ],
+	[ 'shadow' ],
+	[ 'kobold', 'troll' ],
+	[ 'kobold', 'troll', 'gel_cube', 'shadow' ],
 	[ 'dragon' ] 
 ];
 game.enemiesList = [];
@@ -58,17 +59,36 @@ game.enemiesBook = {
 		}
 	},
 	
-	bat: {
+	gel_cube: {
 		level:  3,
+		speed: .3,
+		frameW: 2,
+		animations: {
+			walk: {
+				frames: [0,1], duration: 400
+			}
+		},		
 		ai: function(){
 			game.player.notifyAt("hahaha", this);
 			this.move( 500, 300 );
 		}
 	},
 	
-	wolf: {
+	shadow: {
 		level:  2,
-		speed: .85
+		speed: .45,
+		frameW: 3, frameH: 2,
+		animations: {
+			walk: {
+				frames: [0,1,2,1], duration: 400
+			},
+			attack: {
+				frames: [3, 1, 4], duration: 150
+			},
+			stand: {
+				frames: [0], duration: 200
+			}
+		}
 	},
 	
 	zombie: {

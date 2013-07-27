@@ -56,8 +56,8 @@
 			//monsters
 			addElement( "kobold",		"img/sprites/kobold.png" ).
 			addElement( "troll",		"img/sprites/troll.png" ).
-			addElement( "bat",			"img/sprites/bat.png" ).
-			addElement( "wolf",			"img/sprites/wolf.png" ).
+			addElement( "shadow",		"img/sprites/shadow.png" ).
+			addElement( "gel_cube",		"img/sprites/gel_cube.png" ).
 			addElement( "dragon",		"img/sprites/dragon.png" ).
 			addElement( "zombie",		"img/sprites/zombie.png" ).
 			//other

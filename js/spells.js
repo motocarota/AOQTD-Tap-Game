@@ -65,7 +65,8 @@ game.spellBook = {
 		cooldown: 		5,
 		
 		travel : {
-			duration: 		1500,
+			duration: 		1200,
+			interpolator : new CAAT.Behavior.Interpolator( ).createExponentialInInterpolator( 3, false ),
 			image: 	{
 				name: 		'fireball'
 			}
@@ -84,8 +85,6 @@ game.spellBook = {
 				frames: [0,1,2,3,4,5], duration: 100
 			}
 		},
-		
-		interpolator : new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 5, false ),
 		
 		initEffect : function(  ){
 			var fx = function( target ){
@@ -152,17 +151,29 @@ game.spellBook = {
 		cooldown: 3,
 		cost: 1,
 		travel : {
-			duration: 		600,
+			duration: 		800,
 			path: 			null,
-			interpolator: 	null,
+			interpolator: 	new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 2, false ),
 			rotation: 		false, 
 			image: {
 				name: 		'aarrow', 
-				frame: 		{ h: 4, w: 1 }
+				frame: 		{ h: 3, w: 1 }
 			},
 			animation: {
 				frames: 	[0, 1, 2],
 				duration: 	100
+			}
+		},
+		splash: {
+			duration: 		1000,
+			rotation: 		1, 
+			image: {
+				name: 		'mmissile',
+				frame: 		{ h: 2, w: 3 }
+			},
+			animation: {
+				frames: 	[3, 4, 5],
+				duration: 	200
 			}
 		},
 		initEffect : function(  ){
@@ -175,15 +186,14 @@ game.spellBook = {
 					return true;
 				}
 			];
-		},
-
-		initPath: function ( x, y ) {
-			return [ 
-				//TODO rivedere la curva per distanze ravvicinate (tipo quando si mira sotto il pg)
-				new CAAT.PathUtil.CurvePath( ).
-					setQuadric( game.player.x, game.player.y, WW/2, 0, x, y ),
-				null
-			]
+		// },
+		// 
+		// initPath: function ( x, y ) {
+		// 	return [ 
+		// 		new CAAT.PathUtil.CurvePath( ).
+		// 			setQuadric( game.player.x, game.player.y, WW/2, 20, x, y ),
+		// 		null
+		// 	]
 		}
 	}
 };

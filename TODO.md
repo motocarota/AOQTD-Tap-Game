@@ -20,9 +20,8 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( UI )
 
-	* cooldown / xp / livello / px / gold / Banner
-	* Suoni 
-	* Musica
+	* xp / gold / Banner
+	* Suoni / Musica
 
 ( SPELL )
 
@@ -31,30 +30,24 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( ENEMIES )
 
-	* classi di mostro (undead, beast, construct)
-	* pensare a come implementare il boss fight
-		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
-
-( DOPO )
-
-* animazione iniziale?
-* Documentare il codice
-* rifare completamente il main.js per rispecchiare lo schema di sumon
-* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
-* Timer che genera i nemici in base al livello di gioco
+	* Timer che genera i nemici in base al livello di gioco
 		wave = [
 			{ time: null, n:2,  type:[ 'fey' ] }, 				// dopo random sec evoca 2 fey
 			{ time:  120, n:12, type:[ 'kobold', 'duck' ] }, 	// dopo 120 sec evoca 12 nemici tra koboldi e duck
 			{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
 		];
+	* classi di mostro (undead, beast, construct)
+	* pensare a come implementare il boss fight
+		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
+	
 
-## LISTA SCENE
+( DOPO )
 
-main 		[ info, help, levels ]
-info, help	[ main ]
-levels 		[ game(lev), main ]
-game 		[ main, levels, endgame ]
-endgame		[ list ]
+	* animazione iniziale?
+	* Documentare il codice
+	* rifare completamente il main.js per rispecchiare lo schema di sumon
+	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
+
 
 ## LISTA OGGETTI
 
@@ -67,11 +60,11 @@ endgame		[ list ]
 
 ## INCANTESIMI
 
-	* Dardo incantato ( sprite, data )
-	* Freccia Acida (sprite)
-	* Palla di Fuoco 
+	* Freccia Acida (dot)
+	* Palla di Fuoco (capovolgere esplosione)
 	* Catena di Fulmini
 	* Orrido avvizzimento
+	
 
 ## LISTA MOSTRI
 
@@ -88,6 +81,7 @@ scheletro
 ghoul
 mummia
 vampiro
+ombra
 
 cubo gelatinoso
 rakshaaza
