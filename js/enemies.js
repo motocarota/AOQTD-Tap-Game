@@ -99,8 +99,20 @@ game.enemiesBook = {
 	
 	dragon: {
 		element: "fire",
-		level: 8,
-		speed: .9,
+		level: 1,
+		speed: .6,
+		frameW: 3, frameH: 3,
+		animations: {
+			walk: {
+				frames: [3, 4, 5, 4], duration: 300
+			},
+			attack: {
+				frames: [6, 7, 8], duration: 150
+			},
+			stand: {
+				frames: [0, 1, 2, 1], duration: 200
+			}
+		},
 		damageFilter: function( amount, source ) {
 			var c = amount;
 			if ( this.element === source )

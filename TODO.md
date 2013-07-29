@@ -60,9 +60,10 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## INCANTESIMI
 
+	* Dardo Incantato (ok)
 	* Freccia Acida (dot)
 	* Palla di Fuoco (capovolgere esplosione)
-	* Catena di Fulmini
+	* ????
 	* Orrido avvizzimento
 	
 
@@ -70,7 +71,7 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 con implementazione
 					stand	walk	att		stun	data
-----------------------------------------------------------------livello 1						
+---------------------------------------------------------------- livello 1
 Kobold				ok		ok		ok				ok
 Goblin
 Orco

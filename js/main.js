@@ -48,17 +48,18 @@
 			addElement( "player",		"img/sprites/sd2.png" ).
 			//spells
 			addElement( "mmissile",		"img/sprites/magic_missile.png" ).
-			addElement( "aarrow",	"img/sprites/acid_arrow.png" ).
+			addElement( "aarrow",		"img/sprites/acid_arrow.png" ).
 			addElement( "lightning",	"img/sprites/lightning.png" ).
 			addElement( "fireball",		"img/sprites/fireball.png" ).
 			addElement( "fb-splash",	"img/sprites/fireball-splash.png" ).
 			addElement( "spell",		"img/sprites/sprite.png" ).
+			
 			//monsters
 			addElement( "kobold",		"img/sprites/kobold.png" ).
 			addElement( "troll",		"img/sprites/troll.png" ).
 			addElement( "shadow",		"img/sprites/shadow.png" ).
 			addElement( "gel_cube",		"img/sprites/gel_cube.png" ).
-			addElement( "dragon",		"img/sprites/dragon.png" ).
+			addElement( "dragon",		"img/sprites/orc.png" ).
 			addElement( "zombie",		"img/sprites/zombie.png" ).
 			//other
 			addElement( "empty",		"img/empty.png" ).
