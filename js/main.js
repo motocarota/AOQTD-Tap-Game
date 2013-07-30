@@ -2,10 +2,8 @@
 	
 	CAAT.DEBUG = 0;
 	var _DEBUG = false,
-		_FILE_VERSION = 1001,
-		_MAX_BAR_HEIGHT = 22,
-		_MAX_BAR_WIDTH = 380;
-		
+		_FILE_VERSION = 1001;
+			
 	window.spellIndex = 0;
 	window.addEventListener( 'load', load, false );
 	

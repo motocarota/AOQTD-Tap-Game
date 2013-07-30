@@ -1,4 +1,4 @@
-# [ AOQTD Tap Game ](http://www.simone-poggi.com/)
+# [ AOQTD Tap Game ] (http://www.simone-poggi.com/)
 
 L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
@@ -7,61 +7,46 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( GRAPHICS )
 
-	* mostri, spell, livelli
-	
-( GAME )
-
-	* rivedere il game over, sia win che die
-		mostrare statistiche 
-			numero di nemici uccisi
-			salute dell'albero
-			soldi presi
-			xp guadagnati
-
-( UI )
-
-	* xp / gold / Banner
+	* mostri
+	* spell
+		rivedere lo sprite del fulmine, farlo piu' lungo (alto almeno 900px)
+	* livelli
+		Cava del drago
+		Torre del mago
+		Piano astrale
+		
+	* xp / gold / banner
 	* Suoni / Musica
+	* rivedere il game over, sia win che die
+	* animazione iniziale
+		sd2 che spiega il suo piano e viene deriso
 
-( SPELL )
+( CODE )
 
-	* fare in modo di applicare gli effetti anche tramite travel, se sono definiti
-	* creare incantesimi (lista, implementazione, sprites)
-
-( ENEMIES )
-
+	* barra hp proporzionale alla % dei danni sulla vita
 	* Timer che genera i nemici in base al livello di gioco
 		wave = [
 			{ time: null, n:2,  type:[ 'fey' ] }, 				// dopo random sec evoca 2 fey
 			{ time:  120, n:12, type:[ 'kobold', 'duck' ] }, 	// dopo 120 sec evoca 12 nemici tra koboldi e duck
 			{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
 		];
-	* classi di mostro (undead, beast, construct)
-	* pensare a come implementare il boss fight
+	* classi di mostro (humanoid, undead, beast, construct)
+		hanno effetto sui dv, danni
+	* implementare il boss fight
 		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
 	
 
 ( DOPO )
 
-	* animazione iniziale?
-	* Documentare il codice
-	* rifare completamente il main.js per rispecchiare lo schema di sumon
+	* documentare il codice
+	* rifare main.js per rispecchiare lo schema di sumon
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
-
-## LISTA OGGETTI
-
-* monete
-* pozioni
-* pergamene
-* bacchette
-* gold
-* xp
 
 ## INCANTESIMI
 
 	* Dardo Incantato (ok)
-	* Freccia Acida (dot)
+	* Freccia Acida (implementare dot)
 	* Palla di Fuoco (capovolgere esplosione)
 	* ????
 	* Orrido avvizzimento
@@ -74,7 +59,7 @@ con implementazione
 ---------------------------------------------------------------- livello 1
 Kobold				ok		ok		ok				ok
 Goblin
-Orco
+Orco				ok		ok		ok
 Troll				ok		ok		ok
 
 zombie
@@ -99,45 +84,47 @@ luci fatue
 ## LISTA LIVELLI
 							bg			music
 ----
-	* Campagna
-	* Locanda / Arena
-	* Bosco Fatato
-	* Cava del Drago
-	* Torre del mago
-	* Vulcano
-	* Piano Astrale
+	* Campagna				ok
+	* Deserto				ok
+	* Neve			
+	* 		
+	* Torre del mago		
+	* Vulcano				
+	* Piano Astrale			
 
 ## BOSS	
 
-	* Demi-Lich : Invidia ( blu )
-		tristezza per il bene altrui, percepito come male proprio
-		- Piano Astrale / tutto assurdo e fuori dal tempo
+
+	* Ogre : Accidia ( verde )
+		torpore malinconico, inerzia nel vivere e nel compiere opere di bene
+		- Campagna, colline e pianure irlandesi
+
+	* Vermone gigante : Gola ( giallo )
+		abbandono ed esagerazione nei piaceri della tavola
+		- Deserto
+	
+	* ???? : Avarizia ( arancione )
+		scarsa disponibilità a spendere e a donare ciò che si possiede, cieca sete di ricchezza
+		- tramonto
+	
+	* Ninfa Druida : Lussuria ( azzurro )
+		desiderio irrefrenabile del piacere sessuale fine a sé stesso
+		- Neve	
 
 	* Drago (fuoco) : Ira ( rosso )
 		irrefrenabile desiderio di vendicare violentemente un torto subito
 		- Tana del drago / Vulcano in eruzione, magma e roccia bruciata
 
-	* Golem di Ferro : Superbia ( viola )
+	* Golem di Argilla : Superbia ( blu )
 		desiderio irrefrenabile di essere superiori, fino al disprezzo di ordini, leggi, rispetto altrui
 		- Torre del mago / Librerie, corridoi, terrazza
 
-	* Ninfa Druida : Lussuria ( azzurro )
-		desiderio irrefrenabile del piacere sessuale fine a sé stesso
-		- Bosco fatato / Fitta vegetazione, sberluccichi luminosi strani, rovine tipo greche
-		Strategia: legarsi, quindi quando sta per fare il canto ammaliatore, bisogna rallentarsi facendo unto/ragnatela
+	* Demi-Lich : Invidia ( viola )
+		tristezza per il bene altrui, percepito come male proprio
+		- Piano Astrale / tutto assurdo e fuori dal tempo
 
-	* Rospo / Vermone gigante : Gola ( arancione )
-		meglio conosciuta come ingordigia, abbandono ed esagerazione nei piaceri della tavola
-		- Deserto
-		Strategia: scappare dal mostro per 3 minuti, la cui fame cresce man mano (jetpack joyride)
 
-	* Avventurieri : Avarizia ( giallo )
-		scarsa disponibilità a spendere e a donare ciò che si possiede, cieca sete di ricchezza
-		- Citta' / strade, locanda, arena
 
-	* Ogre : Accidia ( verde )
-		torpore malinconico, inerzia nel vivere e nel compiere opere di bene
-		- Greenhill / Campagna, colline e pianure irlandesi
 		
 
 ## BUGS

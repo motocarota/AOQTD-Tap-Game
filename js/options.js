@@ -23,7 +23,7 @@ function setupOptions( ) {
 			wave: 			20,
 			baseSpeed : 	100,
 			maxNumber : 	10,
-			spawnRate : 	0.1
+			spawnRate : 	0.3
 		},
 		drop : {
 			lifespan : 		80

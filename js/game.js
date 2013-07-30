@@ -227,8 +227,8 @@
 		//UPDATE UI
 		game.refreshSpellsBtn( );
 		
-		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / 100, _MAX_BAR_HEIGHT );
-		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / 100, _MAX_BAR_HEIGHT );
+		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / game.options.max_hp, _MAX_BAR_HEIGHT );
+		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / game.options.max_mana, _MAX_BAR_HEIGHT );
 		
 		//Victory check
 		if ( game.killCount > game.options.enemies.wave ){
