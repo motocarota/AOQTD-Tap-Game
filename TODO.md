@@ -23,13 +23,13 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( CODE )
 
-	* barra hp proporzionale alla % dei danni sulla vita
 	* Timer che genera i nemici in base al livello di gioco
 		wave = [
 			{ time: null, n:2,  type:[ 'fey' ] }, 				// dopo random sec evoca 2 fey
 			{ time:  120, n:12, type:[ 'kobold', 'duck' ] }, 	// dopo 120 sec evoca 12 nemici tra koboldi e duck
 			{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
 		];
+	* implementare gli effetti over time
 	* classi di mostro (humanoid, undead, beast, construct)
 		hanno effetto sui dv, danni
 	* implementare il boss fight

@@ -1,6 +1,6 @@
 ( function( ) {	
 	
-	var _DEBUG = false,
+	var _DEBUG = 1,
 		_FILE_VERSION = 1001,
 		_MAX_BAR_HEIGHT = 22,
 		_MAX_BAR_WIDTH = 345;
@@ -44,10 +44,12 @@
 		} else {
 			game.level = level;
 		}
-		game.enemiesList = game.enemiesTable[ game.level ];
+		// game.enemiesList = game.enemiesTable[ game.level ];
 		
 		//TODO
 		//load custom song, based on level
+		game.tickNo = 0;
+		game.levelData = game.levels[1]; //[game.level]
 		
 		menu.resumeBtn.setVisible( true );
 		
@@ -204,37 +206,6 @@
 			null 
 		 );
 	};
-	
-	game.tick = function( ) {
-		
-		//UPDATE PLAYER
-		game.player.tick( );
-		
-		//UPDATE ENEMIES
-		for ( e in game.enemies ) {
-			game.enemies[ e ].tick( );
-		}
-		
-		// Enemies generation
-		if ( game.enemies.length < game.options.enemies.maxNumber && 
-			Math.random( ) < ( game.options.enemies.spawnRate || 0.2 ) ) {
-			var enemy = new CAAT.Enemy( );
-			enemy.add( game.enemiesList[ roll( game.enemiesList ) ] );
-			enemy.target = game.roots;
-			enemy.ai( );
-		}
-		
-		//UPDATE UI
-		game.refreshSpellsBtn( );
-		
-		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / game.options.max_hp, _MAX_BAR_HEIGHT );
-		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / game.options.max_mana, _MAX_BAR_HEIGHT );
-		
-		//Victory check
-		if ( game.killCount > game.options.enemies.wave ){
-			game.over( true );
-		}
-	};
 
 	game.over = function( victory ) {
 		
@@ -293,6 +264,43 @@
 			game.save( );
 			return false;
 		}
-	}
+	};
+	
+	game.tick = function( ) {
+		
+		game.tickNo++;
+		
+		//UPDATE PLAYER
+		game.player.tick( );
+		
+		//UPDATE ENEMIES
+		for ( e in game.enemies ) {
+			game.enemies[ e ].tick( );
+		}
+		
+		// Enemies generation
+		if ( game.levelData.waves[ game.tickNo ] ){
+			if ( _DEBUG ) CAAT.log( '[Game] tickNo:'+game.tickNo+' ha trovato un nemico ',game.levelData.waves[ game.tickNo ]  )
+			
+			for (var i=0; i < game.levelData.waves[ game.tickNo ].list.length; i++) {
+				var enemy = new CAAT.Enemy( );
+				enemy.add( game.levelData.waves[ game.tickNo ].list[ i ] );
+				enemy.target = game.roots;
+				enemy.ai( );
+			};
+			
+		}
+		
+		//UPDATE UI
+		game.refreshSpellsBtn( );
+		
+		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / game.options.max_hp, _MAX_BAR_HEIGHT );
+		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / game.options.max_mana, _MAX_BAR_HEIGHT );
+		
+		//Victory check
+		if ( game.killCount > game.options.enemies.wave ){
+			game.over( true );
+		}
+	};
 	
 } )( );

@@ -1,6 +1,7 @@
 // game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
 // enemies list verra' popolato a seconda del livello
 
+//TODO rifare/spostare/eliminare sta tabella
 game.enemiesTable = [
 	null,
 	[ 'kobold' ],
@@ -9,7 +10,7 @@ game.enemiesTable = [
 	[ 'shadow' ],
 	[ 'kobold', 'troll' ],
 	[ 'kobold', 'troll', 'gel_cube', 'shadow' ],
-	[ 'dragon' ] 
+	[ 'orc' ] 
 ];
 game.enemiesList = [];
 
@@ -97,9 +98,8 @@ game.enemiesBook = {
 		frames: 12
 	},
 	
-	dragon: {
-		element: "fire",
-		level: 1,
+	orc: {
+		level: 3,
 		speed: .6,
 		frameW: 3, frameH: 3,
 		animations: {
