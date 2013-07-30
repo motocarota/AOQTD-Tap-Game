@@ -74,9 +74,8 @@ game.spellBook = {
 		
 		splash : {
 			duration:		600,
-			// rotation:		30,
-			rotation:		false,
-			// rotation: 			true, 
+			// rotation:		false,
+			rotation: 		2, 
 			image : {
 				name : "fb-splash",
 				frame: { w: 3, h: 2 }

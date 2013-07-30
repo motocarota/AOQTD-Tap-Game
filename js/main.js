@@ -57,7 +57,7 @@
 			addElement( "troll",		"img/sprites/troll.png" ).
 			addElement( "shadow",		"img/sprites/shadow.png" ).
 			addElement( "gel_cube",		"img/sprites/gel_cube.png" ).
-			addElement( "dragon",		"img/sprites/orc.png" ).
+			addElement( "orc",			"img/sprites/orc.png" ).
 			addElement( "zombie",		"img/sprites/zombie.png" ).
 			//other
 			addElement( "empty",		"img/empty.png" ).
