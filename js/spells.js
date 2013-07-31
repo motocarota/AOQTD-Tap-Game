@@ -74,8 +74,7 @@ game.spellBook = {
 		
 		splash : {
 			duration:		600,
-			// rotation:		false,
-			rotation: 		2, 
+			rotation:		false,
 			image : {
 				name : "fb-splash",
 				frame: { w: 3, h: 2 }
@@ -95,11 +94,11 @@ game.spellBook = {
 		
 		initBehaviour: function ( ) {
 			return [ 
-				[	new CAAT.Behavior.RotateBehavior().
-						setValues( 0, 3*Math.PI ).
+				[	
+					new CAAT.Behavior.RotateBehavior().
+						setValues( 0, 2*Math.PI ).
 						setFrameTime( gameScene.time, this.travel.duration )
-				], 
-				[ ]
+				], [ ]
 			];
 		}
 	},
@@ -149,20 +148,18 @@ game.spellBook = {
 		}
 	},
 	'Wilting': {
-		level: 			5, //10 sec
-		cost: 			5, //50 
-		cooldown: 		0,
+		level: 			5,
+		cost: 			35,
+		cooldown: 		10,
 		element: 		"unholy",
 		school: 		"necromancy", 
 		
 		travel: {
-			rotation: 		false,
 			duration: 		10,
 			image: 	{ name: 'empty' }
 		},
 		splash : {
-			// rotation:  		1.55,
-			duration: 		4000,
+			duration: 		5000,
 			image : {
 				name : "base",
 				frame: { h: 2, w: 10 }

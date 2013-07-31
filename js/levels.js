@@ -1,22 +1,14 @@
 (function(){
 
-	game.levels = [
-		
-		{
-			bg: 	null,
-			music: 	null,
-			waves: 	[ ]
-		},
-		{
-			bg: 	null,
-			music: 	null,
-			spawnRate: 0.3,
-			waves : {
-				 5: { n:  2, list:[ 'orc' ] }, 			// da subito crea 2 shadow
-				10: { n: 12, list:[ 'kobold', 'troll' ] }, 	// al 10-imo tick crea 12 nemici tra kobold e orc
-				25: { list:[ 'troll' ] }					// al 25-esimo tick crea un troll
-			}
-		}
+	game.waves = [
+		null,
+		[ { kobold:1 }, { kobold:2 } ],
+		[ { kobold:1, orc:1 }, { kobold:3, orc:1 } ],
+		[ { orc:1, troll:1 }, { orc:2, troll:2 }, { orc:3, troll:3 } ],
+		[ { troll:1 }, { troll:2 }, { troll:3 } ],
+		[ { shadow:1 }, { shadow:2 }, { shadow:3 } ],
+		[ { gel_cube:1 }, { gel_cube:2 }, { gel_cube:3 } ],
+		[ { kobold:5 }, { orc:4 }, { troll:3 }, { shadow:2 }, { gel_cube:1 } ]
 	];
 	
 })()

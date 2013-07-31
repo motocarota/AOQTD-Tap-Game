@@ -10,13 +10,12 @@
 	function load( ) {
 
 		new CAAT.Module.Preloader.Preloader( ).
-			//debug base sprite for animations
 			//UI
 			addElement( "icons",		"img/UI/icons.png" ).
 			addElement( "list-bg",		"img/UI/list-bg.png" ).
 			addElement( "list-btns",	"img/UI/list-btns.png" ).
 			addElement( "list-stars",	"img/UI/list-stars.png" ).
-			
+			addElement( "bg-small",		"img/UI/bg-small.png" ).
 			addElement( "game-btns",	"img/UI/game-btns.png" ).
 			addElement( "info-char-bg",	"img/UI/info-char-bg.png" ).
 			addElement( "items",		"img/sprites/items.png" ).
@@ -28,18 +27,14 @@
 			addElement( "eg-die",		"img/splash/endgame-die.png" ).
 			
 			//backgrounds
-			addElement( "bg",			"img/bg.png" ).
-			// addElement( "bg-1",			"img/bg/1.png" ).
-			// addElement( "bg-2",			"img/bg/2.jpeg" ).
-			// addElement( "bg-3",			"img/bg/3.jpeg" ).
-			addElement( "bg-4",			"img/bg/4.jpeg" ).
-			addElement( "bg-5",			"img/bg/5.jpeg" ).
-			addElement( "bg-6",			"img/bg/6.jpeg" ).
-			addElement( "bg-7",			"img/bg/7.jpeg" ).
-			
-			addElement( "bg-1",		"img/bg/level-1.png" ).
-			addElement( "bg-2",		"img/bg/level-2.png" ).
-			addElement( "bg-3",		"img/bg/level-3.png" ).
+			addElement( "bg",				"img/bg.png" ).
+			addElement( "bg-1",			"img/bg/level-1.png" ).
+			addElement( "bg-2",			"img/bg/level-2.png" ).
+			addElement( "bg-3",			"img/bg/level-3.png" ).
+			addElement( "bg-4",				"img/bg/4.jpeg" ).
+			addElement( "bg-5",				"img/bg/5.jpeg" ).
+			addElement( "bg-6",				"img/bg/6.jpeg" ).
+			addElement( "bg-7",				"img/bg/7.jpeg" ).
 			
 			//player
 			addElement( "tree",			"img/sprites/tree.png" ).

@@ -33,7 +33,8 @@
 			infoCharBg :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'info-char-bg' ), 1, 1 ),
 			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 ),
 			icons:			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 ),
-			stars:			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 )
+			stars:			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 ),
+			bgSmall :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg-small' ), 1, 1 )
 		};
 
 	// ( Scene 0 ) Main menu ================================================================================================

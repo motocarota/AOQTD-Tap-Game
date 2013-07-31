@@ -14,8 +14,7 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 		Cava del drago
 		Torre del mago
 		Piano astrale
-		
-	* xp / gold / banner
+	* gold / banner
 	* Suoni / Musica
 	* rivedere il game over, sia win che die
 	* animazione iniziale
@@ -23,18 +22,11 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( CODE )
 
-	* Timer che genera i nemici in base al livello di gioco
-		wave = [
-			{ time: null, n:2,  type:[ 'fey' ] }, 				// dopo random sec evoca 2 fey
-			{ time:  120, n:12, type:[ 'kobold', 'duck' ] }, 	// dopo 120 sec evoca 12 nemici tra koboldi e duck
-			{ time:  240, n:1,  type:[ 'dragon' ] }				// dopo 240 sec evoca un drago
-		];
 	* implementare gli effetti over time
 	* classi di mostro (humanoid, undead, beast, construct)
 		hanno effetto sui dv, danni
 	* implementare il boss fight
-		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi
-	
+		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi	
 
 ( DOPO )
 
@@ -47,8 +39,8 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 	* Dardo Incantato (ok)
 	* Freccia Acida (implementare dot)
-	* Palla di Fuoco (capovolgere esplosione)
-	* ????
+	* Palla di Fuoco (ok)
+	* Fulmine (rifare sprite)
 	* Orrido avvizzimento
 	
 
@@ -87,26 +79,29 @@ luci fatue
 	* Campagna				ok
 	* Deserto				ok
 	* Neve			
-	* 		
+	* (arancione)		
 	* Torre del mago		
 	* Vulcano				
 	* Piano Astrale			
 
 ## BOSS	
 
+qui ci vorrebbe qualcosa di notoriamente avido
+tipo un folletto o un genovese
+una figura vecchia e avara tipo pdp
 
-	* Ogre : Accidia ( verde )
-		torpore malinconico, inerzia nel vivere e nel compiere opere di bene
+	* Tre Avventurieri : Avarizia ( verde )
+		scarsa disponibilità a spendere e a donare ciò che si possiede, cieca sete di ricchezza
 		- Campagna, colline e pianure irlandesi
 
 	* Vermone gigante : Gola ( giallo )
 		abbandono ed esagerazione nei piaceri della tavola
 		- Deserto
-	
-	* ???? : Avarizia ( arancione )
-		scarsa disponibilità a spendere e a donare ciò che si possiede, cieca sete di ricchezza
+
+	* Ogre : Accidia ( arancione )
+		torpore malinconico, inerzia nel vivere e nel compiere opere di bene
 		- tramonto
-	
+
 	* Ninfa Druida : Lussuria ( azzurro )
 		desiderio irrefrenabile del piacere sessuale fine a sé stesso
 		- Neve	
@@ -122,6 +117,7 @@ luci fatue
 	* Demi-Lich : Invidia ( viola )
 		tristezza per il bene altrui, percepito come male proprio
 		- Piano Astrale / tutto assurdo e fuori dal tempo
+		- Cimitero di notte
 
 
 

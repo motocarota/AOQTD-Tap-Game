@@ -4,8 +4,8 @@
 	CAAT.Mage = function( ) {
 		CAAT.Mage.superclass.constructor.call( this );
 
-		this.x = 140;
-		this.y = 120;
+		this.x = 135;
+		this.y = 130;
 		
 		this.xp = 0;
 		this.gold = 0;
@@ -38,7 +38,7 @@
 				addAnimation("stand",   [0,1], 200).
 				addAnimation("cast",    [2,3,4,3,5,3,2], 150, reset);
 
-			this.setScale( 0.7, 0.7 ).
+			this.setScale( 0.6, 0.6 ).
 				setLocation( this.x, this.y ).
 				setPositionAnchor( 0.5, 0.5 ).
 				setBackgroundImage( playerImage );
@@ -96,9 +96,9 @@
 					delete this.cooldowns[ c ];
 				}
 			}
-			this.mana = ( this.mana < game.options.max_mana ) ? 
+			this.mana = ( this.mana < game.options.player.max_mana ) ? 
 				this.mana + game.options.tick_mana : 
-				game.options.max_mana;
+				game.options.player.max_mana;
 		},
 		
 		die: function() {

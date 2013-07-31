@@ -1,9 +1,11 @@
 ( function( ) {	
 	
-	var _DEBUG = 1,
+	var _DEBUG = false,
 		_FILE_VERSION = 1001,
 		_MAX_BAR_HEIGHT = 22,
-		_MAX_BAR_WIDTH = 345;
+		_MAX_BAR_WIDTH = 345,
+		waiting = false;
+	game.toCreate = 0;
 	
 	game.status = {
 		xp:		0,
@@ -44,13 +46,13 @@
 		} else {
 			game.level = level;
 		}
-		// game.enemiesList = game.enemiesTable[ game.level ];
 		
 		//TODO
 		//load custom song, based on level
-		game.tickNo = 0;
-		game.levelData = game.levels[1]; //[game.level]
-		
+
+		game.phase = 0;
+		waiting = false;
+				
 		menu.resumeBtn.setVisible( true );
 		
 		// Background
@@ -160,8 +162,8 @@
 		
 		gameScene.addChild( game.UI.hpBar );
 		gameScene.addChild( game.UI.manaBar );
-		//UI - Player Info
 		
+		//UI - Player Info
 		//empty bar
 		gameScene.addChild( new CAAT.Foundation.Actor( ).
 			enableEvents( false ).
@@ -177,9 +179,33 @@
 			setTextAlign( 'center' ).
 			setLocation( 53, -10 )
 		);
+		
 		//bg
+		gameScene.addChild( new CAAT.Foundation.Actor( ).
+			enableEvents( false ).
+			setLocation( WW, HH-10 ).
+			setPositionAnchor( 1, 1 ).
+			setBackgroundImage( game.UI.bgSmall ) 
+		);
+		
 		//xp
+		gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
+			setText( "Xp: "+game.status.xp ).
+			setFont( game.options.fontAlt ).
+			setTextFillStyle( "white" ).
+			setTextAlign( 'right' ).
+			setLocation( WW, HH-10 ).
+			setPositionAnchor( 1, 1 )
+		);
 		//gold
+		gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
+			setText( "Gold: "+game.status.gold ).
+			setFont( game.options.fontAlt ).
+			setTextFillStyle( "white" ).
+			setTextAlign( 'right' ).
+			setLocation( WW, HH-50 ).
+			setPositionAnchor( 1, 1 )
+		);
 		
 		if ( _DEBUG ) {
 			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).
@@ -273,34 +299,52 @@
 		//UPDATE PLAYER
 		game.player.tick( );
 		
+		//UPDATE UI
+		game.refreshSpellsBtn( );		
+		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / game.options.player.max_hp, _MAX_BAR_HEIGHT );
+		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / game.options.player.max_mana, _MAX_BAR_HEIGHT );
+		
 		//UPDATE ENEMIES
 		for ( e in game.enemies ) {
 			game.enemies[ e ].tick( );
 		}
 		
 		// Enemies generation
-		if ( game.levelData.waves[ game.tickNo ] ){
-			if ( _DEBUG ) CAAT.log( '[Game] tickNo:'+game.tickNo+' ha trovato un nemico ',game.levelData.waves[ game.tickNo ]  )
-			
-			for (var i=0; i < game.levelData.waves[ game.tickNo ].list.length; i++) {
-				var enemy = new CAAT.Enemy( );
-				enemy.add( game.levelData.waves[ game.tickNo ].list[ i ] );
-				enemy.target = game.roots;
-				enemy.ai( );
-			};
-			
-		}
-		
-		//UPDATE UI
-		game.refreshSpellsBtn( );
-		
-		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / game.options.max_hp, _MAX_BAR_HEIGHT );
-		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / game.options.max_mana, _MAX_BAR_HEIGHT );
-		
-		//Victory check
-		if ( game.killCount > game.options.enemies.wave ){
-			game.over( true );
-		}
+		if ( waiting ) {
+			if ( game.enemies.length === 0 && game.toCreate <= 0 ) {
+				waiting = false;
+				game.phase++;
+			}
+		} else {
+			var currentWave = game.waves[ game.level ][ game.phase ];
+			if ( !currentWave ) { 
+				game.over( true );
+			} else {
+				for ( en in currentWave ) {
+					for (var i=0; i < currentWave[ en ]; i++) {
+						game.toCreate++;
+						helper( en )
+					};
+				};
+				waiting = true;
+			}
+		}		
 	};
 	
+	function helper( e ){
+	
+		gameScene.createTimer(
+			gameScene.time,
+			500*roll( 1, 6 ), 
+			function(){ 
+				var enemy = new CAAT.Enemy( );
+				enemy.add( e );
+				enemy.target = game.roots;
+				enemy.ai( );
+				game.toCreate--;
+			},
+			null,
+			null
+		);
+	}
 } )( );
