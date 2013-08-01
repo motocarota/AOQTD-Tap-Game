@@ -215,8 +215,13 @@ game.spellBook = {
 				null,
 				function( target ){
 					target && target.damage( roll( 2, 6, 1, 2 ), 'acid' );
-					//target slow
-					//target dot
+					var dot = new game.Buff();
+					dot.init( 7, function( t ){
+						if ( this.getDurationLeft() % 2 === 1 ) {
+							t && t.damage( roll( 1, 6 ), 'nature' );
+						}
+					} );
+					target.addBuff( dot )
 					return true;
 				}
 			];

@@ -7,7 +7,7 @@ function setupOptions( ) {
 	
 	game.options = {
 		tick_mana: 			4,
-		global_cooldown :	40,
+		global_cooldown :	50,
 		volume :			10,
 		font :				'50px fof',
 		fontAlt : 			'40px md',
