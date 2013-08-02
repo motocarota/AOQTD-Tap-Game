@@ -157,14 +157,14 @@ game.spellBook = {
 			image: 	{ name: 'empty' }
 		},
 		splash : {
-			duration: 		3510,
+			duration: 		3600,
 			image : {
 				name : "hwilting",
 				frame: { h: 4, w: 2 }
 			},
 			animation: {
-				frames: 	[0, 2, 4, 6, 1, 3, 5, 7, 1, 5, 3, 7, 6, 4, 2, 0],
-				duration: 	210
+				frames: 	[ 0, 2, 4, 6, 1, 3, 5, 7, 1, 5, 3, 7, 1, 3, 5, 7, 1, 5, 3, 7, 6, 4, 2, 0 ],
+				duration: 	150
 			}
 		},
 		
