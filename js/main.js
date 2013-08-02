@@ -45,6 +45,7 @@
 			addElement( "lightning",	"img/sprites/lightning.png" ).
 			addElement( "fireball",		"img/sprites/fireball.png" ).
 			addElement( "fb-splash",	"img/sprites/fireball-splash.png" ).
+			addElement( "hwilting",		"img/sprites/horrid-wilting.png" ).
 			addElement( "spell",		"img/sprites/sprite.png" ).
 			
 			//monsters

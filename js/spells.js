@@ -118,16 +118,14 @@ game.spellBook = {
 		},
 		
 		splash : {
-			duration: 		250,
+			duration: 		280,
 			image : {
 				name : "lightning",
-				frame: {
-					h: 1, w: 4
-				}
+				frame: { h: 1, w: 3	}
 			},
 			animation: {
-				frames: 	[0, 2, 2, 1, 3],
-				duration: 	50
+				frames: 	[0, 1, 2, 0],
+				duration: 	70
 			},
 			anchor: {
 				x: 0.5, y: 1
@@ -159,14 +157,14 @@ game.spellBook = {
 			image: 	{ name: 'empty' }
 		},
 		splash : {
-			duration: 		5000,
+			duration: 		3510,
 			image : {
-				name : "base",
-				frame: { h: 2, w: 10 }
+				name : "hwilting",
+				frame: { h: 4, w: 2 }
 			},
 			animation: {
-				frames: 	[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-				duration: 	200
+				frames: 	[0, 2, 4, 6, 1, 3, 5, 7, 1, 5, 3, 7, 6, 4, 2, 0],
+				duration: 	210
 			}
 		},
 		
@@ -174,7 +172,13 @@ game.spellBook = {
 			return [ 
 				null, 
 				function( target ){
-					target && target.damage( roll( 5, 6 ), 'nature' );
+					var dot = new game.Buff();
+					dot.init( 7, function( t ){
+						if ( this.getDurationLeft() % 2 === 1 ) {
+							t && t.damage( roll( this.getDurationLeft(), 6 ), 'nature' );
+						}
+					} );
+					target.addBuff( dot );
 					return true;
 				}
 			];
@@ -191,10 +195,10 @@ game.spellBook = {
 			rotation: 		false, 
 			image: {
 				name: 		'aarrow', 
-				frame: 		{ h: 3, w: 1 }
+				frame: 		{ h: 3, w: 2 }
 			},
 			animation: {
-				frames: 	[0, 1, 2],
+				frames: 	[0, 1, 2, 4, 5],
 				duration: 	100
 			}
 		},
@@ -221,7 +225,7 @@ game.spellBook = {
 							t && t.damage( roll( 1, 6 ), 'nature' );
 						}
 					} );
-					target.addBuff( dot )
+					target.addBuff( dot );
 					return true;
 				}
 			];
