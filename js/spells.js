@@ -57,6 +57,53 @@ game.spellBook = {
 		}
 	},
 	
+	"Acid Arrow": {
+		cooldown: 3,
+		cost: 1,
+		travel : {
+			duration: 		800,
+			path: 			null,
+			interpolator: 	new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 2, false ),
+			rotation: 		false, 
+			image: {
+				name: 		'aarrow', 
+				frame: 		{ h: 3, w: 2 }
+			},
+			animation: {
+				frames: 	[0, 1, 2, 4, 5],
+				duration: 	100
+			}
+		},
+		splash: {
+			duration: 		1000,
+			rotation: 		1, 
+			image: {
+				name: 		'mmissile',
+				frame: 		{ h: 2, w: 3 }
+			},
+			animation: {
+				frames: 	[3, 4, 5],
+				duration: 	200
+			}
+		},
+		initEffect : function(  ){
+			return [
+				null,
+				function( target ){
+					target && target.damage( roll( 2, 6, 1, 2 ), 'acid' );
+					var dot = new game.Buff();
+					dot.init( 7, function( t ){
+						if ( this.getDurationLeft() % 2 === 1 ) {
+							t && t.damage( roll( 1, 6 ), 'nature' );
+						}
+					} );
+					target.addBuff( dot );
+					return true;
+				}
+			];
+		}
+	},
+	
 	'Fireball': {
 		level: 			3,
 		cost: 			30, 
@@ -102,6 +149,7 @@ game.spellBook = {
 			];
 		}
 	},
+	
 	'Lightning': {
 		level: 			4,
 		cost: 			10, 
@@ -145,6 +193,7 @@ game.spellBook = {
 			];
 		}
 	},
+	
 	'Wilting': {
 		level: 			5,
 		cost: 			35,
@@ -176,53 +225,6 @@ game.spellBook = {
 					dot.init( 7, function( t ){
 						if ( this.getDurationLeft() % 2 === 1 ) {
 							t && t.damage( roll( this.getDurationLeft(), 6 ), 'nature' );
-						}
-					} );
-					target.addBuff( dot );
-					return true;
-				}
-			];
-		}
-	},
-	
-	"Acid Arrow": {
-		cooldown: 3,
-		cost: 1,
-		travel : {
-			duration: 		800,
-			path: 			null,
-			interpolator: 	new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 2, false ),
-			rotation: 		false, 
-			image: {
-				name: 		'aarrow', 
-				frame: 		{ h: 3, w: 2 }
-			},
-			animation: {
-				frames: 	[0, 1, 2, 4, 5],
-				duration: 	100
-			}
-		},
-		splash: {
-			duration: 		1000,
-			rotation: 		1, 
-			image: {
-				name: 		'mmissile',
-				frame: 		{ h: 2, w: 3 }
-			},
-			animation: {
-				frames: 	[3, 4, 5],
-				duration: 	200
-			}
-		},
-		initEffect : function(  ){
-			return [
-				null,
-				function( target ){
-					target && target.damage( roll( 2, 6, 1, 2 ), 'acid' );
-					var dot = new game.Buff();
-					dot.init( 7, function( t ){
-						if ( this.getDurationLeft() % 2 === 1 ) {
-							t && t.damage( roll( 1, 6 ), 'nature' );
 						}
 					} );
 					target.addBuff( dot );
