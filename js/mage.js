@@ -18,6 +18,12 @@
 	
 	CAAT.Mage.prototype = {
 		
+		getHp: function() {
+			
+			if ( _DEBUG ) CAAT.log('[Mage] getHp ->'+this.hp);
+			 return this.hp;
+		},
+		
 		add : function () {
 
 			if ( _DEBUG ) CAAT.log('[Mage] add');
@@ -89,6 +95,8 @@
 		
 		tick : function () {
 			
+			if ( this.getHp() <= 0 )
+				this.die();
 			for ( c in this.cooldowns ){
 				if ( this.cooldowns[ c ] && this.cooldowns[ c ] > 0 ) 
 					this.cooldowns[ c ]--;

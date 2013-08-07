@@ -5,24 +5,27 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
+Fare tutti i livelli
+Fare tutti i mostri
+cercare di capire come potrei implementare intelligenza artificiale dei mostri
+
 ( GRAPHICS )
 
+	* Sprite dell'albero danneggiato in 3-4 fasi
 	* mostri
-	* spell
-		rivedere lo sprite del fulmine, farlo piu' lungo (alto almeno 900px)
 	* livelli
 		Cava del drago
 		Torre del mago
 		Piano astrale
 	* gold / banner
 	* Suoni / Musica
-	* rivedere il game over, sia win che die
 	* animazione iniziale
 		sd2 che spiega il suo piano e viene deriso
 
 ( CODE )
 
-	* implementare gli effetti over time
+	* filmatino introduttivo
+	* provare i nemici intelligenti/ranged
 	* classi di mostro (humanoid, undead, beast, construct)
 		hanno effetto sui dv, danni
 	* implementare il boss fight
@@ -35,37 +38,21 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
 
-## INCANTESIMI
-
-	* Dardo Incantato (ok)
-	* Freccia Acida (implementare dot)
-	* Palla di Fuoco (ok)
-	* Fulmine (rifare sprite)
-	* Orrido avvizzimento
-	
-
 ## LISTA MOSTRI
 
-con implementazione
-					stand	walk	att		stun	data
----------------------------------------------------------------- livello 1
-Kobold				ok		ok		ok				ok
+da implementare
+					stand	walk	att
+---------------------------------------
 Goblin
-Orco				ok		ok		ok
-Troll				ok		ok		ok
-
 zombie
 scheletro
 ghoul
 mummia
 vampiro
-ombra
-
-cubo gelatinoso
 rakshaaza
 hill giant
 golem
-dragon
+dragon argilla
 giant turtle
 beholder
 blink dog
@@ -78,14 +65,16 @@ luci fatue
 ----
 	* Campagna				ok
 	* Deserto				ok
-	* Neve			
-	* (arancione)		
+	* Neve					ok
+	* (arancione)			
 	* Torre del mago		
 	* Vulcano				
 	* Piano Astrale			
 
 ## BOSS	
 
+Per il momento i boss saranno dei semplici npc con un sacco di vita (tipo 100+hp) e una ai un po' particolare
+POI se avro' voglia li implementero' diversamente
 qui ci vorrebbe qualcosa di notoriamente avido
 tipo un folletto o un genovese
 una figura vecchia e avara tipo pdp
@@ -118,7 +107,6 @@ una figura vecchia e avara tipo pdp
 		tristezza per il bene altrui, percepito come male proprio
 		- Piano Astrale / tutto assurdo e fuori dal tempo
 		- Cimitero di notte
-
 
 
 		

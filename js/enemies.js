@@ -70,8 +70,7 @@ game.enemiesBook = {
 			}
 		},		
 		ai: function(){
-			game.player.notifyAt("hahaha", this);
-			this.move( 500, 300 );
+			this.move( roll(1, WW/2, WW/2), roll(1, HH/2, HH/2) );
 		}
 	},
 	
@@ -119,5 +118,27 @@ game.enemiesBook = {
 				c = Math.floor( amount * 0.7 );
 			return c;
 		}
-    }
+	},
+
+	//esempio di nemico intelligente (LOL)
+	goblin: {
+		level: 5,
+		speed: .3,
+		frames: 12,
+		ai: function(){
+			
+			this.move( roll(1, WW/2, WW/2), roll(1, HH/2, HH/2) ).move();
+			//come possono attaccare?
+			//bisognerebbe fare in modo di poter mettere su una coda di azioni
+			// var actions = [ 'move(500, 500)', 'move(200, 200)', 'attack()'  ];
+			// this.do( actions );
+			// in teoria non va bene neanche cosi' perche' e' una lista statica di azioni, mentre io vorrei un ciclo condizionale
+			// rivedere le azioni in modo da poter
+			// while( true ){
+			// 				this.move( rand.x, rand.y );
+			// 				if( okay )
+			// 					this.attack()
+			// 			}
+		}
+	},
 };

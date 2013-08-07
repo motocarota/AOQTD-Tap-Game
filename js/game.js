@@ -107,33 +107,6 @@
 			}
 		}
 		
-		// Pause game Button
-		gameScene.addChild( 
-			new CAAT.Foundation.Actor( ).
-				setLocation( ( director.width/2 )-15, 8 ).
-				setPositionAnchor( 0, 0 ).
-				setAsButton( 
-					game.UI.btns,
-					0, 0, 5, 5, 
-					function( button ){ 
-						if( _DEBUG ) CAAT.log( '[Game] Paused' );
-						menu.slideTo( 0, true, true ); //MENU_SCENE_ID
-					} ) 
-		 );
-		
-		// Lock game Button - rimuovere
-		gameScene.addChild( new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				game.UI.btns,
-				3, 3, 8, 8, 
-				function( button ){ 
-					CAAT.log( '[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
-					gameScene.setPaused( !gameScene.paused );
-				} ).
-			setPositionAnchor( 0, 0 ).
-			setLocation( 40, 40 )
-		 );
-		
 		// Main string
 		game.UI.mainString = new CAAT.Foundation.UI.TextActor( ).
 			setText( "" ).
@@ -197,6 +170,7 @@
 			setLocation( WW, HH-10 ).
 			setPositionAnchor( 1, 1 )
 		);
+		
 		//gold
 		gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
 			setText( "Gold: "+game.status.gold ).
@@ -206,6 +180,44 @@
 			setLocation( WW, HH-50 ).
 			setPositionAnchor( 1, 1 )
 		);
+		
+		// Pause game Button
+		gameScene.addChild( 
+			new CAAT.Foundation.Actor( ).
+				setLocation( ( director.width/2 )-15, 8 ).
+				setPositionAnchor( 0, 0 ).
+				setAsButton( 
+					game.UI.btns,
+					0, 0, 5, 5, 
+					function( button ){ 
+						if( _DEBUG ) CAAT.log( '[Game] Paused' );
+						menu.slideTo( 0, true, true ); //MENU_SCENE_ID
+					} ) 
+		 );
+		
+		// Lock game Button - rimuovere
+		gameScene.addChild( new CAAT.Foundation.Actor( ).
+			setAsButton( 
+				game.UI.btns,
+				3, 3, 8, 8, 
+				function( button ){ 
+					CAAT.log( '[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
+					button.setSpriteIndex( 8 );
+					gameScene.setPaused( !gameScene.paused );
+				} ).
+			setPositionAnchor( 0.5, 1 ).
+			setLocation( WW-10, HH )
+		 );
+		
+		// Music game Button - rimuovere
+		gameScene.addChild( new CAAT.Foundation.Actor( ).
+			setAsButton( 
+				game.UI.btns,
+				4, 4, 9, 9, 
+				function( button ){ button.setSpriteIndex( 9 ) } ).
+			setPositionAnchor( 0.5, 1 ).
+			setLocation( WW-10, HH-50 )
+		 );
 		
 		if ( _DEBUG ) {
 			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).
@@ -236,7 +248,7 @@
 	game.over = function( victory ) {
 		
 		if ( victory ) {
-			var score = Math.floor( game.player.hp / 50 )+1;
+			var score = Math.floor( game.player.getHp() / 50 )+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
 				game.status.gold += game.player.gold;

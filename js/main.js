@@ -42,10 +42,11 @@
 			//spells
 			addElement( "mmissile",		"img/sprites/magic_missile.png" ).
 			addElement( "aarrow",		"img/sprites/acid_arrow.png" ).
+			addElement( "aarrows",		"img/sprites/acid_arrow_splash.png" ).
 			addElement( "lightning",	"img/sprites/lightning.png" ).
 			addElement( "fireball",		"img/sprites/fireball.png" ).
 			addElement( "fb-splash",	"img/sprites/fireball-splash.png" ).
-			addElement( "hwilting",		"img/sprites/horrid-wilting.png" ).
+			addElement( "hwilting",		"img/sprites/horrid-wilting-big.png" ).
 			addElement( "spell",		"img/sprites/sprite.png" ).
 			
 			//monsters

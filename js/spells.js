@@ -28,9 +28,12 @@ game.spellBook = {
 			animation: {
 				frames: 	[3, 4, 5],
 				duration: 	100
+			},
+			anchor: { x: 0.5, y: 0.5 },
+			AOE: function( t ){
+				return { x:t.x, y:t.y, h:1, w:1 };
 			}
 		},
-		
 		initEffect : function(  ){
 			return [
 				null,
@@ -61,7 +64,7 @@ game.spellBook = {
 		cooldown: 3,
 		cost: 1,
 		travel : {
-			duration: 		800,
+			duration: 		500,
 			path: 			null,
 			interpolator: 	new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 2, false ),
 			rotation: 		false, 
@@ -75,26 +78,25 @@ game.spellBook = {
 			}
 		},
 		splash: {
-			duration: 		1000,
-			rotation: 		1, 
+			duration: 		300,
+			rotation: 		true, 
 			image: {
-				name: 		'mmissile',
-				frame: 		{ h: 2, w: 3 }
+				name: 		'aarrows',
+				frame: 		{ h: 1, w: 3 }
 			},
 			animation: {
-				frames: 	[3, 4, 5],
-				duration: 	200
+				frames: 	[0, 1, 2],
+				duration: 	100
 			}
 		},
 		initEffect : function(  ){
 			return [
 				null,
 				function( target ){
-					target && target.damage( roll( 2, 6, 1, 2 ), 'acid' );
 					var dot = new game.Buff();
-					dot.init( 7, function( t ){
-						if ( this.getDurationLeft() % 2 === 1 ) {
-							t && t.damage( roll( 1, 6 ), 'nature' );
+					dot.init( 15, function( t ){
+						if ( this.getDurationLeft() % 3 === 0 ) {
+							t && t.damage( roll( 2, 4 ), 'nature' );
 						}
 					} );
 					target.addBuff( dot );
@@ -175,9 +177,7 @@ game.spellBook = {
 				frames: 	[0, 1, 2, 0],
 				duration: 	70
 			},
-			anchor: {
-				x: 0.5, y: 1
-			},
+			anchor: { x: 0.5, y: 1 },
 			AOE: function( t ){
 				return { y:t.y, h:20 };
 			}
@@ -206,13 +206,13 @@ game.spellBook = {
 			image: 	{ name: 'empty' }
 		},
 		splash : {
-			duration: 		3600,
+			duration: 		4200,
 			image : {
 				name : "hwilting",
 				frame: { h: 4, w: 2 }
 			},
 			animation: {
-				frames: 	[ 0, 2, 4, 6, 1, 3, 5, 7, 1, 5, 3, 7, 1, 3, 5, 7, 1, 5, 3, 7, 6, 4, 2, 0 ],
+				frames: 	[ 0, 2, 4, 6, 1, 3, 5, 7, 1, 3, 5, 7, 1, 5, 3, 7, 1, 3, 5, 7, 1, 6, 6, 4, 4, 2, 2, 0 ],
 				duration: 	150
 			}
 		},
