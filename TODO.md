@@ -51,8 +51,8 @@ mummia
 vampiro
 rakshaaza
 hill giant
-golem
-dragon argilla
+golem argilla
+dragon 
 giant turtle
 beholder
 blink dog

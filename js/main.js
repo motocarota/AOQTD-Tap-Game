@@ -21,7 +21,7 @@
 			addElement( "items",		"img/sprites/items.png" ).
 			
 			//splash screens
-			addElement( "cover",		"img/aoqtd-cover.png" ).
+			addElement( "cover",		"img/cover.png" ).
 			addElement( "splash",		"img/splash/splash0.jpg" ).
 			addElement( "eg-win",		"img/splash/endgame-win.png" ).
 			addElement( "eg-die",		"img/splash/endgame-die.png" ).
@@ -31,7 +31,7 @@
 			addElement( "bg-1",			"img/bg/level-1.png" ).
 			addElement( "bg-2",			"img/bg/level-2.png" ).
 			addElement( "bg-3",			"img/bg/level-3.png" ).
-			addElement( "bg-4",				"img/bg/4.jpeg" ).
+			addElement( "bg-4",			"img/bg/level-4.png" ).
 			addElement( "bg-5",				"img/bg/5.jpeg" ).
 			addElement( "bg-6",				"img/bg/6.jpeg" ).
 			addElement( "bg-7",				"img/bg/7.jpeg" ).
@@ -51,11 +51,11 @@
 			
 			//monsters
 			addElement( "kobold",		"img/sprites/kobold.png" ).
-			addElement( "troll",		"img/sprites/troll.png" ).
+			addElement( "troll",		   "img/sprites/troll.png" ).
 			addElement( "shadow",		"img/sprites/shadow.png" ).
 			addElement( "gel_cube",		"img/sprites/gel_cube.png" ).
 			addElement( "orc",			"img/sprites/orc.png" ).
-			addElement( "zombie",		"img/sprites/zombie.png" ).
+			addElement( "elem_fire",	"img/sprites/elem-fire.png" ).
 			//other
 			addElement( "empty",		"img/empty.png" ).
 			addElement( "base",			"img/sprites/sprite.png" ).

@@ -91,10 +91,18 @@ game.enemiesBook = {
 		}
 	},
 	
-	zombie: {
+	elem_fire: {    //TODO aumentare attack speed, ridurre i danni
 		level: 5,
-		speed: .3,
-		frames: 12
+		speed: .4,
+		frameW: 2, frameH: 2,
+		animations: {
+			walk: {
+				frames: [2,0,3,1], duration: 200
+			},
+			stand: {
+				frames: [0, 1], duration: 200
+			}
+		}
 	},
 	
 	orc: {

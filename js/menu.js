@@ -40,7 +40,7 @@
 	// ( Scene 0 ) Main menu ================================================================================================
 
 		menuScene.bg = new CAAT.Foundation.ActorContainer( ).
-			setBounds( 0, 0, WW, HH ).
+			setBounds( -1, -1, WW, HH ).
 			setFillStyle( 'white' );
 						
 		menuScene.addChild( menuScene.bg );
@@ -53,19 +53,19 @@
 		
 		// Main menu - Play Button
 		menuScene.addChild( 
-			new CAAT.Foundation.Actor( ).
-				setLocation( WW-130, 120 ).
-				setScale( 1.6, 1.6 ).
-				setPositionAnchor( 0.5, 0.5 ).
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "Play" ).
+				setFont( game.options.font ).
+				setTextFillStyle( "red" ).
+				setTextAlign( 'right' ).
+				setLocation( WW-20, 210 ).
 				setAsButton( 
-					game.UI.btns,
-					1, 1, 6, 6, 
+					null, 1, 2, 3, 4, 
 					function( button ){ 
-						if( _DEBUG ) CAAT.log( '[Menu] Play ( List )' );
-						game.load( );
-						menu.slideTo( LIST_SCENE_ID, true, false );
+						if( _DEBUG ) CAAT.log( '[Menu] Play' );
+						menu.slideTo( LIST_SCENE_ID, false, false );
 					} 
-				 ) 
+				 )
 		 );
 		
 		// Main menu - Help Button
@@ -75,7 +75,7 @@
 				setFont( game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign( 'right' ).
-				setLocation( WW-80, 300 ).
+				setLocation( WW-20, 410 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
@@ -92,7 +92,7 @@
 				setFont( game.options.font ).
 				setTextFillStyle( "red" ).
 				setTextAlign( 'right' ).
-				setLocation( WW-80, 400 ).
+				setLocation( WW-20, 310 ).
 				setAsButton( 
 					null, 1, 2, 3, 4, 
 					function( button ){ 
@@ -108,7 +108,7 @@
 			setFont( game.options.font ).
 			setTextFillStyle( "red" ).
 			setTextAlign( 'right' ).
-			setLocation( WW-80, 200 ).
+			setLocation( WW-20, 110 ).
 			setVisible( false ).
 			setAsButton( 
 				null, 1, 2, 3, 4, 
