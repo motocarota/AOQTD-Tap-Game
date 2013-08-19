@@ -19,6 +19,7 @@
 			addElement( "game-btns",	"img/UI/game-btns.png" ).
 			addElement( "info-char-bg",	"img/UI/info-char-bg.png" ).
 			addElement( "items",		"img/sprites/items.png" ).
+			addElement( "logo", 		"img/UI/logo.png" ).
 			
 			//splash screens
 			addElement( "cover",		"img/cover.png" ).
@@ -39,26 +40,29 @@
 			//player
 			addElement( "tree",			"img/sprites/tree.png" ).
 			addElement( "player",		"img/sprites/sd2.png" ).
+			
 			//spells
-			addElement( "mmissile",		"img/sprites/magic_missile.png" ).
-			addElement( "aarrow",		"img/sprites/acid_arrow.png" ).
-			addElement( "aarrows",		"img/sprites/acid_arrow_splash.png" ).
-			addElement( "lightning",	"img/sprites/lightning.png" ).
-			addElement( "fireball",		"img/sprites/fireball.png" ).
-			addElement( "fb-splash",	"img/sprites/fireball-splash.png" ).
-			addElement( "hwilting",		"img/sprites/horrid-wilting-big.png" ).
-			addElement( "spell",		"img/sprites/sprite.png" ).
+			addElement( "mmissile",		"img/sprites/spells/magic_missile.png" ).
+			addElement( "aarrow",		"img/sprites/spells/acid_arrow.png" ).
+			addElement( "aarrows",		"img/sprites/spells/acid_arrow_splash.png" ).
+			addElement( "lightning",	"img/sprites/spells/lightning.png" ).
+			addElement( "fireball",		"img/sprites/spells/fireball.png" ).
+			addElement( "fb-splash",	"img/sprites/spells/fireball-splash.png" ).
+			addElement( "hwilting",		"img/sprites/spells/horrid-wilting-big.png" ).
+			addElement( "spell",		"img/empty.png" ).
 			
 			//monsters
-			addElement( "kobold",		"img/sprites/kobold.png" ).
-			addElement( "troll",		   "img/sprites/troll.png" ).
-			addElement( "shadow",		"img/sprites/shadow.png" ).
-			addElement( "gel_cube",		"img/sprites/gel_cube.png" ).
-			addElement( "orc",			"img/sprites/orc.png" ).
-			addElement( "elem_fire",	"img/sprites/elem-fire.png" ).
+			addElement( "kobold",		"img/sprites/enemies/kobold.png" ).
+			addElement( "troll",	    "img/sprites/enemies/troll.png" ).
+			addElement( "shadow",		"img/sprites/enemies/shadow.png" ).
+			addElement( "gel_cube",		"img/sprites/enemies/gel_cube.png" ).
+			addElement( "orc",			"img/sprites/enemies/orc.png" ).
+			addElement( "elem_fire",	"img/sprites/enemies/elem-fire.png" ).
+			addElement( "elem_earth",	"img/sprites/enemies/elem-earth.png" ).
+			addElement( "elem_air",	    "img/sprites/enemies/elem-air.png" ).
+			
 			//other
 			addElement( "empty",		"img/empty.png" ).
-			addElement( "base",			"img/sprites/sprite.png" ).
 			
 			load( function onAllAssetsLoaded( images ) {
 				startGame( images );

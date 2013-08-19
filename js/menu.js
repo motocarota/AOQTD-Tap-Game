@@ -348,16 +348,17 @@
 				//List - Levels Button
 				var score = game.status.scores[i-1];
 				
-				if ( i === 1 || score || game.status.scores[i-2] )
-				levelsScene.grid.addChild( 
-					new CAAT.Foundation.Actor( ).
-						setLocation( x, y ).
-						setAsButton( 
-							game.UI.listBtns,
-							i, i, i, i, 
-							helper( i )
-						 )
-				 );
+				if ( i === 1 || score || game.status.scores[i-2] ) {
+    				levelsScene.grid.addChild( 
+    					new CAAT.Foundation.Actor( ).
+    						setLocation( x, y ).
+    						setAsButton( 
+    							game.UI.listBtns,
+    							i, i, i, i, 
+    							helper( i )
+    						 )
+    				 );
+    			}
 				
 				// List - Stars
 				if ( score ) {

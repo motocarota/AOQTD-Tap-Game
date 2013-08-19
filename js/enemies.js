@@ -93,7 +93,7 @@ game.enemiesBook = {
 	
 	elem_fire: {    //TODO aumentare attack speed, ridurre i danni
 		level: 5,
-		speed: .4,
+		speed: .84,
 		frameW: 2, frameH: 2,
 		animations: {
 			walk: {
@@ -101,6 +101,40 @@ game.enemiesBook = {
 			},
 			stand: {
 				frames: [0, 1], duration: 200
+			}
+		}
+	},
+	
+	elem_earth: {
+		level: 5,
+		speed: .84,
+		frameW: 3, frameH: 2,
+		animations: {
+		    attack: {
+		        frames: [0,1,4,4,1], duration: 100
+		    },
+			walk: {
+				frames: [1,2,3,0], duration: 400
+			},
+			stand: {
+				frames: [0], duration: 200
+			}
+		}
+	},
+	
+	elem_air: {
+		level: 5,
+		speed: .84,
+		frameW: 3, frameH: 2,
+		animations: {
+		    attack: {
+		        frames: [3,4,5,3], duration: 200
+		    },
+			walk: {
+				frames: [0,1,2,1], duration: 200
+			},
+			stand: {
+				frames: [0,1,2,1], duration: 200
 			}
 		}
 	},

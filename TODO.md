@@ -5,22 +5,21 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
+Risolvere il bug delle sovrapposizioni
 Fare tutti i livelli
 Fare tutti i mostri
 cercare di capire come potrei implementare intelligenza artificiale dei mostri
 
 ( GRAPHICS )
 
+    * Risistemare intro image
 	* Sprite dell'albero danneggiato in 3-4 fasi
 	* mostri
 	* livelli
-		Cava del drago
 		Torre del mago
 		Piano astrale
 	* gold / banner
 	* Suoni / Musica
-	* animazione iniziale
-		sd2 che spiega il suo piano e viene deriso
 
 ( CODE )
 
@@ -30,6 +29,24 @@ cercare di capire come potrei implementare intelligenza artificiale dei mostri
 		hanno effetto sui dv, danni
 	* implementare il boss fight
 		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi	
+
+( Animazione iniziale )
+	sd2 che spiega il suo piano e viene deriso
+	
+	1. Superdrow raggiunge i suoi amici alla locanda, tutto sorridente, aspetta un po', gli amici lo ignorano
+	2. [primo piano] "Ho trovato il modo per diventare il mago piu' forte di sempre!!"
+	3. gli amici si guardano
+	4. sd2 srotola un foglio blu con il piano
+	5. visuale del foglio con il piano disegnato e il dito che segue le fasi:
+	    - poke an enemy
+	    - run like hell
+	    - summon a tree
+	    - kill all the enemies
+	    - ????
+	    - profit
+	6. amici perplessi, scoppiano a ridere
+	7. sd2 si allontana offeso, per poi voltarsi minaccioso
+	8. "VEDREMO CHI RIDERA' QUANDO SARO'... IL MIGLIOR MAGO DI SEMPRE!!1!"
 
 ( DOPO )
 
@@ -54,11 +71,14 @@ hill giant
 golem argilla
 dragon 
 giant turtle
-beholder
 blink dog
 shadow
 minotauro
 luci fatue
+elementale fuoco
+elementale acqua
+elementale terra
+elementale aria
 
 ## LISTA LIVELLI
 							bg			music
@@ -67,35 +87,33 @@ luci fatue
 	* Deserto				ok
 	* Neve					ok
 	* (arancione)			
-	* Torre del mago		
-	* Vulcano				
+	* Torre del mago		ok
+	* Vulcano				ok
 	* Piano Astrale			
 
 ## BOSS	
 
-Per il momento i boss saranno dei semplici npc con un sacco di vita (tipo 100+hp) e una ai un po' particolare
+Per il momento i boss saranno dei semplici npc con un sacco di vita e una ai un po' particolare
 POI se avro' voglia li implementero' diversamente
-qui ci vorrebbe qualcosa di notoriamente avido
-tipo un folletto o un genovese
-una figura vecchia e avara tipo pdp
 
-	* Tre Avventurieri : Avarizia ( verde )
-		scarsa disponibilità a spendere e a donare ciò che si possiede, cieca sete di ricchezza
-		- Campagna, colline e pianure irlandesi
 
-	* Vermone gigante : Gola ( giallo )
-		abbandono ed esagerazione nei piaceri della tavola
-		- Deserto
+    * Folletto : Avarizia ( verde )
+	    cieca sete di ricchezza, scarsa disponibilità a spendere e a donare ciò che si possiede
+	    - Campagna
 
 	* Ogre : Accidia ( arancione )
-		torpore malinconico, inerzia nel vivere e nel compiere opere di bene
-		- tramonto
+        torpore malinconico, inerzia nel vivere e nel compiere opere di bene
+		- 
+
+	* Vermone gigante : Gola ( giallo )
+	    abbandono ed esagerazione nei piaceri della tavola
+		- Deserto
 
 	* Ninfa Druida : Lussuria ( azzurro )
 		desiderio irrefrenabile del piacere sessuale fine a sé stesso
 		- Neve	
 
-	* Drago (fuoco) : Ira ( rosso )
+	* Drago : Ira ( rosso )
 		irrefrenabile desiderio di vendicare violentemente un torto subito
 		- Tana del drago / Vulcano in eruzione, magma e roccia bruciata
 
