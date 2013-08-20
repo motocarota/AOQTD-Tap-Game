@@ -60,6 +60,7 @@
 			addElement( "elem_fire",	"img/sprites/enemies/elem-fire.png" ).
 			addElement( "elem_earth",	"img/sprites/enemies/elem-earth.png" ).
 			addElement( "elem_air",	    "img/sprites/enemies/elem-air.png" ).
+			addElement( "elem_water",	"img/sprites/enemies/elem-water.png" ).
 			
 			//other
 			addElement( "empty",		"img/empty.png" ).
