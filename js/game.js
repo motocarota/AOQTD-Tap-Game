@@ -317,9 +317,11 @@
 		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / game.options.player.max_mana, _MAX_BAR_HEIGHT );
 		
 		//UPDATE ENEMIES
-		for ( e in game.enemies ) {
-			game.enemies[ e ].tick( );
-		}
+		game.enemies = _.sortBy( game.enemies, 'y' );
+		for (var i=0; i < game.enemies.length; i++) {
+            game.enemies[i].tick();
+            game.bg.setZOrder( game.enemies[i], i+2 ); //+2 perche'ci sono anche l'albero e il mage
+		};
 		
 		// Enemies generation
 		if ( waiting ) {

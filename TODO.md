@@ -5,7 +5,6 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
-Risolvere il bug delle sovrapposizioni
 Fare tutti i livelli
 Fare tutti i mostri
 cercare di capire come potrei implementare intelligenza artificiale dei mostri

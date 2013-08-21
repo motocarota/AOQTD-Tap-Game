@@ -24,8 +24,8 @@
 			//splash screens
 			addElement( "cover",		"img/cover.png" ).
 			addElement( "splash",		"img/splash/splash0.jpg" ).
-			addElement( "eg-win",		"img/splash/endgame-win.png" ).
-			addElement( "eg-die",		"img/splash/endgame-die.png" ).
+			addElement( "eg-win",		"img/splash/UI-win.png" ).
+			addElement( "eg-die",		"img/splash/UI-lose.png" ).
 			
 			//backgrounds
 			addElement( "bg",				"img/bg.png" ).
@@ -33,7 +33,7 @@
 			addElement( "bg-2",			"img/bg/level-2.png" ).
 			addElement( "bg-3",			"img/bg/level-3.png" ).
 			addElement( "bg-4",			"img/bg/level-4.png" ).
-			addElement( "bg-5",				"img/bg/5.jpeg" ).
+			addElement( "bg-5",			"img/bg/level-5.png" ).
 			addElement( "bg-6",				"img/bg/6.jpeg" ).
 			addElement( "bg-7",				"img/bg/7.jpeg" ).
 			

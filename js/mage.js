@@ -49,7 +49,7 @@
 				setPositionAnchor( 0.5, 0.5 ).
 				setBackgroundImage( playerImage );
 						
-			game.bg.addChild( this.tree );
+			game.bg.addChildAt( this.tree, 1 );
 			game.bg.addChild( this );
 			
 			this.playAnimation( "stand" );
