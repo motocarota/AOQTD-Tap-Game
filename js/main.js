@@ -61,6 +61,8 @@
 			addElement( "elem_earth",	"img/sprites/enemies/elem-earth.png" ).
 			addElement( "elem_air",	    "img/sprites/enemies/elem-air.png" ).
 			addElement( "elem_water",	"img/sprites/enemies/elem-water.png" ).
+			addElement( "skeletor",	    "img/sprites/enemies/skeletor.png" ).
+			addElement( "goblin",	    "img/sprites/enemies/goblin.png" ).
 			
 			//other
 			addElement( "empty",		"img/empty.png" ).

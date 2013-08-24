@@ -96,9 +96,10 @@ game.spellBook = {
 					var dot = new game.Buff();
 					dot.init( 15, function( t ){
 						if ( this.getDurationLeft() % 3 === 0 ) {
-							t && t.damage( roll( 2, 4 ), 'nature' );
+							t && t.damage( roll( 2, 3 ), 'nature' );
 						}
 					} );
+					dot.modSpeed = 2; //slows enemy
 					target.addBuff( dot );
 					return true;
 				}
