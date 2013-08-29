@@ -387,20 +387,22 @@
 	}
 	
 	function createCSS( ) {
-        return new CAAT.Director( ).initialize( WW, HH, document.getElementById( 'game' ) ).setClear( false );
+        return new CAAT.Director( ).
+            initialize( WW, HH, document.getElementById( 'game' ) ).
+            setClear( false ).
+			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
     }
 
     function createCanvas( ) {
         return new CAAT.Director( ).
 			initialize( WW, HH, 'game' ).
-			setClear( 
-				false 									// more performance and glitches
-				// CAAT.Foundation.Director.CLEAR_ALL 	// less performance and glitches
-			 ).
+			setClear( false ).
 			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
     }
 
     function createGL( ) {
-        return new CAAT.Director( ).initializeGL( WW, HH ).setClear( false );
+        return new CAAT.Director( ).initializeGL( WW, HH ).
+            setClear( false ).
+			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
     }
 } )( );

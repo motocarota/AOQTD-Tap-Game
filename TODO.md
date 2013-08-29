@@ -66,14 +66,16 @@ elementale terra
 elementale fuoco
 elementale aria
 troll
+goblin
+scheletro
 
 da fare
 ---------------------------------------
     //questi hanno attacchi ranged
-goblin
+
 drow        // sr, arciere
 duergar     // sr
-scheletro
+
 rakshasa    // caster
 hill giant  
 
@@ -101,21 +103,47 @@ bulette
 shadow
 
 ## LISTA LIVELLI
-							bg			music
+
 ---------------------------------------
-	* Campagna				ok
-	* Deserto				ok
-	* Neve					ok
-	* (arancione)			
-	* Torre del mago		ok
-	* Vulcano				ok
-	* Piano Astrale			
+	* Campagna (1...3) : [ coboldi, goblin, orchi, troll ] 4/4
+		5 coboldi
+		5 coboldi 3 goblin
+		3 coboldi
+		3 coboldi 2 goblin 1 orco
+		3 coboldi 3 goblin 3 orchi
+		1 troll
+		2 orchi
+		10 orchi 10 coboldi
+		10 goblin 10 coboldi
+		3 troll 
+		
+			
+	* Deserto (2...4) : [ goblin, scheletri, troll, orchi, el.fuoco, mummie ] 5/6
+		5 goblin
+		7 goblin 3 scheletri
+		10 scheletri
+		7 scheletri 2 troll
+		3 goblin
+		7 goblin 5 orchi 5 scheletri 1 troll
+		5 scheletri 3 orchi 2 troll 1 el.fuoco
+		3 el.fuoco 2 troll
+		10 el.fuoco
+		5 troll 5 goblin 5 scheletri 5 el.fuoco 
+		
+	* Neve (3...5) : [ orchi, el.acqua, gnoll, scheletro, gigante gelo ] 3/5
+		
+	* Savana (4...6) : [ goblin, troll, el.terra, el.fuoco, minotauro, blink dog ] 4/6
+		
+	* Torre del mago (5...7) : [ tutti elementali, scheletri, golem argilla, golem ferro, dragonkind ] 5/8
+	
+	* Vulcano (6...8) : [ coboldi, orchi, el.fuoco, el.terra, el.aria, dragonkind ] 5/6
+	
+	* Cimitero (7...9) : [ zombi, scheletri, ghoul, mummie, minotauro, spettri ] 1/6
 
 ## BOSS	
 
 Per il momento i boss saranno dei semplici npc con un sacco di vita e una ai un po' particolare
 POI se avro' voglia li implementero' diversamente
-
 
     * Folletto : Avarizia ( verde )
 	    cieca sete di ricchezza, scarsa disponibilità a spendere e a donare ciò che si possiede
