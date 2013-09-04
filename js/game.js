@@ -6,6 +6,7 @@
 		_MAX_BAR_WIDTH = 345,
 		waiting = false;
 	game.toCreate = 0;
+	game.active = false;
 	
 	game.status = {
 		xp:		0,
@@ -39,7 +40,7 @@
 	game.setupScene = function( level ) {
 		
 		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level );
-		
+				
 		if ( !is( "Number", level ) ) {
 			CAAT.log( "[Game] level is fucked up: "+level+" so I set it to 1" );
 			game.level = 1;
@@ -51,6 +52,7 @@
 		//load custom song, based on level
 
 		game.phase = 0;
+		game.active = true;
 		waiting = false;
 				
 		menu.resumeBtn.setVisible( true );
@@ -79,6 +81,10 @@
 		game.player.add( );
 		game.killCount = 0;
 		
+		for (var i = game.enemies.length - 1; i >= 0; i--){ //loop inverso per non fottersi con gli splice
+			
+			game.enemies[i].die( { loot: false } );
+		};
 		game.enemies = [];
 		game.spells = [];
 		
@@ -247,6 +253,7 @@
 
 	game.over = function( victory ) {
 		
+		game.active = false;
 		if ( victory ) {
 			var score = Math.floor( game.player.getHp() / 50 )+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
@@ -258,7 +265,16 @@
 			//NOTA in caso di sconfitta prendi meta' dei px
 			game.player.xp = game.player.xp/2;
 		}
-		menu.updateReport( victory, score );
+		gameScene.createTimer(
+			gameScene.time,
+			2000,
+			function(){ 
+				menu.updateReport( victory, score ) 
+			},
+			null, 
+			null
+		);
+		// menu.updateReport( victory, score );
 	};
 	
 	game.refreshSpellsBtn = function( ) {
@@ -306,8 +322,6 @@
 	
 	game.tick = function( ) {
 		
-		game.tickNo++;
-		
 		//UPDATE PLAYER
 		game.player.tick( );
 		
@@ -319,31 +333,25 @@
 		//UPDATE ENEMIES
 		game.enemies = _.sortBy( game.enemies, 'y' );
 		for (var i=0; i < game.enemies.length; i++) {
-            game.enemies[i].tick();
-            game.bg.setZOrder( game.enemies[i], i+2 ); //+2 perche'ci sono anche l'albero e il mage
+			game.enemies[i].tick();
+			game.bg.setZOrder( game.enemies[i], i+2 ); //+2 perche'ci sono anche l'albero e il mage
 		};
 		
 		// Enemies generation
 		if ( waiting ) {
-			if ( game.enemies.length === 0 && game.toCreate <= 0 ) {
+			if ( game.active && game.enemies.length === 0 && game.toCreate <= 0 ) {
 				waiting = false;
 				game.phase++;
 			}
 		} else {
 			var currentWave = game.waves[ game.level ][ game.phase ];
 			if ( !currentWave ) { 
-			    gameScene.createTimer(
-        			gameScene.time,
-        			2000,
-				    function(){ game.over( true ) },
-				    null, 
-				    null
-				);
+				game.over( true );
 			} else {
 				for ( en in currentWave ) {
 					for (var i=0; i < currentWave[ en ]; i++) {
 						game.toCreate++;
-						game.summon( en );
+						game.summon( en, { qty: 1, extra: false } );
 					};
 				};
 				waiting = true;
@@ -351,26 +359,27 @@
 		}		
 	};
 	
-	game.summon = function( en, qty, extra ){
-	    
-	    if ( !qty || !is( 'Number', qty ) || qty < 0 ) {
-	        qty = 1;
-	    }
-	    for (var i=0; i < qty; i++) {
-            gameScene.createTimer(
-    			gameScene.time,
-    			250*roll( 1, 10 ), 
-    			function(){ 
-    				var enemy = new CAAT.Enemy( );
-    				enemy.add( en );
-    				enemy.target = game.roots;
-    				enemy.ai( );
-    				if ( !extra )
-    				    game.toCreate--;
-    			},
-    			null,
-    			null
-    		);
-	    };
+	game.summon = function( en, opts ){
+		
+		if ( !opts.qty || !is( 'Number', opts.qty ) || opts.qty < 0 ) {
+			opts.qty = 1;
+		}
+		for (var i=0; i < opts.qty; i++) {
+			gameScene.createTimer(
+				gameScene.time,
+				250*roll( 1, 10 ), 
+				function(){ 
+					var enemy = new CAAT.Enemy( );
+					enemy.add( en );
+					enemy.target = game.roots;
+					enemy.ai( );
+					if ( !opts.extra ) {
+						game.toCreate--;
+					}
+				},
+				null,
+				null
+			);
+		};
 	}
 } )( );

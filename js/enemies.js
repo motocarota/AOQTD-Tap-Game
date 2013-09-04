@@ -1,5 +1,3 @@
-// game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
-// enemies list verra' popolato a seconda del livello
 game.enemiesList = [];
 
 game.enemiesBook = {
@@ -58,14 +56,14 @@ game.enemiesBook = {
 				frames: [0,1], duration: 400
 			},
 			walk: {
-			    frames: [2,2,3,4,4,3], duration: 150
+				frames: [2,2,3,4,4,3], duration: 150
 			},
 			attack: {
-			    frames: [2,5,4,3], duration: 200
+				frames: [2,5,4,3], duration: 200
 			}
-        // },       
-        // ai: function(){
-        //  
+		// },	   
+		// ai: function(){
+		//  
 		}
 	},
 	
@@ -86,30 +84,29 @@ game.enemiesBook = {
 		},
 		ai: function() {
 
-		    var t = ( this.time/1000 ).toFixed( 0 );
-            game.player.notifyAt( t, { x: 500, y:500 } )
-            if ( t % 4 === 0 ) { //ogni 4 sec
-                
-                if ( this.moving ) {
-                    this.halt( );
-                }
-                if ( this.cooldown <= 0 ) {
-                    game.player.notifyAt( "shoot", this );
-                    // this.attack( );
-                    var c= [ 'elem_air', 'elem_fire', 'elem_earth', 'elem_water' ];
-    				game.summon( c[ roll( 0, c.length ) ], roll(), true );
+			var t = ( this.time/1000 ).toFixed( 0 );
+			
+			if ( t % 4 === 0 ) { //ogni 4 sec
+				game.player.notifyAt( t, { x: 500, y:500 } )
+				if ( this.moving ) {
+					this.halt( );
+				}
+				if ( this.cooldown <= 0 ) {
+					game.player.notifyAt( "shoot", this );
+					var c= [ 'elem_air', 'elem_fire', 'elem_earth', 'elem_water' ];
+					game.summon( c[ roll( 0, c.length ) ], { qty:roll(), extra:true } );
 				}
 
-            } else {
-                if ( !this.moving ) {
-                    this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
-                }
-                
-            }   
+			} else {
+				if ( !this.moving ) {
+					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
+				}
+				
+			}   
 		}
 	},
 	
-	elem_fire: {    //TODO aumentare attack speed, ridurre i danni
+	elem_fire: {	//TODO aumentare attack speed, ridurre i danni
 		level: 5,
 		speed: .84,
 		attackSpeed: 2,
@@ -129,9 +126,9 @@ game.enemiesBook = {
 		speed: .84,
 		frameW: 3, frameH: 2,
 		animations: {
-		    attack: {
-		        frames: [0,1,4,4,1], duration: 100
-		    },
+			attack: {
+				frames: [0,1,4,4,1], duration: 100
+			},
 			walk: {
 				frames: [1,2,3,0], duration: 400
 			},
@@ -146,9 +143,9 @@ game.enemiesBook = {
 		speed: .84,
 		frameW: 3, frameH: 2,
 		animations: {
-		    attack: {
-		        frames: [3,4], duration: 200
-		    },
+			attack: {
+				frames: [3,4], duration: 200
+			},
 			walk: {
 				frames: [0,1,2,1], duration: 200
 			},
@@ -163,9 +160,9 @@ game.enemiesBook = {
 		speed: .84,
 		frameW: 3, frameH: 2,
 		animations: {
-		    attack: {
-		        frames: [2,3,4,5], duration: 200
-		    },
+			attack: {
+				frames: [2,3,4,5], duration: 200
+			},
 			walk: {
 				frames: [0,1], duration: 200
 			},
@@ -204,33 +201,33 @@ game.enemiesBook = {
 		frameH: 2,
 		frameW: 3,
 		animations: {
-            walk: {
-             frames: [0,2,1,3], duration: 200
-            },
-            attack: {
-             frames: [4, 5, 2], duration: 150
-            },
+			walk: {
+			 frames: [0,2,1,3], duration: 200
+			},
+			attack: {
+			 frames: [4, 5, 2], duration: 150
+			},
 			stand: {
 				frames: [0, 1], duration: 200
 			}
 		},
 		ai: function() {
-		    
-            if ( this.cooldown-- > 0 && roll() > 3 ) {
-                if ( !this.moving ) {
-                    this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
-                }
-            } else {
-                
-                if ( this.moving ) {
-                    this.halt( );
-                }
-                if ( this.cooldown <= 0 ) {
-                    game.player.notifyAt( "shoot", this );
-    				this.attack( );
+			
+			if ( this.cooldown-- > 0 && roll() > 3 ) {
+				if ( !this.moving ) {
+					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
 				}
-            }
-            
+			} else {
+				
+				if ( this.moving ) {
+					this.halt( );
+				}
+				if ( this.cooldown <= 0 ) {
+					game.player.notifyAt( "shoot", this );
+					this.attack( );
+				}
+			}
+			
 		}
 	},
 };
