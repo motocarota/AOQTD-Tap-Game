@@ -203,5 +203,23 @@ game.enemiesBook = {
 				frames: [0, 1], duration: 200
 			}
 		},
+		ai: function() {
+		    
+            if ( this.cooldown-- > 0 && roll() > 3 ) {
+                if ( !this.moving ) {
+                    this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
+                }
+            } else {
+                
+                if ( this.moving ) {
+                    this.halt( );
+                }
+                if ( this.cooldown <= 0 ) {
+                    game.player.notifyAt( "shoot", this );
+    				this.attack( );
+				}
+            }
+            
+		}
 	},
 };
