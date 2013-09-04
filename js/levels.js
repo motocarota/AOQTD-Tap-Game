@@ -8,7 +8,7 @@
 		[ { troll:1 }, { troll:2 }, { troll:3 } ],
 		[ { shadow:1 }, { shadow:2 }, { shadow:3 } ],
 		[ { goblin:7 } ],
-		[ { kobold:5 }, { orc:4 }, { troll:3 }, { shadow:2 }, { gel_cube:1 } ]
+		[ { kobold:5 }, { orc:4 }, { troll:3 }, { shadow:2 } ]
 	];
 	
 })()

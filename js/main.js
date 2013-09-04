@@ -26,9 +26,10 @@
 			addElement( "splash",		"img/splash/splash0.jpg" ).
 			addElement( "eg-win",		"img/splash/UI-win.png" ).
 			addElement( "eg-die",		"img/splash/UI-lose.png" ).
+			addElement( "about",		"img/splash/about.png" ).
+			addElement( "help",		    "img/splash/help.png" ).
 			
 			//backgrounds
-			addElement( "bg",			"img/bg.png" ).
 			addElement( "bg-1",			"img/bg/level-1.png" ).
 			addElement( "bg-2",			"img/bg/level-2.png" ).
 			addElement( "bg-3",			"img/bg/level-3.png" ).

@@ -7,24 +7,25 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
     
 Fare tutti i livelli
 Fare tutti i mostri
-cercare di capire come potrei implementare intelligenza artificiale dei mostri
+Pensare a come ripensare le stelline
+tipo: 
+    prima volta finisci un livello con una stella
+    seconda volta la difficolta' raddoppia
+    terza volta la difficolta' raddoppia ancora
+    se uno sblocca tutti i livelli a tre stelle, accede al nirvana dei nerd: il livello nascosto (mucche)
+
 
 ( GRAPHICS )
 
     * completare i buff che accelerano o rallentano
-	* Sprite dell'albero danneggiato in 3-4 fasi
 	* mostri
-	* livelli
-		Piano astrale
-	* gold / banner
-	* Suoni / Musica
+	* Sprite dell'albero per ogni livello
+	* Sprite dell'albero danneggiato in 3-4 fasi
 
 ( CODE )
 
+	* Suoni / Musica
     * sistemare definitivamente UI, nemici, difficolta'
-    * rivedere ai() dei nemici
-    	* provare i nemici intelligenti/ranged
-	* filmatino introduttivo
 	* classi di mostro (humanoid, undead, beast, construct)
 		hanno effetto sui dv, danni
 	* implementare il boss fight
@@ -174,15 +175,9 @@ POI se avro' voglia li implementero' diversamente
 		- Piano Astrale / tutto assurdo e fuori dal tempo
 		- Cimitero di notte
 		faccio uno schizzo per entrambi e vedo quale mi convince di piu'
-
-
 		
 
 ## BUGS
 
-* capire perche' a volte i nemici saltano addosso al giocatore
-    perche' quando sono vicini eseguono una move, ma qualcosa sballa nel calcolo del tempo da impiegare
 * alcuni nemici sembrano in grado di attaccare anche da subito
-* alcuni nemici camminano in eterno
-    mirano troppo in basso e quando arrivano non sono a portata del player, va rivista ai
-* su android non mi mostra il font custom
+    non ho piu' visto questo bug in azione, per cui se continua cosi' lo cancello

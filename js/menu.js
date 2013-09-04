@@ -124,21 +124,10 @@
 		
 		creditsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, WW, HH ).
-			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
+			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'about' ), 1, 1 ) ).
 			enableEvents( true ).
 			cacheAsBitmap( );
 		creditsScene.addChild( creditsScene.bg );
-		
-		// Credits - text
-		creditsScene.bg.addChild( 
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "AOQTD: the game" ).
-				setFont( game.options.font ).
-				setTextFillStyle( "black" ).
-				setTextAlign( 'center' ).
-				enableEvents( false ).
-				setLocation( WW/2, 100 )
-		 );
 		
 		// Credits - events
 		creditsScene.bg.mouseDown = function( ev ) {
@@ -151,20 +140,10 @@
 		
 		helpScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, WW, HH ).
-			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg' ), 1, 1 ) ).
+			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'help' ), 1, 1 ) ).
 			enableEvents( true ).
 			cacheAsBitmap( );
 		helpScene.addChild( helpScene.bg );
-		
-		// Info - text
-		helpScene.bg.addChild( 
-			new CAAT.Foundation.UI.TextActor( ).
-				setText( "Info blablabla" ).
-				setFont( game.options.font ).
-				setTextFillStyle( "black" ).
-				setTextAlign( 'center' ).
-				setLocation( WW/2, 100 )
-		 );
 		
 		//Info - Events
 		helpScene.bg.mouseDown = function( ev ) {

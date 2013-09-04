@@ -332,12 +332,18 @@
 		} else {
 			var currentWave = game.waves[ game.level ][ game.phase ];
 			if ( !currentWave ) { 
-				game.over( true );
+			    gameScene.createTimer(
+        			gameScene.time,
+        			2000,
+				    function(){ game.over( true ) },
+				    null, 
+				    null
+				);
 			} else {
 				for ( en in currentWave ) {
 					for (var i=0; i < currentWave[ en ]; i++) {
 						game.toCreate++;
-						helper( en )
+						game.summon( en );
 					};
 				};
 				waiting = true;
@@ -345,20 +351,26 @@
 		}		
 	};
 	
-	function helper( e ){
-	
-		gameScene.createTimer(
-			gameScene.time,
-			500*roll( 1, 6 ), 
-			function(){ 
-				var enemy = new CAAT.Enemy( );
-				enemy.add( e );
-				enemy.target = game.roots;
-				enemy.ai( );
-				game.toCreate--;
-			},
-			null,
-			null
-		);
+	game.summon = function( en, qty, extra ){
+	    
+	    if ( !qty || !is( 'Number', qty ) || qty < 0 ) {
+	        qty = 1;
+	    }
+	    for (var i=0; i < qty; i++) {
+            gameScene.createTimer(
+    			gameScene.time,
+    			250*roll( 1, 10 ), 
+    			function(){ 
+    				var enemy = new CAAT.Enemy( );
+    				enemy.add( en );
+    				enemy.target = game.roots;
+    				enemy.ai( );
+    				if ( !extra )
+    				    game.toCreate--;
+    			},
+    			null,
+    			null
+    		);
+	    };
 	}
 } )( );

@@ -1,17 +1,5 @@
 // game.enemiesList = [ 'bat', 'kobold', 'wolf', 'zombie', 'dragon' ];
 // enemies list verra' popolato a seconda del livello
-
-//TODO rifare/spostare/eliminare sta tabella
-game.enemiesTable = [
-	null,
-	[ 'kobold' ],
-	[ 'troll' ],
-	[ 'gel_cube' ],
-	[ 'shadow' ],
-	[ 'kobold', 'troll' ],
-	[ 'kobold', 'troll', 'gel_cube', 'shadow' ],
-	[ 'orc' ] 
-];
 game.enemiesList = [];
 
 game.enemiesBook = {
@@ -95,6 +83,29 @@ game.enemiesBook = {
 			stand: {
 				frames: [0], duration: 200
 			}
+		},
+		ai: function() {
+
+		    var t = ( this.time/1000 ).toFixed( 0 );
+            game.player.notifyAt( t, { x: 500, y:500 } )
+            if ( t % 4 === 0 ) { //ogni 4 sec
+                
+                if ( this.moving ) {
+                    this.halt( );
+                }
+                if ( this.cooldown <= 0 ) {
+                    game.player.notifyAt( "shoot", this );
+                    // this.attack( );
+                    var c= [ 'elem_air', 'elem_fire', 'elem_earth', 'elem_water' ];
+    				game.summon( c[ roll( 0, c.length ) ], roll(), true );
+				}
+
+            } else {
+                if ( !this.moving ) {
+                    this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
+                }
+                
+            }   
 		}
 	},
 	
