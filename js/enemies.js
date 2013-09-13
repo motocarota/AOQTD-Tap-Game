@@ -8,9 +8,9 @@ game.enemiesBook = {
 		frameW: 3, 
 		frameH: 3,
 		dropTable: [
-			{ chance: 50, id: 'xp', qty: (roll()) },
-			{ chance: 50, id: 'coins', qty: (roll()) },
-			{ chance: 10, id: 'wand', qty: 1 }
+			{ chance: 100, id: 'smallXp', qty:1 },
+			{ chance: 5, id: 'lifePotion', qty: 1 },
+			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
 			walk: {
@@ -31,7 +31,8 @@ game.enemiesBook = {
 		frameW: 3, 
 		frameH: 3,
 		dropTable: [
-			{ chance: 50, id: 'bigXp', qty: (roll()) }
+			{ chance: 100, id: 'xp', qty:3 },
+			{ chance: 50, id: 'xp', qty:1 },
 		],
 		animations: {
 			walk: {
@@ -51,6 +52,11 @@ game.enemiesBook = {
 		speed: .8,
 		frameH: 2,
 		frameW: 3,
+		dropTable: [
+			{ chance: 100, id: 'smallXp', qty: 1 },
+			{ chance: 5, id: 'lifePotion', qty: 1 },
+			{ chance: 5, id: 'manaPotion', qty: 1 }
+		],
 		animations: {
 			stand: {
 				frames: [0,1], duration: 400
@@ -111,6 +117,10 @@ game.enemiesBook = {
 		speed: .84,
 		attackSpeed: 2,
 		frameW: 2, frameH: 2,
+		dropTable: [
+			{ chance: 50, id: 'xp', qty:1 },
+			{ chance: 10, id: 'manaPotion', qty: 1 }
+		],
 		animations: {
 			walk: {
 				frames: [1,3,0,2], duration: 200
@@ -125,6 +135,10 @@ game.enemiesBook = {
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
+		dropTable: [
+			{ chance: 50, id: 'xp', qty:1 },
+			{ chance: 10, id: 'manaPotion', qty: 1 }
+		],
 		animations: {
 			attack: {
 				frames: [0,1,4,4,1], duration: 100
@@ -142,6 +156,10 @@ game.enemiesBook = {
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
+		dropTable: [
+			{ chance: 50, id: 'xp', qty:1 },
+			{ chance: 10, id: 'manaPotion', qty: 1 }
+		],
 		animations: {
 			attack: {
 				frames: [3,4], duration: 200
@@ -159,6 +177,10 @@ game.enemiesBook = {
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
+		dropTable: [
+			{ chance: 50, id: 'xp', qty:1 },
+			{ chance: 10, id: 'manaPotion', qty: 1 }
+		],
 		animations: {
 			attack: {
 				frames: [2,3,4,5], duration: 200
@@ -176,6 +198,10 @@ game.enemiesBook = {
 		level: 3,
 		speed: .6,
 		frameW: 3, frameH: 3,
+		dropTable: [
+			{ chance: 50, id: 'xp', qty:1 },
+			{ chance: 10, id: 'lifePotion', qty: 1 }
+		],
 		animations: {
 			walk: {
 				frames: [3, 4, 5, 4], duration: 300
@@ -200,6 +226,11 @@ game.enemiesBook = {
 		speed: .6,
 		frameH: 2,
 		frameW: 3,
+		attackSpeed: 12,
+		dropTable: [
+			{ chance: 50, id: 'xp', qty:1 },
+			{ chance: 10, id: 'lifePotion', qty: 1 }
+		],
 		animations: {
 			walk: {
 			 frames: [0,2,1,3], duration: 200
@@ -223,11 +254,45 @@ game.enemiesBook = {
 					this.halt( );
 				}
 				if ( this.cooldown <= 0 ) {
-					game.player.notifyAt( "shoot", this );
 					this.attack( );
 				}
 			}
 			
 		}
 	},
+	ghost: {
+		level: 5,
+		speed: .6,
+		frameH: 2,
+		frameW: 3,
+		attackSpeed: 12,
+		dropTable: [
+			{ chance: 100, id: 'xp', qty:2 }
+		],
+		animations: {
+			attack: {
+			 frames: [3, 4, 4, 5, 3], duration: 150
+			},
+			stand: {
+				frames: [0, 1, 2], duration: 200
+			}
+		},
+		ai: function() {
+			
+			if ( this.cooldown-- > 0 && roll() > 3 ) {
+				if ( !this.moving ) {
+					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
+				}
+			} else {
+				
+				if ( this.moving ) {
+					this.halt( );
+				}
+				if ( this.cooldown <= 0 ) {
+					this.attack( );
+				}
+			}
+			
+		}
+	}
 };

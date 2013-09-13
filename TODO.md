@@ -77,8 +77,8 @@ da fare
 drow        // sr, arciere
 duergar     // sr
 
-rakshasa    // caster
-hill giant  
+rakshasa    // caster, evocatore
+hill giant
 
     // questi hanno ai standard
 dretch
@@ -89,7 +89,7 @@ ogre
 mummia
 progenie vampirica
 minotauro
-vrock           //resisevoca 1d10 dretch
+vrock           //res sevoca 1d10 dretch
 
 golem argilla
 golem ferro
@@ -107,31 +107,10 @@ shadow
 
 ---------------------------------------
 	* Campagna (1...3) : [ coboldi, goblin, orchi, troll ] 4/4
-		5 coboldi
-		5 coboldi 3 goblin
-		3 coboldi
-		3 coboldi 2 goblin 1 orco
-		3 coboldi 3 goblin 3 orchi
-		1 troll
-		2 orchi
-		10 orchi 10 coboldi
-		10 goblin 10 coboldi
-		3 troll 
+
+	* Deserto (2...4) : [ goblin, scheletri, troll, orchi, el.fuoco ] 5/6  mummie
 		
-			
-	* Deserto (2...4) : [ goblin, scheletri, troll, orchi, el.fuoco, mummie ] 5/6
-		5 goblin
-		7 goblin 3 scheletri
-		10 scheletri
-		7 scheletri 2 troll
-		3 goblin
-		7 goblin 5 orchi 5 scheletri 1 troll
-		5 scheletri 3 orchi 2 troll 1 el.fuoco
-		3 el.fuoco 2 troll
-		10 el.fuoco
-		5 troll 5 goblin 5 scheletri 5 el.fuoco 
-		
-	* Neve (3...5) : [ orchi, el.acqua, gnoll, scheletro, gigante gelo ] 3/5
+	* Neve (3...5) : [ orchi, el.acqua, scheletro, gigante gelo ] 3/4  gnoll / girallon / lupo
 		
 	* Savana (4...6) : [ goblin, troll, el.terra, el.fuoco, minotauro, blink dog ] 4/6
 		
@@ -148,11 +127,31 @@ POI se avro' voglia li implementero' diversamente
 
     * Folletto : Avarizia ( verde )
 	    cieca sete di ricchezza, scarsa disponibilità a spendere e a donare ciò che si possiede
-	    - Campagna
+	    - Campagna	    
+    	    5 coboldi
+    		5 coboldi 3 goblin
+    		3 coboldi
+    		3 coboldi 2 goblin 1 orco
+    		3 coboldi 3 goblin 3 orchi
+    		1 troll
+    		2 orchi
+    		10 orchi 10 coboldi
+    		10 goblin 10 coboldi
+    		3 troll
 
 	* Ogre : Accidia ( arancione )
         torpore malinconico, inerzia nel vivere e nel compiere opere di bene
 		- Savana al tramonto
+    		5 goblin
+    		7 goblin 3 scheletri
+    		10 scheletri
+    		7 scheletri 2 troll
+    		3 goblin
+    		7 goblin 5 orchi 5 scheletri 1 troll
+    		5 scheletri 3 orchi 2 troll 1 el.fuoco
+    		3 el.fuoco 2 troll
+    		10 el.fuoco
+    		5 troll 5 goblin 5 scheletri 5 el.fuoco 
 
 	* Vermone gigante : Gola ( giallo )
 	    abbandono ed esagerazione nei piaceri della tavola

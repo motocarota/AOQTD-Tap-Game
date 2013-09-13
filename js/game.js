@@ -255,6 +255,7 @@
 		
 		game.active = false;
 		if ( victory ) {
+		    game.player.xp += 500 * game.level;
 			var score = Math.floor( game.player.getHp() / 50 )+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
@@ -265,16 +266,7 @@
 			//NOTA in caso di sconfitta prendi meta' dei px
 			game.player.xp = game.player.xp/2;
 		}
-		gameScene.createTimer(
-			gameScene.time,
-			2000,
-			function(){ 
-				menu.updateReport( victory, score ) 
-			},
-			null, 
-			null
-		);
-		// menu.updateReport( victory, score );
+        menu.updateReport( victory, score );
 	};
 	
 	game.refreshSpellsBtn = function( ) {

@@ -25,7 +25,6 @@ game.dropTable = {
 			game.player.xp+= amt; 
 		}
 	},
-	
 	coins : {
 		imageId: 5,
 		effect : function(){ 
@@ -34,7 +33,6 @@ game.dropTable = {
 			game.player.gold+= amount; 
 		}
 	},
-	
 	scroll : {
 		
 		type: 			"scroll",
@@ -48,7 +46,6 @@ game.dropTable = {
 			game.player.notify( 'You Loot a Scroll of '+game.spellList[ this.spellId ] );
 		}
 	},
-	
 	wand : {
 		type: 			"wand",
 		imageId: 		4,
@@ -61,7 +58,6 @@ game.dropTable = {
 			game.player.notify( 'You Loot a Wand of '+game.spellList[ this.spellId ]+' charges:'+this.charges );
 		}
 	},
-
 	lifePotion : {
 		type: 			"lifePotion",
 		imageId: 		1,
@@ -71,7 +67,6 @@ game.dropTable = {
 			game.player.heal( this.amount ); 
 		}
 	},
-	
 	manaPotion: {
 		type: 			"manaPotion",
 		imageId: 		2,
