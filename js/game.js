@@ -37,7 +37,7 @@
 		this.status = localStorage.getItem( "status" ) ? JSON.parse( localStorage.getItem( "status" ) ) : info;
 	};
 	
-	game.setupScene = function( level ) {
+	game.setupScene = function( level, options ) {
 		
 		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level );
 				
@@ -359,7 +359,7 @@
 		for (var i=0; i < opts.qty; i++) {
 			gameScene.createTimer(
 				gameScene.time,
-				250*roll( 1, 10 ), 
+				250*roll( 1, 30 ), 
 				function(){ 
 					var enemy = new CAAT.Enemy( );
 					enemy.add( en );

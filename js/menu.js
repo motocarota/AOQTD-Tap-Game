@@ -308,6 +308,8 @@
 				y = 20 + ( HH/2 );
 			}
 			
+			//TODO slider difficolta'
+			
 			// List - Menu button
 			if ( i === 0 ) {
 				levelsScene.grid.addChild( 
@@ -356,11 +358,10 @@
 	};
 	
 	function helper( i ) {
-		
 		return function( ) {
 			if( _DEBUG ) CAAT.log( '[List] Play level: '+i );
-			
-			game.setupScene( i );
+			var stars = 0;
+			game.setupScene( i, { difficulty: stars } );
 			menu.slideTo( GAME_SCENE_ID, false, false );
 		}
 	}

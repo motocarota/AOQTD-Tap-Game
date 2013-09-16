@@ -5,27 +5,31 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
     
+    Balasso e la pubblicita'
+
 Fare tutti i livelli
 Fare tutti i mostri
-Pensare a come ripensare le stelline
-tipo: 
-    prima volta finisci un livello con una stella
-    seconda volta la difficolta' raddoppia
-    terza volta la difficolta' raddoppia ancora
-    se uno sblocca tutti i livelli a tre stelle, accede al nirvana dei nerd: il livello nascosto (mucche)
-
+Aggiungere la voce "difficulty" al gioco (top screen)
+    prima volta finisci il gioco con una stella, si abilita la difficulty
+    a due stelle (hp 2x)
+    a tre stelle (hp 3x, danni 2x)/(hp 2x, qty 2x)
+    se uno sblocca tutti i livelli a tre stelle, accede al nirvana dei nerd: 
+        il livello nascosto (mucche)
+        survival mode con sempre piu' mucche
+Capire perche' il drop cade cosi' tanto a destra
 
 ( GRAPHICS )
 
-    * completare i buff che accelerano o rallentano
-	* mostri
+	* mostri rimanenti
 	* Sprite dell'albero per ogni livello
 	* Sprite dell'albero danneggiato in 3-4 fasi
 
 ( CODE )
 
 	* Suoni / Musica
-    * sistemare definitivamente UI, nemici, difficolta'
+    * sistemare UI
+    * sistemare nemici
+    * sistemare difficolta'
 	* classi di mostro (humanoid, undead, beast, construct)
 		hanno effetto sui dv, danni
 	* implementare il boss fight
@@ -51,6 +55,7 @@ tipo:
 
 ( DOPO )
 
+    * integrare backbone
 	* documentare il codice
 	* pensare ad un modello con cui specializzi il protagonista o compri oggetti
 	* rifare main.js per rispecchiare lo schema di sumon
@@ -69,6 +74,7 @@ elementale aria
 troll
 goblin
 scheletro
+ghost
 
 da fare
 ---------------------------------------
@@ -77,7 +83,7 @@ da fare
 drow        // sr, arciere
 duergar     // sr
 
-rakshasa    // caster, evocatore
+rakshasa    // caster, evocatore (elementali)
 hill giant
 
     // questi hanno ai standard
@@ -89,14 +95,14 @@ ogre
 mummia
 progenie vampirica
 minotauro
-vrock           //res sevoca 1d10 dretch
+vrock           //evocatore (dretch)
 
 golem argilla
 golem ferro
 golem roccia
 
 giant turtle    //questi hanno una fase invulnerabilita'/teleport
-vampiro         //caster
+vampiro         //caster, evocatore (progenie vamp)
 spettro
 luci fatue
 blink dog

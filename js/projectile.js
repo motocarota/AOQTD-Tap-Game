@@ -4,6 +4,8 @@
 	CAAT.Projectile = function( ) {
 		CAAT.Spell.superclass.constructor.call( this );
 
+        this.caster = null;
+        this.target = null;
 		this.x = 0;
 		this.y = 0;
 		
@@ -12,13 +14,13 @@
 	
 	CAAT.Projectile.prototype = {
 	    
-	    setup : function( ){
+	    setup : function( caster ){
 
 			var name = game.projList[ this.typeId ];
-			
-			//TODO prendere questi dati dal caster
-			this.x = 10;
-			this.y = 10;
+			this.caster = caster;
+			this.target = caster.target;
+			this.x = caster.x;
+			this.y = caster.y;
 			
 			if ( _DEBUG ) CAAT.log("[Projectile] Setup ( "+this.typeId+" -> "+name+" ) -> ", game.projBook[ name ] );
             
@@ -26,12 +28,12 @@
 			
 			if ( data.initPath ){
 				if ( _DEBUG ) CAAT.log( "[Spell] custom Path" );
-				this.travel.path = data.initPath( this.dest.x, this.dest.y );
+				this.travel.path = data.initPath( this.caster.x, this.caster.y, this.target.x, this.target.y );
 			} else {
 				
 				if ( _DEBUG ) CAAT.log( "[Spell] standard path" )
 				this.travel.path = new CAAT.PathUtil.Path( ).
-					setLinear( this.x, this.y, game.player.x, game.player.y );
+					setLinear( this.caster.x, this.caster.y, this.target.x, this.target.y );
 			}
 			
 			if ( data.initEffect ) {
@@ -47,7 +49,6 @@
 					setInteractive( false )
 				);
 			}
-			
 			this.id = name+roll( 1, 999 );
 			this.name = name;
 		},
@@ -60,12 +61,9 @@
 	    },
 	    
 	    land: function ( ) {
-
 			if( _DEBUG ) CAAT.log( "[Projectile] "+this.id+' is landed!' );	
-			this.effect();
-		},
-	    
-
+			this.effect( this.target );
+		}
 	};
 	
 	
