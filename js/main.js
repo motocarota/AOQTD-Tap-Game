@@ -15,10 +15,11 @@
 			addElement( "list-bg",		"img/UI/list-bg.png" ).
 			addElement( "list-btns",	"img/UI/list-btns.png" ).
 			addElement( "list-stars",	"img/UI/list-stars.png" ).
-			addElement( "bg-small",		"img/UI/bg-small.png" ).
 			addElement( "game-btns",	"img/UI/game-btns.png" ).
 			addElement( "info-char-bg",	"img/UI/info-char-bg.png" ).
 			addElement( "items",		"img/sprites/items.png" ).
+			addElement( "level-up", 	"img/UI/level-up.png" ).
+			addElement( "options-bg", 	"img/UI/options-bg.png" ).
 			addElement( "logo", 		"img/UI/logo.png" ).
 			
 			//splash screens
@@ -62,7 +63,7 @@
 			addElement( "elem_earth",	"img/sprites/enemies/elem-earth.png" ).
 			addElement( "elem_air",	    "img/sprites/enemies/elem-air.png" ).
 			addElement( "elem_water",	"img/sprites/enemies/elem-water.png" ).
-			addElement( "skeletor",	    "img/sprites/enemies/skeletor.png" ).
+			addElement( "skeleton",	    "img/sprites/enemies/skeleton.png" ).
 			addElement( "goblin",	    "img/sprites/enemies/goblin.png" ).
 			addElement( "ghost",	    "img/sprites/enemies/ghost.png" ).
 			
@@ -78,8 +79,6 @@
 
 	function startGame( images ) {
 
-		// WW= window.innerWidth;
-		// HH= window.innerHeight;
 		WW= 900; HH = 600;
 		
 		setupOptions( );

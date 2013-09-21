@@ -7,8 +7,9 @@
 		HELP_SCENE_ID 		= 3,
 		CREDITS_SCENE_ID 	= 4,
 		ENDGAME_SCENE_ID 	= 5;
-	
+
 	window.menu = {};
+	game.difficulty = 0;
 
 	menu.setupScene = function( images ) {
 		
@@ -23,18 +24,19 @@
 		window.creditsScene = director.createScene( );
 		window.reportScene = director.createScene( );
 		
-		// This should improve performance... TODO CONTROLLARE
-		CAAT.setCoordinateClamping( false );
+		CAAT.setCoordinateClamping( false ); // This should improve performance...
 		
 		// UI - Strings and Bars
 		game.UI = {
 			emptySprite :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
+			icons :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 ),
+			listBg : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-bg' ), 1, 1 ),
+			levelUp :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'level-up' ), 1, 1 ),
 			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 5 ),
-			infoCharBg :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'info-char-bg' ), 1, 1 ),
 			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 ),
-			icons:			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 ),
-			stars:			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 ),
-			bgSmall :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg-small' ), 1, 1 )
+			stars :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 ),
+			optionsBg :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'options-bg' ), 1, 1 ),
+			infoCharBg :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'info-char-bg' ), 1, 1 )
 		};
 
 	// ( Scene 0 ) Main menu ================================================================================================
@@ -119,6 +121,53 @@
 			 )
 		menuScene.addChild( menu.resumeBtn );
 		
+		// Options BG
+		menuScene.addChild( new CAAT.Foundation.Actor( ).
+			setLocation( 20+WW/2, HH ).
+			setBackgroundImage( game.UI.optionsBg ).
+			setPositionAnchor( 0.5, 1 )
+		);
+		
+		// Music Label 
+		menuScene.addChild( new CAAT.Foundation.UI.TextActor( ).
+			setText( "Music:" ).
+			setTextFillStyle( "black" ).
+			setFont( game.options.fontAlt ).
+			setLocation( WW/2-130, HH-55 ) );
+		
+		// Music Button 
+		menuScene.addChild( new CAAT.Foundation.Actor( ).
+			setAsButton( 
+				game.UI.btns,
+				4, 4, 9, 9, 
+				function( button ){ 
+					// TODO toggle music
+					button.setSpriteIndex( 9 ) 
+				} ).
+			setPositionAnchor( 1, 1 ).
+			setLocation( 40+WW/2, HH )
+		 );
+		
+		// Sound Label
+		menuScene.addChild( new CAAT.Foundation.UI.TextActor( ).
+			setText( "Sound:" ).
+			setTextFillStyle( "black" ).
+			setFont( game.options.fontAlt ).
+			setLocation( 40+WW/2, HH-55 ) );
+			
+		// Sound Button
+		menuScene.addChild( new CAAT.Foundation.Actor( ).
+			setAsButton( 
+				game.UI.btns,
+				3, 3, 8, 8, 
+				function( button ){ 
+					// TODO toggle sounds
+					button.setSpriteIndex( 8 );
+				} ).
+			setPositionAnchor( 0, 1 ).
+			setLocation( 115+WW/2, HH )
+		 );
+		
 		
 	// ( Scene 4 ) Credits ================================================================================================
 		
@@ -168,6 +217,7 @@
 			setFont( game.options.fontBig ).
 			setTextAlign( 'center' ).
 			setPositionAnchor( 0.5, 0 ).
+			setVisible( false ). //TODO rimuovere
 			setLocation( 760, 140 );
 			
 		reportScene.bg.addChild( reportScene.goldLabel );
@@ -192,53 +242,93 @@
 			
 		reportScene.addChild( reportScene.starsImg );
 		
+		// Report - levelUp badge
+		reportScene.levelUp = new CAAT.Foundation.Actor( ).
+			setLocation( WW/2, HH/2 ).
+			setBackgroundImage( game.UI.levelUp ).
+			setPositionAnchor( 0.5, 0.5 ).
+			setVisible( false );
+			
+		reportScene.addChild( reportScene.levelUp );
+		
 		//Report - Events		
 		reportScene.bg.mouseDown = function( ev ) {
 			if( _DEBUG ) CAAT.log( '[Report] Menu' );
-			menu.slideTo( LIST_SCENE_ID, false, false );
+			reportScene.next();
+		};
+		
+		reportScene.next = function() {
+			if ( reportScene.firstClick ) {
+				// reportScene.goldLabel.setText( game.status.gold ); //total gold
+				reportScene.xpLabel.setText( game.status.xp + game.player.xp ); // total exp
+				reportScene.firstClick = false;
+				if ( game.checkLevelUp() ) {
+					//TODO playLevelUpAnimation
+					reportScene.levelUp.setVisible( true );
+				}
+			} else {
+				reportScene.levelUp.setVisible( false );
+				menu.slideTo( LIST_SCENE_ID, false, false );
+			}
 		};
 		
 		menu.updateReport = function( victory, score ) {
-			
+
 			menu.resumeBtn.setVisible( false );
+			reportScene.firstClick = true;
 			if( victory ){
 				reportScene.bg.setBackgroundImage( director.getImage( 'eg-win' ), false );
-				reportScene.goldLabel.
-					setText( "+"+game.player.gold ). //gold gained
-					// setText( game.status.gold ).
-					setVisible( true );
+				// reportScene.goldLabel.
+				// 	setText( "+"+game.player.gold ). //gained gold
+				// 	setVisible( true );
 				reportScene.xpLabel.
-					setText( "+"+game.player.xp ); //experience gained
-					// setText( game.status.xp );
+					setText( "+"+game.player.xp ); //gained exp
 				reportScene.starsImg.
 					setVisible( true ).
 					setSpriteIndex( score-1 );
+				
 			} else {
 				reportScene.bg.setBackgroundImage( director.getImage( 'eg-die' ), false );
-				reportScene.goldLabel.setVisible( false );
+				// reportScene.goldLabel.setVisible( false );
 				reportScene.xpLabel.setText( "+"+game.player.xp*2+" /2" );
 				reportScene.starsImg.setVisible( false );
-			}
-			if ( game.checkLevelUp( ) ) {
-				reportScene.bg.addChild( 
-					new CAAT.Foundation.ActorContainer( ).
-						setLocation( 20, HH-100 ).
-						setFrameTime( reportScene.time, 2000 ).
-						setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'level-up' ), 1, 1 ) )
-			 	 );
 			}
 			menu.slideTo( ENDGAME_SCENE_ID, false, false );
 		};
 		
 		
 	// ( Scene 1 ) List ================================================================================================
-		
+
+		//Main Bg
 		levelsScene.bg = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, WW, HH ).
-			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-bg' ), 1, 1 ) ).
-			enableEvents( true ).
+			setBackgroundImage( game.UI.listBg ).
 			cacheAsBitmap( );
 		levelsScene.addChild( levelsScene.bg );
+		
+		// Difficulty BG	
+		levelsScene.difficultyBtn = new CAAT.Foundation.ActorContainer( ).
+			setLocation( 20+WW/2, HH ).
+            setBackgroundImage( game.UI.optionsBg ).
+			setPositionAnchor( 0.5, 1 );
+		levelsScene.bg.addChild( levelsScene.difficultyBtn );
+		
+		// Difficulty Label 
+		levelsScene.difficultyBtn.addChild( new CAAT.Foundation.UI.TextActor( ).
+			setText( "Difficulty:" ).
+			setTextFillStyle( "black" ).
+			setFont( game.options.fontAlt ).
+			enableEvents( false ).
+            setLocation( 20, 20 ) 
+		);
+		
+		// Difficulty Sprite 
+		levelsScene.difficultySprite = new CAAT.Foundation.Actor( ).
+			setBackgroundImage( game.UI.stars ).
+			setSpriteIndex( 0 ).
+			enableEvents( true ).
+			setLocation( 480, 560 );
+		levelsScene.addChild( levelsScene.difficultySprite );
 		
 		// List - text
 		game.UI.listStr = new CAAT.Foundation.UI.TextActor( ).
@@ -247,12 +337,11 @@
 			setTextFillStyle( "black" ).
 			setTextAlign( 'right' ).
 			setLocation( WW-30, 130 );
-		
 		levelsScene.bg.addChild( game.UI.listStr );
 		
 		levelsScene.grid = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, WW, HH );
-		levelsScene.addChild( levelsScene.grid );
+		levelsScene.bg.addChild( levelsScene.grid );
 		
 		// List - Buttons
 		levelsScene.activated = function( ) {
@@ -297,8 +386,21 @@
 	menu.updateGrid = function( ) {
 		
 		if( _DEBUG ) CAAT.log( '[List] update grid' );
+		
 		var x, y;
 		game.load( );
+		
+		game.unlockedDifficulty = _.min( game.status.scores ) -1;
+		if ( game.unlockedDifficulty === Infinity || game.unlockedDifficulty < 0 ) {
+			game.unlockedDifficulty = 0;
+		}
+		game.difficulty = game.unlockedDifficulty;
+		levelsScene.difficultySprite.setSpriteIndex( game.difficulty );
+		if ( game.unlockedDifficulty === 3 ) { 
+			//TODO enable secret level
+			console.log( '[Menu List] Gratz! you unlocked the secret level' );
+		}
+		
 		levelsScene.grid.emptyChildren( );
 		for ( var i=0; i < 8; i++ ) {
 			x = 25 + ( WW*i/4 ),
@@ -307,8 +409,6 @@
 				x = 25 + ( WW*( i-4 )/4 );
 				y = 20 + ( HH/2 );
 			}
-			
-			//TODO slider difficolta'
 			
 			// List - Menu button
 			if ( i === 0 ) {
@@ -328,26 +428,25 @@
 				
 				//List - Levels Button
 				var score = game.status.scores[i-1];
-				
 				if ( i === 1 || score || game.status.scores[i-2] ) {
-    				levelsScene.grid.addChild( 
-    					new CAAT.Foundation.Actor( ).
-    						setLocation( x, y ).
-    						setAsButton( 
-    							game.UI.listBtns,
-    							i, i, i, i, 
-    							helper( i )
-    						 )
-    				 );
-    			}
-				
+					levelsScene.grid.addChild( 
+					new CAAT.Foundation.Actor( ).
+							setLocation( x, y ).
+							setAsButton( 
+								game.UI.listBtns,
+								i, i, i, i, 
+								helper( i )
+							)
+						);
+				}
+
 				// List - Stars
 				if ( score ) {
 					if( _DEBUG ) CAAT.log( '[List] level '+i+' already done' );
 					if ( is( 'Number', score ) && score >= 0 && score <= 3 ) 
 					levelsScene.grid.addChild( 
 						new CAAT.Foundation.Actor( ).
-							setLocation( x+25, y+75 ).
+							setLocation( x+20, y+74 ).
 							setBackgroundImage( game.UI.stars ).
 							setSpriteIndex( score-1 )
 					 );
@@ -355,6 +454,15 @@
 			}
 		};
 		game.UI.listStr.setText( game.getStatus( ) );
+		
+		levelsScene.difficultySprite.mouseDown = function( ev ) {
+			if ( game.unlockedDifficulty === 0 ) {
+				return;
+			}
+			game.difficulty = ( game.difficulty +1 ) % ( game.unlockedDifficulty +1 );
+			levelsScene.difficultySprite.setSpriteIndex( game.difficulty );
+			console.log( '[Menu List] Change difficulty: set '+game.difficulty );
+		}
 	};
 	
 	function helper( i ) {

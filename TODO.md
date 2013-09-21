@@ -4,19 +4,14 @@ L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' atta
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
 ## TODO
-    
+
     Balasso e la pubblicita'
 
-Fare tutti i livelli
-Fare tutti i mostri
-Aggiungere la voce "difficulty" al gioco (top screen)
-    prima volta finisci il gioco con una stella, si abilita la difficulty
-    a due stelle (hp 2x)
-    a tre stelle (hp 3x, danni 2x)/(hp 2x, qty 2x)
-    se uno sblocca tutti i livelli a tre stelle, accede al nirvana dei nerd: 
-        il livello nascosto (mucche)
-        survival mode con sempre piu' mucche
-Capire perche' il drop cade cosi' tanto a destra
+ * animare il banner new Level! (magari cambiare colori)
+ * capire come mai rigenera mana cosi' velocemente
+ * On game over: reset della scena (rimuovere attori e timers)
+ * Se uno sblocca tutti i livelli a tre stelle, accede al nirvana dei nerd: 
+        il livello nascosto (mucche) survival mode con sempre piu' mucche
 
 ( GRAPHICS )
 
@@ -55,6 +50,7 @@ Capire perche' il drop cade cosi' tanto a destra
 
 ( DOPO )
 
+    * Oggetti utilizzabili (raccolgo la pozione del mana e mi compare un pulsante extra, quando ci clicco uso l'oggetto)
     * integrare backbone
 	* documentare il codice
 	* pensare ad un modello con cui specializzi il protagonista o compri oggetti

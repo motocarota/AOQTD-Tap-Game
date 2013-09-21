@@ -72,7 +72,7 @@ game.dropTable = {
 		imageId: 		2,
 		effect: function(){ 
 			game.player.notify( 'You loot a Mana Potion' );
-			game.player.mana += 25; 
+			game.player.mana += 40; 
 		}
 	}
 };

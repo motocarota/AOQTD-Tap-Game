@@ -4,13 +4,13 @@ game.enemiesBook = {
 	
 	kobold: {
 		level: 1,
-		speed: 0.8,
+		speed: 0.6,
 		frameW: 3, 
 		frameH: 3,
 		dropTable: [
 			{ chance: 100, id: 'smallXp', qty:1 },
-			{ chance: 5, id: 'lifePotion', qty: 1 },
-			{ chance: 5, id: 'manaPotion', qty: 1 }
+			{ chance: 10, id: 'lifePotion', qty: 1 },
+			{ chance: 15, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
 			walk: {
@@ -32,7 +32,7 @@ game.enemiesBook = {
 		frameH: 3,
 		dropTable: [
 			{ chance: 100, id: 'xp', qty:3 },
-			{ chance: 50, id: 'xp', qty:1 },
+			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
 			walk: {
@@ -47,7 +47,7 @@ game.enemiesBook = {
 		}
 	},
 	
-	skeletor: {
+	skeleton: {
 		level:  3,
 		speed: .8,
 		frameH: 2,
@@ -200,7 +200,8 @@ game.enemiesBook = {
 		frameW: 3, frameH: 3,
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
-			{ chance: 10, id: 'lifePotion', qty: 1 }
+			{ chance: 10, id: 'lifePotion', qty: 1 },
+			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
 			walk: {
@@ -222,14 +223,15 @@ game.enemiesBook = {
 	},
 
 	goblin: {
-		level: 2,
+		level: 1,
 		speed: .6,
 		frameH: 2,
 		frameW: 3,
-		attackSpeed: 12,
+		attackSpeed: 16,
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
-			{ chance: 10, id: 'lifePotion', qty: 1 }
+			{ chance: 10, id: 'lifePotion', qty: 1 },
+			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
 			walk: {
@@ -267,7 +269,8 @@ game.enemiesBook = {
 		frameW: 3,
 		attackSpeed: 12,
 		dropTable: [
-			{ chance: 100, id: 'xp', qty:2 }
+			{ chance: 100, id: 'xp', qty:2 },
+			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
 			attack: {
@@ -284,7 +287,6 @@ game.enemiesBook = {
 					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
 				}
 			} else {
-				
 				if ( this.moving ) {
 					this.halt( );
 				}

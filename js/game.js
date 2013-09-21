@@ -17,7 +17,7 @@
 	
 	game.getStatus = function( ) {
 		var s = game.status;
-		var str = "Level "+s.level+"   XP "+s.xp+"   Gold "+s.gold;
+		var str = "Level "+s.level+"   XP "+s.xp;//+"   Gold "+s.gold;
 		if ( _DEBUG ) CAAT.log( str );
 		return str;
 	};
@@ -81,8 +81,7 @@
 		game.player.add( );
 		game.killCount = 0;
 		
-		for (var i = game.enemies.length - 1; i >= 0; i--){ //loop inverso per non fottersi con gli splice
-			
+		for (var i = game.enemies.length - 1; i >= 0; i--){ 			//loop inverso per non fottersi con gli splice
 			game.enemies[i].die( { loot: false } );
 		};
 		game.enemies = [];
@@ -160,37 +159,37 @@
 		);
 		
 		//bg
-		gameScene.addChild( new CAAT.Foundation.Actor( ).
-			enableEvents( false ).
-			setLocation( WW, HH-10 ).
-			setPositionAnchor( 1, 1 ).
-			setBackgroundImage( game.UI.bgSmall ) 
-		);
+		// gameScene.addChild( new CAAT.Foundation.Actor( ).
+		// 	enableEvents( false ).
+		// 	setLocation( WW, HH-10 ).
+		// 	setPositionAnchor( 1, 1 ).
+		// 	setBackgroundImage( game.UI.bgSmall ) 
+		// );
 		
 		//xp
-		gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
-			setText( "Xp: "+game.status.xp ).
-			setFont( game.options.fontAlt ).
-			setTextFillStyle( "white" ).
-			setTextAlign( 'right' ).
-			setLocation( WW, HH-10 ).
-			setPositionAnchor( 1, 1 )
-		);
+		// gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
+		// 	setText( game.status.xp+" xp" ).
+		// 	setFont( game.options.fontAlt ).
+		// 	setTextFillStyle( "black" ).
+		// 	setTextAlign( 'right' ).
+		// 	setLocation( WW, 10 ).
+		// 	setPositionAnchor( 0, 0 )
+		// );
 		
-		//gold
-		gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
-			setText( "Gold: "+game.status.gold ).
-			setFont( game.options.fontAlt ).
-			setTextFillStyle( "white" ).
-			setTextAlign( 'right' ).
-			setLocation( WW, HH-50 ).
-			setPositionAnchor( 1, 1 )
-		);
+		//gold - Temporaneamente disattivato
+		// gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
+		// 	setText( "Gold: "+game.status.gold ).
+		// 	setFont( game.options.fontAlt ).
+		// 	setTextFillStyle( "white" ).
+		// 	setTextAlign( 'right' ).
+		// 	setLocation( WW, HH-50 ).
+		// 	setPositionAnchor( 1, 1 )
+		// );
 		
 		// Pause game Button
 		gameScene.addChild( 
 			new CAAT.Foundation.Actor( ).
-				setLocation( ( director.width/2 )-15, 8 ).
+				setLocation( ( director.width/2 )-15, 0 ).
 				setPositionAnchor( 0, 0 ).
 				setAsButton( 
 					game.UI.btns,
@@ -200,31 +199,7 @@
 						menu.slideTo( 0, true, true ); //MENU_SCENE_ID
 					} ) 
 		 );
-		
-		// Lock game Button - rimuovere
-		gameScene.addChild( new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				game.UI.btns,
-				3, 3, 8, 8, 
-				function( button ){ 
-					CAAT.log( '[Main] Game BRUTALLY Stopped = '+!gameScene.paused )
-					button.setSpriteIndex( 8 );
-					gameScene.setPaused( !gameScene.paused );
-				} ).
-			setPositionAnchor( 0.5, 1 ).
-			setLocation( WW-10, HH )
-		 );
-		
-		// Music game Button - rimuovere
-		gameScene.addChild( new CAAT.Foundation.Actor( ).
-			setAsButton( 
-				game.UI.btns,
-				4, 4, 9, 9, 
-				function( button ){ button.setSpriteIndex( 9 ) } ).
-			setPositionAnchor( 0.5, 1 ).
-			setLocation( WW-10, HH-50 )
-		 );
-		
+				
 		if ( _DEBUG ) {
 			game.UI.debugString = new CAAT.Foundation.UI.TextActor( ).
 				setText( "file version: "+_FILE_VERSION ).
@@ -254,18 +229,18 @@
 	game.over = function( victory ) {
 		
 		game.active = false;
+		//TODO ripulire il bg dagli attori e dai timers rimanenti
 		if ( victory ) {
 		    game.player.xp += 500 * game.level;
 			var score = Math.floor( game.player.getHp() / 50 )+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
-				game.status.gold += game.player.gold;
-				game.save( );
+				// game.status.gold += game.player.gold;
 			}
 		} else {
-			//NOTA in caso di sconfitta prendi meta' dei px
-			game.player.xp = game.player.xp/2;
+			game.player.xp = game.player.xp/2; 							//NOTA in caso di sconfitta prendi meta' dei px
 		}
+		game.save( );
         menu.updateReport( victory, score );
 	};
 	
@@ -273,15 +248,12 @@
 		
 		for ( var id=0; id < game.UI.spellsBtn.length; id++ ) {
 			if( id === spellIndex ) {
-				//selected spell icon
-				game.UI.spellsBtn[id].setSpriteIndex( id+5 );
+				game.UI.spellsBtn[id].setSpriteIndex( id+5 ); 			//selected spell icon
 			} else {
 				if ( game.player.cooldowns[ id ] ) {
-					//disabled spell icon
-					game.UI.spellsBtn[id].setSpriteIndex( id+10 );
+					game.UI.spellsBtn[id].setSpriteIndex( id+10 );		//disabled spell icon
 				} else {
-					//normal spell icon
-					game.UI.spellsBtn[id].setSpriteIndex( id );
+					game.UI.spellsBtn[id].setSpriteIndex( id ); 		//normal spell icon
 				}
 			}
 		}
