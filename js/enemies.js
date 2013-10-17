@@ -99,8 +99,8 @@ game.enemiesBook = {
 				}
 				if ( this.cooldown <= 0 ) {
 					game.player.notifyAt( "shoot", this );
-					var c= [ 'elem_air', 'elem_fire', 'elem_earth', 'elem_water' ];
-					game.summon( c[ roll( 0, c.length ) ], { qty:roll(), extra:true } );
+					var c = [ 'elem_air', 'elem_fire', 'elem_earth', 'elem_water' ];
+					game.summon( c, { qty:roll(), extra:true } );
 				}
 
 			} else {
@@ -227,6 +227,7 @@ game.enemiesBook = {
 		speed: .6,
 		frameH: 2,
 		frameW: 3,
+		ranged: true,
 		attackSpeed: 16,
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
@@ -251,12 +252,12 @@ game.enemiesBook = {
 					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
 				}
 			} else {
-				
 				if ( this.moving ) {
 					this.halt( );
 				}
 				if ( this.cooldown <= 0 ) {
 					this.attack( );
+					//this.shoot();
 				}
 			}
 			

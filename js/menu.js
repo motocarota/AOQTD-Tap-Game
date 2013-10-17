@@ -398,7 +398,7 @@
 		levelsScene.difficultySprite.setSpriteIndex( game.difficulty );
 		if ( game.unlockedDifficulty === 3 ) { 
 			//TODO enable secret level
-			console.log( '[Menu List] Gratz! you unlocked the secret level' );
+			CAAT.log( '[Menu List] Gratz! you unlocked the secret level' );
 		}
 		
 		levelsScene.grid.emptyChildren( );
@@ -461,7 +461,7 @@
 			}
 			game.difficulty = ( game.difficulty +1 ) % ( game.unlockedDifficulty +1 );
 			levelsScene.difficultySprite.setSpriteIndex( game.difficulty );
-			console.log( '[Menu List] Change difficulty: set '+game.difficulty );
+			CAAT.log( '[Menu List] Change difficulty: set '+game.difficulty );
 		}
 	};
 	

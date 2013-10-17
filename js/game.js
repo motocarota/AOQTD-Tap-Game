@@ -323,8 +323,13 @@
 		}		
 	};
 	
-	game.summon = function( en, opts ){
-		
+	game.summon = function( enemies, opts ){
+		var en;
+		if ( is( 'Array', enemies ) ) {
+			en = en[ roll( 0, en.length ) ];
+		} else {
+			en = enemies;
+		}
 		if ( !opts.qty || !is( 'Number', opts.qty ) || opts.qty < 0 ) {
 			opts.qty = 1;
 		}

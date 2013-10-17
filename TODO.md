@@ -5,48 +5,37 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
-    Balasso e la pubblicita'
+ *** mettere in gioco i proiettili ***
 
- * animare il banner new Level! (magari cambiare colori)
+ * l'ultimo incantesimo e' terribile: cambiarlo con "finger of death"
  * capire come mai rigenera mana cosi' velocemente
  * On game over: reset della scena (rimuovere attori e timers)
  * Se uno sblocca tutti i livelli a tre stelle, accede al nirvana dei nerd: 
         il livello nascosto (mucche) survival mode con sempre piu' mucche
+
+( CAAGE )
+
+	* aggiungere 'tipo' di enemy ( melee, ranged, caster, ... )
+	* integrare AI di base dei mostri direttamente in enemy, determinata dal tipo
 
 ( GRAPHICS )
 
 	* mostri rimanenti
 	* Sprite dell'albero per ogni livello
 	* Sprite dell'albero danneggiato in 3-4 fasi
+	* pulire lo screen iniziale, dare una passata di bianco trasparente ai nemici
+	* animare il banner new Level! (magari cambiare colori)
 
 ( CODE )
 
 	* Suoni / Musica
-    * sistemare UI
-    * sistemare nemici
-    * sistemare difficolta'
+	* sistemare UI
+	* sistemare nemici
+	* sistemare difficolta'
 	* classi di mostro (humanoid, undead, beast, construct)
 		hanno effetto sui dv, danni
 	* implementare il boss fight
 		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi	
-
-( Animazione iniziale )
-	
-	1. Superdrow raggiunge i suoi amici alla locanda, tutto sorridente, aspetta un po', gli amici lo ignorano
-	2. [primo piano] "I've found the way to become the most powerful mage in the world!!"
-	3. gli amici si guardano
-	4. sd2 srotola un foglio blu con il piano
-	5. visuale del foglio con il piano disegnato e il dito che segue le fasi:
-	    - poke an enemy
-	    - run like hell
-	    - summon a tree
-	    - kill all the enemies
-	    - ????
-	    - profit
-	6. amici perplessi, scoppiano a ridere
-	7. sd2 si allontana offeso, per poi voltarsi minaccioso
-	8. "WE'LL SEE WHEN I'LL BE... THE BEST MAGE EVER!!1!" logo copertina fica ecc
-	9. Si chiude nel cesso, passa un po', poi "crap"
 
 ( DOPO )
 
@@ -56,9 +45,27 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 	* pensare ad un modello con cui specializzi il protagonista o compri oggetti
 	* rifare main.js per rispecchiare lo schema di sumon
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
+	* Animazione iniziale:
+
+		1. Superdrow raggiunge i suoi amici alla locanda, tutto sorridente, aspetta un po', gli amici lo ignorano
+		2. [primo piano] "I've found the way to become the most powerful mage in the world!!"
+		3. gli amici si guardano
+		4. sd2 srotola un foglio blu con il piano
+		5. visuale del foglio con il piano disegnato e il dito che segue le fasi:
+		    - poke an enemy
+		    - run like hell
+		    - summon a tree
+		    - kill all the enemies
+		    - ????
+		    - profit
+		6. amici perplessi, scoppiano a ridere
+		7. sd2 si allontana offeso, per poi voltarsi minaccioso
+		8. "WE'LL SEE WHEN I'LL BE... THE BEST MAGE EVER!!1!" logo copertina fica ecc
+		9. Si chiude nel cesso, passa un po', poi "crap"
 
 
 ## LISTA MOSTRI
+
 fatti
 ---------------------------------------
 coboldo
