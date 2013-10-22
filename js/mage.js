@@ -122,6 +122,7 @@
 		
 		x: 70, y: 250,
 		height: 280, width: 50,
+		id: "roots",
 		
 		damage : function( amount, element ) {
 			

@@ -17,10 +17,10 @@
 			addElement( "list-stars",	"img/UI/list-stars.png" ).
 			addElement( "game-btns",	"img/UI/game-btns.png" ).
 			addElement( "info-char-bg",	"img/UI/info-char-bg.png" ).
-			addElement( "items",		"img/sprites/items.png" ).
 			addElement( "level-up", 	"img/UI/level-up.png" ).
 			addElement( "options-bg", 	"img/UI/options-bg.png" ).
 			addElement( "logo", 		"img/UI/logo.png" ).
+			addElement( "items",		"img/sprites/items.png" ).
 			
 			//splash screens
 			addElement( "cover",		"img/cover.png" ).
@@ -52,6 +52,10 @@
 			addElement( "fb-splash",	"img/sprites/spells/fireball-splash.png" ).
 			addElement( "hwilting",		"img/sprites/spells/horrid-wilting-big.png" ).
 			addElement( "spell",		"img/empty.png" ).
+			
+			//projectiles
+			addElement( "rock",			"img/sprites/rock.png" ).
+			addElement( "arrow",		"img/sprites/arrow.png" ).
 			
 			//monsters
 			addElement( "kobold",		"img/sprites/enemies/kobold.png" ).

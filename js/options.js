@@ -1,5 +1,4 @@
 //OPTIONS
-// This file contains important game options to tweak game balance
 
 function setupOptions( ) {
 	
@@ -20,7 +19,12 @@ function setupOptions( ) {
 			max_mana: 			100
 		},
 		enemies : {
-			baseSpeed : 	100
+			baseSpeed : 	10,
+			destinations:{
+				melee:		{ x:200, y:350, w:50,  h:100 },
+				ranged:		{ x:400, y:200, w:300, h:300 },
+				healer:		{ x:700, y:200, w:150, h:300 }
+			}
 		},
 		drop : {
 			lifespan : 		80

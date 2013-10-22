@@ -77,6 +77,7 @@ game.enemiesBook = {
 		level:  2,
 		speed: .45,
 		frameW: 3, frameH: 2,
+		summons: [ 'elem_air', 'elem_fire', 'elem_earth', 'elem_water' ],
 		animations: {
 			walk: {
 				frames: [0,1,2,1], duration: 400
@@ -88,21 +89,17 @@ game.enemiesBook = {
 				frames: [0], duration: 200
 			}
 		},
+		
 		ai: function() {
-
-			var t = ( this.time/1000 ).toFixed( 0 );
-			
+			var t = ( this.time / 1000 ).toFixed( 0 );
 			if ( t % 4 === 0 ) { //ogni 4 sec
 				game.player.notifyAt( t, { x: 500, y:500 } )
 				if ( this.moving ) {
 					this.halt( );
 				}
 				if ( this.cooldown <= 0 ) {
-					game.player.notifyAt( "shoot", this );
-					var c = [ 'elem_air', 'elem_fire', 'elem_earth', 'elem_water' ];
-					game.summon( c, { qty:roll(), extra:true } );
+					game.summon( this.summons, { qty:roll(), extra:true } );
 				}
-
 			} else {
 				if ( !this.moving ) {
 					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
@@ -112,11 +109,12 @@ game.enemiesBook = {
 		}
 	},
 	
-	elem_fire: {	//TODO aumentare attack speed, ridurre i danni
+	elem_fire: {
 		level: 5,
 		speed: .84,
 		attackSpeed: 2,
 		frameW: 2, frameH: 2,
+		getDamage: function(){ return roll( 1, 3 ) },
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
@@ -227,8 +225,7 @@ game.enemiesBook = {
 		speed: .6,
 		frameH: 2,
 		frameW: 3,
-		ranged: true,
-		attackSpeed: 16,
+		attackSpeed: 2,
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'lifePotion', qty: 1 },
@@ -245,23 +242,9 @@ game.enemiesBook = {
 				frames: [0, 1], duration: 200
 			}
 		},
-		ai: function() {
-			
-			if ( this.cooldown-- > 0 && roll() > 3 ) {
-				if ( !this.moving ) {
-					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
-				}
-			} else {
-				if ( this.moving ) {
-					this.halt( );
-				}
-				if ( this.cooldown <= 0 ) {
-					this.attack( );
-					//this.shoot();
-				}
-			}
-			
-		}
+		role: 'ranged',
+		projectile: 2,
+		ai: rangedAI
 	},
 	ghost: {
 		level: 5,
@@ -299,3 +282,27 @@ game.enemiesBook = {
 		}
 	}
 };
+
+// Generic AI
+
+function rangedAI( ) {
+	
+	if ( this.cooldown > 0 && !this.moving  ) {
+		var dest = game.options.enemies.destinations.melee;
+		// var dest = game.options.enemies.destinations.healer;
+		// var dest = game.options.enemies.destinations.ranged;
+		this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
+	} else {
+		if ( this.moving ) {
+			// this.halt( );
+			return;
+		}
+		if ( this.cooldown <= 0 ) {
+			this.cooldown = this.attackSpeed;
+			var p = new CAAT.Projectile( this.projectile );
+			p.setup( this );
+			p.add( );
+			this.playAnimation( 'attack' );
+		}
+	}
+}

@@ -5,25 +5,22 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
- *** mettere in gioco i proiettili ***
-
- * l'ultimo incantesimo e' terribile: cambiarlo con "finger of death"
- * capire come mai rigenera mana cosi' velocemente
  * On game over: reset della scena (rimuovere attori e timers)
- * Se uno sblocca tutti i livelli a tre stelle, accede al nirvana dei nerd: 
-        il livello nascosto (mucche) survival mode con sempre piu' mucche
+ * cambiare l'ultimo incantesimo
 
 ( CAAGE )
 
-	* aggiungere 'tipo' di enemy ( melee, ranged, caster, ... )
-	* integrare AI di base dei mostri direttamente in enemy, determinata dal tipo
+	* controllare/rivedere la velocita' di enemies e spells come in projectile
 
 ( GRAPHICS )
 
+	* UI: creare la funzione "stampEffect" per scritta "you win" e i px
 	* mostri rimanenti
 	* Sprite dell'albero per ogni livello
 	* Sprite dell'albero danneggiato in 3-4 fasi
-	* pulire lo screen iniziale, dare una passata di bianco trasparente ai nemici
+	* screen iniziale:
+		dare una passata di bianco trasparente ai nemici
+		ricolorare il goblin
 	* animare il banner new Level! (magari cambiare colori)
 
 ( CODE )
@@ -39,6 +36,8 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( DOPO )
 
+	* Se uno sblocca tutti i livelli a tre stelle, accede al "nerd's nirvana": 
+       il livello nascosto (mucche) survival mode con sempre piu' mucche
     * Oggetti utilizzabili (raccolgo la pozione del mana e mi compare un pulsante extra, quando ci clicco uso l'oggetto)
     * integrare backbone
 	* documentare il codice
@@ -68,49 +67,57 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 fatti
 ---------------------------------------
-coboldo
-orco
+
+	// melee
+	coboldo
+	orco
 elementale acqua
 elementale terra
 elementale fuoco
 elementale aria
 troll
-goblin
 scheletro
+
+	// ranged
+	goblin
 ghost
 
 da fare
 ---------------------------------------
-    //questi hanno attacchi ranged
-
-drow        // sr, arciere
-duergar     // sr
-
-rakshasa    // caster, evocatore (elementali)
+    // ranged
+drow 			// sr
 hill giant
 
-    // questi hanno ai standard
+	// caster
+????			// healer
+rakshasa    	// evocatore (elementali)
+vrock           // evocatore (dretch)
+vampiro         // evocatore (progenie vamp)
+
+	// healer
+duergar 		// healer, sr
+
+    // melee
+progenie vampirica
 dretch
 zombie
 melma
 ghoul
 ogre
 mummia
-progenie vampirica
+bulette
+shadow
 minotauro
-vrock           //evocatore (dretch)
 
 golem argilla
 golem ferro
 golem roccia
 
-giant turtle    //questi hanno una fase invulnerabilita'/teleport
-vampiro         //caster, evocatore (progenie vamp)
-spettro
-luci fatue
-blink dog
-bulette
-shadow
+	// custom
+giant turtle    // fase invulnerabilita'
+luci fatue		// fase inisibilita'
+blink dog		// teleport
+
 
 ## LISTA LIVELLI
 

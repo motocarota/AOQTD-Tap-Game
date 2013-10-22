@@ -1,3 +1,7 @@
+// ========================================================
+// Spells
+// ========================================================
+
 game.spellBook = {
 	'Magic Missile':{
 
@@ -237,5 +241,24 @@ game.spellBook = {
 };
 game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning', 'Wilting' ];
 
-//NOTA gia' meglio ma non mi garantisce l'ordine
-// game.spellList = Object.keys( game.spellBook );
+// ========================================================
+// Projectiles
+// ========================================================
+
+game.projBook = {
+	'rock': {
+		speed: 			1.5,
+		damage: 		3
+	},
+	'arrow': {
+		speed: 			1.5,
+		damage: 		2
+	},
+	'mmissile':{
+		speed: 			2,
+		damage: 		3,
+		frameW: 		3,
+		frameH: 		2
+	}
+};
+game.projList = [ 'arrow', 'rock', 'mmissile' ];
