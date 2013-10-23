@@ -330,13 +330,16 @@
 		} else {
 			en = enemies;
 		}
-		if ( !opts.qty || !is( 'Number', opts.qty ) || opts.qty < 0 ) {
+		if ( !opts ) {
+			opts = { qty:1, extra:true };
+		}
+		if ( !opts.qty || !is( 'Number', opts.qty ) || opts.qty < 1 ) {
 			opts.qty = 1;
 		}
 		for (var i=0; i < opts.qty; i++) {
 			gameScene.createTimer(
 				gameScene.time,
-				250*roll( 1, 30 ), 
+				( opts.extra ) ? 0 : 250*roll( 1, 30 ), 
 				function(){ 
 					var enemy = new CAAT.Enemy( );
 					enemy.add( en );

@@ -5,6 +5,7 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
+ * CHECK se passi il livello passi con tre stelle (probabilmente e' la vecchia gestione)
  * On game over: reset della scena (rimuovere attori e timers)
  * cambiare l'ultimo incantesimo
 
@@ -15,13 +16,21 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 ( GRAPHICS )
 
 	* UI: creare la funzione "stampEffect" per scritta "you win" e i px
+	* UI: Rifare i pulsanti dei livelli senza il nome del peccato capitale (e vedere se togliere pure i colori)
+	* UI: animare il banner new Level! (magari cambiare colori)
 	* mostri rimanenti
+	* Rifare livelli 3(bosco/foresta tramonto) e 7(cimitero notturno)
 	* Sprite dell'albero per ogni livello
+		1,3: albero
+		2: cactus
+		4,7: albero secco
+		5: albero evocato
+		6: stalagmite
 	* Sprite dell'albero danneggiato in 3-4 fasi
 	* screen iniziale:
 		dare una passata di bianco trasparente ai nemici
 		ricolorare il goblin
-	* animare il banner new Level! (magari cambiare colori)
+		rivedere anche il duergar
 
 ( CODE )
 
@@ -44,8 +53,8 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 	* pensare ad un modello con cui specializzi il protagonista o compri oggetti
 	* rifare main.js per rispecchiare lo schema di sumon
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
-	* Animazione iniziale:
 
+( Animazione iniziale )
 		1. Superdrow raggiunge i suoi amici alla locanda, tutto sorridente, aspetta un po', gli amici lo ignorano
 		2. [primo piano] "I've found the way to become the most powerful mage in the world!!"
 		3. gli amici si guardano
@@ -68,31 +77,32 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 fatti
 ---------------------------------------
 
-	// melee
+// melee
 	coboldo
 	orco
-elementale acqua
-elementale terra
-elementale fuoco
-elementale aria
-troll
-scheletro
+	elementale acqua
+	elementale terra
+	elementale fuoco
+	elementale aria
+	troll
+	scheletro
 
-	// ranged
+// ranged
 	goblin
-ghost
+	ghost
 
 da fare
 ---------------------------------------
     // ranged
 drow 			// sr
-hill giant
+giant
 
 	// caster
 ????			// healer
-rakshasa    	// evocatore (elementali)
-vrock           // evocatore (dretch)
-vampiro         // evocatore (progenie vamp)
+rakshasa    	// evocatore (elementali) HARD
+
+necromancer		// evocatore (dretch) EASY
+vampiro			// evocatore (progenie vamp) MEDIUM
 
 	// healer
 duergar 		// healer, sr
@@ -118,10 +128,22 @@ giant turtle    // fase invulnerabilita'
 luci fatue		// fase inisibilita'
 blink dog		// teleport
 
+Rivista lista dei nemici, classificandoli per tipo
+
+			Easy			Medium			Hard			Boss
+-----------------------------------------------------------------
+Melee		coboldo			orco			troll			
+			elem			scheletro		golem
+			dretch			zombie			minotauro
+Ranged		goblin			drow			giant			
+Caster		imp				dragonkind		rakshaaza		
+Healer		duergar			-				-				
+Summoner	vrock			vampiro			-				
+
 
 ## LISTA LIVELLI
 
----------------------------------------
+--------------------------------------------------------------------
 	* Campagna (1...3) : [ coboldi, goblin, orchi, troll ] 4/4
 
 	* Deserto (2...4) : [ goblin, scheletri, troll, orchi, el.fuoco ] 5/6  mummie

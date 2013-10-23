@@ -24,6 +24,12 @@
 			 return this.hp;
 		},
 		
+		addMana: function( n ) {
+			if ( _DEBUG ) { CAAT.log('[Player] add '+n+' Mana points ('+this.mana+')') }
+			this.mana = _.min( [ this.mana + n, game.options.player.max_mana ] );
+			return this.mana;
+		},
+		
 		add : function () {
 
 			if ( _DEBUG ) CAAT.log('[Mage] add');
@@ -104,9 +110,7 @@
 					delete this.cooldowns[ c ];
 				}
 			}
-			this.mana = ( this.mana < game.options.player.max_mana ) ? 
-				this.mana + game.options.tick_mana : 
-				game.options.player.max_mana;
+			this.addMana( game.options.tick_mana );
 		},
 		
 		die: function() {

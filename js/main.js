@@ -70,6 +70,12 @@
 			addElement( "skeleton",	    "img/sprites/enemies/skeleton.png" ).
 			addElement( "goblin",	    "img/sprites/enemies/goblin.png" ).
 			addElement( "ghost",	    "img/sprites/enemies/ghost.png" ).
+			addElement( "necromancer",	"img/sprites/enemies/necromancer.png" ).
+			addElement( "duergar",	    "img/sprites/enemies/duergar.png" ).
+			addElement( "giant",	    "img/sprites/enemies/giant.png" ).
+			addElement( "iron_golem",	"img/sprites/enemies/iron_golem.png" ).
+			addElement( "clay_golem",	"img/sprites/enemies/clay_golem.png" ).
+			addElement( "rakshaaza",	"img/sprites/enemies/rakshaaza.png" ).
 			
 			//other
 			addElement( "empty",		"img/empty.png" ).

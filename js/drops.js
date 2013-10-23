@@ -6,7 +6,8 @@ game.dropTable = {
 		effect : function(){ 
 			var amt = 5*roll( 1, 3 );
 			game.player.notify( 'You gain '+amt+' xp' );
-			game.player.xp+= amt; 
+			game.player.xp+= amt;
+			game.player.addMana( 5 );
 		}
 	},
 	xp : {
@@ -14,7 +15,8 @@ game.dropTable = {
 		effect : function(){ 
 			var amt = 10*roll( 1, 5, 4 );
 			game.player.notify( 'You gain '+amt+' xp' );
-			game.player.xp+= amt; 
+			game.player.xp+= amt;
+			game.player.addMana( 7 );
 		}
 	},
 	bigXp : {
@@ -22,7 +24,8 @@ game.dropTable = {
 		effect : function(){ 
 			var amt = 50*roll( 1, 6, 1 );
 			game.player.notify( 'You gain '+amt+' xp' );
-			game.player.xp+= amt; 
+			game.player.xp+= amt;
+			game.player.addMana( 10 );
 		}
 	},
 	coins : {

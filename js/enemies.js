@@ -1,3 +1,107 @@
+var AI = {
+
+	ranged: function( ) {
+	
+		if ( this.cooldown > 0 && !this.moving  ) {
+			var dest = game.options.enemies.destinations.ranged;
+			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
+		} else {
+			if ( this.moving ) {
+				return;
+			}
+			if ( this.cooldown <= 0 ) {
+				this.cooldown = this.attackSpeed;
+				var p = new CAAT.Projectile( this.projectile );
+				p.setup( this );
+				p.add( );
+				this.playAnimation( 'attack' );
+			}
+		}
+	},
+	
+	melee: function( ) {
+	
+		if ( this.cooldown > 0 && !this.moving  ) {
+			var dest = game.options.enemies.destinations.melee;
+			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
+		} else {
+			if ( this.moving ) {
+				this.halt( );
+			}
+			if ( this.cooldown <= 0 ) {
+				this.cooldown = this.attackSpeed;
+				var p = new CAAT.Projectile( this.projectile );
+				p.setup( this );
+				p.add( );
+				this.playAnimation( 'attack' );
+			}
+		}
+	},
+	
+	caster: function( ) {
+	
+		if ( this.cooldown > 0 && !this.moving  ) {
+			var dest = game.options.enemies.destinations.ranged;
+			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
+		} else {
+			if ( this.moving ) {
+				return;
+			}
+			if ( this.cooldown <= 0 ) {
+				var id = roll( this.spellsKnown );
+				var chosenSpell = this.spellsKnown[ id ];
+				if ( _DEBUG ) CAAT.log( '[Enemies] caster is casting '+chosenSpell.id, chosenSpell );
+				chosenSpell.effect( this );
+				this.cooldown = this.attackSpeed;
+				this.playAnimation( 'attack' );
+			}
+		}
+	},
+	
+	summoner: function( ) {
+	
+		if ( this.cooldown > 0 && !this.moving  ) {
+			var dest = game.options.enemies.destinations.ranged;
+			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
+		} else {
+			if ( this.moving ) {
+				return;
+			}
+			if ( this.cooldown <= 0 ) {
+				game.summon( 'skeleton' );
+				this.say( 'summon' );
+				this.cooldown = this.attackSpeed;
+				this.playAnimation( 'attack' );
+			}
+		}
+	},
+	
+	healer: function( ) {
+	
+		if ( this.cooldown > 0 && !this.moving  ) {
+			var dest = game.options.enemies.destinations.healer;
+			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
+		} else {
+			if ( this.moving ) {
+				return;
+			}
+			if ( this.cooldown <= 0 ) {
+				for (var i=0; i < game.enemies.length; i++) {
+					var amount = ( game.enemies[i].wounds / 2 ).toFixed( 0 );
+					if ( amount > 0 ) {
+						this.target = game.enemies[i];
+						this.target.say( "+"+amount, "green" );
+						this.target.wounds = amount;
+						this.cooldown = this.attackSpeed;
+						this.playAnimation( 'attack' );
+						return;
+					}
+				};
+			}
+		}
+	}
+};
+
 game.enemiesList = [];
 
 game.enemiesBook = {
@@ -67,9 +171,6 @@ game.enemiesBook = {
 			attack: {
 				frames: [2,5,4,3], duration: 200
 			}
-		// },	   
-		// ai: function(){
-		//  
 		}
 	},
 	
@@ -114,6 +215,7 @@ game.enemiesBook = {
 		speed: .84,
 		attackSpeed: 2,
 		frameW: 2, frameH: 2,
+		element: 'fire',
 		getDamage: function(){ return roll( 1, 3 ) },
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
@@ -126,6 +228,12 @@ game.enemiesBook = {
 			stand: {
 				frames: [0, 1], duration: 200
 			}
+		},
+		damageFilter: function( amount, source ) {
+			if ( this.element === source ){
+				amount = ( amount * 0.5 ).toFixed( 0 );
+			}
+			return amount;
 		}
 	},
 	
@@ -133,6 +241,7 @@ game.enemiesBook = {
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
+		element: 'physical',
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
@@ -147,6 +256,12 @@ game.enemiesBook = {
 			stand: {
 				frames: [0], duration: 200
 			}
+		},
+		damageFilter: function( amount, source ) {
+			if ( this.element === source ){
+				amount = ( amount * 0.5 ).toFixed( 0 );
+			}
+			return amount;
 		}
 	},
 	
@@ -154,6 +269,7 @@ game.enemiesBook = {
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
+		element: 'electricity',
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
@@ -168,6 +284,12 @@ game.enemiesBook = {
 			stand: {
 				frames: [0,1,2,1], duration: 200
 			}
+		},
+		damageFilter: function( amount, source ) {
+			if ( this.element === source ){
+				amount = ( amount * 0.5 ).toFixed( 0 );
+			}
+			return amount;
 		}
 	},
 	
@@ -175,6 +297,7 @@ game.enemiesBook = {
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
+		element: 'water',
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
@@ -189,11 +312,17 @@ game.enemiesBook = {
 			stand: {
 				frames: [0,1], duration: 200
 			}
+		},
+		damageFilter: function( amount, source ) {
+			if ( this.element === source ){
+				amount = ( amount * 0.5 ).toFixed( 0 );
+			}
+			return amount;
 		}
 	},
 	
 	orc: {
-		level: 3,
+		level: 4,
 		speed: .6,
 		frameW: 3, frameH: 3,
 		dropTable: [
@@ -211,12 +340,6 @@ game.enemiesBook = {
 			stand: {
 				frames: [0, 1, 2, 1], duration: 200
 			}
-		},
-		damageFilter: function( amount, source ) {
-			var c = amount;
-			if ( this.element === source )
-				c = Math.floor( amount * 0.7 );
-			return c;
 		}
 	},
 
@@ -243,8 +366,29 @@ game.enemiesBook = {
 			}
 		},
 		role: 'ranged',
-		projectile: 2,
-		ai: rangedAI
+		projectile: 1,
+		ai: AI.ranged
+	},
+	
+	necromancer:{
+		level: 3,
+		ai: AI.summoner,
+		creatures: [ "skeleton" ]
+	},
+	duergar:{
+		level: 2,
+		ai: AI.healer
+	},
+	giant:{
+		level: 8,
+		ai: AI.ranged,
+		projectile: 2
+	},
+	iron_golem:{
+		level: 10
+	},
+	clay_golem:{
+		level: 10
 	},
 	ghost: {
 		level: 5,
@@ -280,29 +424,31 @@ game.enemiesBook = {
 			}
 			
 		}
+	},
+	rakshaaza:{
+		level: 10,
+		ai: AI.caster,
+		spellsKnown: [
+			{
+				id: 'teleport',
+				cd: 20,
+				effect: function( en ) {
+					// game.playSound( 'teleport' );
+					en.x = roll( 0, WW );
+					en.y = roll( 0, HH );
+				}
+			}, 
+			{
+				id: 'fireball',
+				cd: 10,
+				effect: function( en ) {
+					// game.playSound( 'cast' );
+					var p = new CAAT.Projectile( 3 );
+					p.setup( en );
+					p.add( );
+				}
+			},
+			{ id:'bluff', cd:2, effect:function( en ){ en.say( 'abracadabra' ) } }
+		]
 	}
 };
-
-// Generic AI
-
-function rangedAI( ) {
-	
-	if ( this.cooldown > 0 && !this.moving  ) {
-		var dest = game.options.enemies.destinations.melee;
-		// var dest = game.options.enemies.destinations.healer;
-		// var dest = game.options.enemies.destinations.ranged;
-		this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
-	} else {
-		if ( this.moving ) {
-			// this.halt( );
-			return;
-		}
-		if ( this.cooldown <= 0 ) {
-			this.cooldown = this.attackSpeed;
-			var p = new CAAT.Projectile( this.projectile );
-			p.setup( this );
-			p.add( );
-			this.playAnimation( 'attack' );
-		}
-	}
-}

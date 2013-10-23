@@ -259,6 +259,10 @@ game.projBook = {
 		damage: 		3,
 		frameW: 		3,
 		frameH: 		2
+	},
+	'fireball':{
+		speed: 			2,
+		damage: 		12
 	}
 };
-game.projList = [ 'arrow', 'rock', 'mmissile' ];
+game.projList = [ 'arrow', 'rock', 'mmissile', 'fireball' ];
