@@ -229,7 +229,6 @@
 	game.over = function( victory ) {
 		
 		game.active = false;
-		//TODO ripulire il bg dagli attori e dai timers rimanenti
 		if ( victory ) {
 		    game.player.xp += 500 * game.level;
 			var score = Math.floor( game.player.getHp() / 50 )+1;
@@ -238,10 +237,12 @@
 				// game.status.gold += game.player.gold;
 			}
 		} else {
-			game.player.xp = game.player.xp/2; 							//NOTA in caso di sconfitta prendi meta' dei px
+			game.player.xp = game.player.xp/2; //in caso di sconfitta prendi meta' dei px
 		}
 		game.save( );
-        menu.updateReport( victory, score );
+		menu.updateReport( victory, score );
+		//TODO ripulire il bg dagli attori e dai timers rimanenti
+		game.bg.emptyChildren();
 	};
 	
 	game.refreshSpellsBtn = function( ) {

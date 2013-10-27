@@ -5,8 +5,9 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
- * CHECK se passi il livello passi con tre stelle (probabilmente e' la vecchia gestione)
  * On game over: reset della scena (rimuovere attori e timers)
+ * Bilanciare i pf dei nemici
+ * CHECK se passi il livello passi con tre stelle (probabilmente e' la vecchia gestione)
  * cambiare l'ultimo incantesimo
 
 ( CAAGE )

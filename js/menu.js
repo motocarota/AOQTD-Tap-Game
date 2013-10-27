@@ -446,7 +446,7 @@
 					if ( is( 'Number', score ) && score >= 0 && score <= 3 ) 
 					levelsScene.grid.addChild( 
 						new CAAT.Foundation.Actor( ).
-							setLocation( x+20, y+74 ).
+							setLocation( x+20, y+84 ). //74
 							setBackgroundImage( game.UI.stars ).
 							setSpriteIndex( score-1 )
 					 );
