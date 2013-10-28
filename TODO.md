@@ -5,9 +5,9 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
- * On game over: reset della scena (rimuovere attori e timers)
- * Bilanciare i pf dei nemici
- * CHECK se passi il livello passi con tre stelle (probabilmente e' la vecchia gestione)
+ * pulire la coda di evocazioni on game over
+ * i melee vanno troppo avanti (assegnare ai melee una ai specifica: move, attack)
+ * Bilanciare i nemici
  * cambiare l'ultimo incantesimo
 
 ( CAAGE )
@@ -16,8 +16,7 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ( GRAPHICS )
 
-	* UI: creare la funzione "stampEffect" per scritta "you win" e i px
-	* UI: Rifare i pulsanti dei livelli senza il nome del peccato capitale (e vedere se togliere pure i colori)
+	* UI: creare la funzione "stampEffect" per scritta "you win", "level up" e i px
 	* UI: animare il banner new Level! (magari cambiare colori)
 	* mostri rimanenti
 	* Rifare livelli 3(bosco/foresta tramonto) e 7(cimitero notturno)

@@ -344,7 +344,7 @@ game.enemiesBook = {
 	},
 
 	goblin: {
-		level: 1,
+		level: 2,
 		speed: .6,
 		frameH: 2,
 		frameW: 3,

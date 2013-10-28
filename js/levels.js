@@ -1,16 +1,4 @@
 (function(){ 
-/*
-				Easy			Medium			Hard			Boss
-	-----------------------------------------------------------------
-	Melee		coboldo			orco			troll			
-				elem			scheletro		golem
-								zombie			
-	Ranged		goblin			drow			giant			
-	Caster		imp				dragonkind		rakshaaza		
-	Healer		duergar			-				-				
-	Summoner	necromancer		vampiro			-
-	
-*/
 	game.waves = [
 		null, 
 		// [ { goblin:30 } ], //test only

@@ -42,7 +42,7 @@ game.spellBook = {
 			return [
 				null,
 				function( target ){
-					target && target.damage( roll( 1, 6, 1, 2 ), 'force' );
+					target && target.damage( roll( 1, 6, ( game.status.level / 2 ).toFixed( 0 ), 2 ), 'force' );
 					return true;
 				}
 			];
@@ -66,9 +66,8 @@ game.spellBook = {
 	
 	"Acid Arrow": {
 		cooldown: 3,
-		cost: 1,
+		cost: 15,
 		travel : {
-			duration: 		500,
 			path: 			null,
 			interpolator: 	new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 2, false ),
 			rotation: 		false, 
@@ -98,12 +97,12 @@ game.spellBook = {
 				null,
 				function( target ){
 					var dot = new game.Buff();
-					dot.init( 15, function( t ){
+					dot.init( game.status.level*5, function( t ){
 						if ( this.getDurationLeft() % 3 === 0 ) {
-							t && t.damage( roll( 2, 3 ), 'nature' );
+							t && t.damage( roll( 2, 4 ), 'nature' );
 						}
 					} );
-					dot.modSpeed = 2; //slows enemy
+					// dot.modSpeed = 0.5; //slows enemy
 					target.addBuff( dot );
 					return true;
 				}
@@ -113,13 +112,12 @@ game.spellBook = {
 	
 	'Fireball': {
 		level: 			3,
-		cost: 			30, 
+		cost: 			35, 
 		element: 		"fire",
 		school: 		"invocation",
 		cooldown: 		5,
 		
 		travel : {
-			duration: 		1200,
 			interpolator : new CAAT.Behavior.Interpolator( ).createExponentialInInterpolator( 3, false ),
 			image: 	{
 				name: 		'fireball'
@@ -140,7 +138,7 @@ game.spellBook = {
 		
 		initEffect : function(  ){
 			var fx = function( target ){
-				target && target.damage( roll( 5, 6 ), 'fire' );
+				target && target.damage( roll( game.status.level, 6 ), 'fire' );
 				return true;
 			};
 			return [ null, fx ];
@@ -159,7 +157,7 @@ game.spellBook = {
 	
 	'Lightning': {
 		level: 			4,
-		cost: 			10, 
+		cost: 			30, 
 		cooldown: 		0,
 		element: 		"nature",
 		school: 		"invocation", 
@@ -192,7 +190,7 @@ game.spellBook = {
 			return [ 
 				null, 
 				function( target ){
-					target && target.damage( roll( 5, 6 ), 'nature' );
+					target && target.damage( roll( game.status.level, 6 ), 'nature' );
 					return true;
 				}
 			];
@@ -201,7 +199,7 @@ game.spellBook = {
 	
 	'Wilting': {
 		level: 			5,
-		cost: 			35,
+		cost: 			55,
 		cooldown: 		10,
 		element: 		"unholy",
 		school: 		"necromancy", 

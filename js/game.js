@@ -39,7 +39,7 @@
 	
 	game.setupScene = function( level, options ) {
 		
-		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level );
+		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level+" at difficulty: "+game.difficulty );
 				
 		if ( !is( "Number", level ) ) {
 			CAAT.log( "[Game] level is fucked up: "+level+" so I set it to 1" );
@@ -54,7 +54,7 @@
 		game.phase = 0;
 		game.active = true;
 		waiting = false;
-				
+		
 		menu.resumeBtn.setVisible( true );
 		
 		// Background
@@ -81,7 +81,7 @@
 		game.player.add( );
 		game.killCount = 0;
 		
-		for (var i = game.enemies.length - 1; i >= 0; i--){ 			//loop inverso per non fottersi con gli splice
+		for (var i = game.enemies.length - 1; i >= 0; i--){ //loop inverso per non fottersi con gli splice
 			game.enemies[i].die( { loot: false } );
 		};
 		game.enemies = [];
@@ -231,7 +231,7 @@
 		game.active = false;
 		if ( victory ) {
 		    game.player.xp += 500 * game.level;
-			var score = Math.floor( game.player.getHp() / 50 )+1;
+			var score = game.difficulty+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
 				// game.status.gold += game.player.gold;
@@ -241,7 +241,6 @@
 		}
 		game.save( );
 		menu.updateReport( victory, score );
-		//TODO ripulire il bg dagli attori e dai timers rimanenti
 		game.bg.emptyChildren();
 	};
 	
@@ -324,6 +323,18 @@
 		}		
 	};
 	
+	game.setupDifficulty = function( enemy ) {
+		var d = game.difficulty;
+		if ( _DEBUG ) CAAT.log( '[Game] setupDifficulty '+d+' to enemy '+enemy.id );
+		if ( d === 0 ) {
+			enemy.hp = ( enemy.hp/2 ).toFixed( 0 );
+		} 
+		if ( d === 2 ) {
+			enemy.hp = enemy.hp*2;
+		}
+		return enemy;
+	};
+	
 	game.summon = function( enemies, opts ){
 		var en;
 		if ( is( 'Array', enemies ) ) {
@@ -349,6 +360,7 @@
 					if ( !opts.extra ) {
 						game.toCreate--;
 					}
+					enemy = game.setupDifficulty( enemy );
 				},
 				null,
 				null
