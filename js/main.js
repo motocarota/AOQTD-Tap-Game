@@ -51,6 +51,7 @@
 			addElement( "fireball",		"img/sprites/spells/fireball.png" ).
 			addElement( "fb-splash",	"img/sprites/spells/fireball-splash.png" ).
 			addElement( "hwilting",		"img/sprites/spells/horrid-wilting-big.png" ).
+			addElement( "void-sphere",	"img/sprites/spells/void-sphere.png" ).
 			addElement( "spell",		"img/empty.png" ).
 			
 			//projectiles
@@ -75,6 +76,8 @@
 			addElement( "giant",	    "img/sprites/enemies/giant.png" ).
 			addElement( "iron_golem",	"img/sprites/enemies/iron_golem.png" ).
 			addElement( "clay_golem",	"img/sprites/enemies/clay_golem.png" ).
+			addElement( "zombie",		"img/sprites/enemies/zombie.png" ).
+			addElement( "ogre_magi",	"img/sprites/enemies/ogre_magi.png" ).
 			addElement( "rakshaaza",	"img/sprites/enemies/rakshaaza.png" ).
 			
 			//other

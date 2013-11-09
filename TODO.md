@@ -5,19 +5,8 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
- * pulire la coda di evocazioni on game over
- * i melee vanno troppo avanti (assegnare ai melee una ai specifica: move, attack)
- * Bilanciare i nemici
- * cambiare l'ultimo incantesimo
-
-( CAAGE )
-
-	* controllare/rivedere la velocita' di enemies e spells come in projectile
-
 ( GRAPHICS )
 
-	* UI: creare la funzione "stampEffect" per scritta "you win", "level up" e i px
-	* UI: animare il banner new Level! (magari cambiare colori)
 	* mostri rimanenti
 	* Rifare livelli 3(bosco/foresta tramonto) e 7(cimitero notturno)
 	* Sprite dell'albero per ogni livello
@@ -28,30 +17,22 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 		6: stalagmite
 	* Sprite dell'albero danneggiato in 3-4 fasi
 	* screen iniziale:
+		rifare il logo piu' grosso
 		dare una passata di bianco trasparente ai nemici
 		ricolorare il goblin
 		rivedere anche il duergar
 
 ( CODE )
 
-	* Suoni / Musica
-	* sistemare UI
-	* sistemare nemici
-	* sistemare difficolta'
-	* classi di mostro (humanoid, undead, beast, construct)
-		hanno effetto sui dv, danni
-	* implementare il boss fight
-		comportamenti scriptati, con strategia da ripetere tre volte, stile vecchi giochi	
-
+	* aggiungere i fg per gli sfondi
+	* inserire Suoni e Musica
+		// director.audioPlay( 'boom' );
+	* creare la funzione "stampEffect" per scritta "you win", "level up" e i px
+	
 ( DOPO )
 
-	* Se uno sblocca tutti i livelli a tre stelle, accede al "nerd's nirvana": 
-       il livello nascosto (mucche) survival mode con sempre piu' mucche
-    * Oggetti utilizzabili (raccolgo la pozione del mana e mi compare un pulsante extra, quando ci clicco uso l'oggetto)
-    * integrare backbone
-	* documentare il codice
+	* livello nascosto survival mode con sempre piu' mucche
 	* pensare ad un modello con cui specializzi il protagonista o compri oggetti
-	* rifare main.js per rispecchiare lo schema di sumon
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
 ( Animazione iniziale )
@@ -62,8 +43,8 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 		5. visuale del foglio con il piano disegnato e il dito che segue le fasi:
 		    - poke an enemy
 		    - run like hell
-		    - summon a tree
-		    - kill all the enemies
+		    - go high (jump on a tree or something)
+		    - kill everything
 		    - ????
 		    - profit
 		6. amici perplessi, scoppiano a ridere
@@ -165,39 +146,23 @@ POI se avro' voglia li implementero' diversamente
 
     * Folletto : Avarizia ( verde )
 	    cieca sete di ricchezza, scarsa disponibilità a spendere e a donare ciò che si possiede
-	    - Campagna	    
-    	    5 coboldi
-    		5 coboldi 3 goblin
-    		3 coboldi
-    		3 coboldi 2 goblin 1 orco
-    		3 coboldi 3 goblin 3 orchi
-    		1 troll
-    		2 orchi
-    		10 orchi 10 coboldi
-    		10 goblin 10 coboldi
-    		3 troll
+	    - Add droppano monetine: lui torna indietro a raccoglierle
 
 	* Ogre : Accidia ( arancione )
         torpore malinconico, inerzia nel vivere e nel compiere opere di bene
-		- Savana al tramonto
-    		5 goblin
-    		7 goblin 3 scheletri
-    		10 scheletri
-    		7 scheletri 2 troll
-    		3 goblin
-    		7 goblin 5 orchi 5 scheletri 1 troll
-    		5 scheletri 3 orchi 2 troll 1 el.fuoco
-    		3 el.fuoco 2 troll
-    		10 el.fuoco
-    		5 troll 5 goblin 5 scheletri 5 el.fuoco 
+		- caster
+		- quando viene colpito si sposta
+		- 
 
 	* Vermone gigante : Gola ( giallo )
 	    abbandono ed esagerazione nei piaceri della tavola
-		- Deserto
+		- 
 
 	* Ninfa Druida : Lussuria ( azzurro )
 		desiderio irrefrenabile del piacere sessuale fine a sé stesso
-		- Neve	
+		- curatrice
+		- evocatrice
+		- ranged (cuoricini, tolgono vita e danno mana)
 
 	* Drago : Ira ( rosso )
 		irrefrenabile desiderio di vendicare violentemente un torto subito
@@ -215,6 +180,3 @@ POI se avro' voglia li implementero' diversamente
 		
 
 ## BUGS
-
-* alcuni nemici sembrano in grado di attaccare anche da subito
-    non ho piu' visto questo bug in azione, per cui se continua cosi' lo cancello

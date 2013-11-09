@@ -11,7 +11,11 @@
 		this.gold = 0;
 		this.mana = 100;
 		this.targetSpell = 0;
-		this.item = { charges : 0 };
+		this.item = { 
+			effect: function(){ }, 
+			charges : 0 
+		};
+		this.inventory = null;
 		this.cooldowns = {};
 		return this;
 	}
@@ -62,32 +66,33 @@
 		},
 		
 		
-		castSpell : function ( id, x, y ) {
+		castSpell : function ( x, y ) {
 			
-			if ( _DEBUG ) CAAT.log('[Mage] casts a spell id:'+id+' at ('+x+','+y+')');
+			var id = spellIndex;
 			var spell = null;
-			
-			// Wand and Scroll
-			if( this.item.charges > 0 ) {
-				this.playAnimation("cast");
+			//TODO
+			if ( spellIndex === 'item' && this.item.charges > 0 ) {
+				if ( _DEBUG ) CAAT.log('[Mage] casts a spell id:'+this.item.spellId+' at ('+x+','+y+')');
+				CAAT.log( "CARICHE "+this.item.charges )
+				
+				this.playAnimation( "cast" );
 				spell = new CAAT.Spell( this.item.spellId, x, y ).add( );
-				this.item.charges--;
-				if ( this.item.type === "wand" ) 
-					game.player.notify( this.item.charges+' charges left' );
+				
+				if( --this.item.charges < 1 ) {
+					this.removeItem();
+				}
 				return;
 			}
-			
 			if ( !this.cooldowns[ id ] || this.cooldowns[ id ] < 0 ) {
-				
+				if ( _DEBUG ) CAAT.log('[Mage] casts a spell id:'+id+' at ('+x+','+y+')');
 				spell = new CAAT.Spell( id, x, y );
 				if ( this.mana > spell.cost ) {
-					this.playAnimation("cast");
+					this.playAnimation( "cast" );
 					spell.add( );
 					this.mana -= spell.cost;
-					if ( spell.cooldown ) {
+					if ( _.has( spell, 'cooldown' ) ) {
 						this.cooldowns[ id ] = spell.cooldown;
 						spellIndex = 0;
-						game.player.notify('back to mm	')
 					}
 				} else { 
 					game.player.notify( "Out of Mana!" );
@@ -111,6 +116,34 @@
 				}
 			}
 			this.addMana( game.options.tick_mana );
+		},
+		
+		addItem: function( item ) {
+			
+			// if( _DEBUG )
+			CAAT.log( "[Mage] Adding Item: ", item )
+			this.item = item;
+			game.UI.itemBtn.setVisible( true ).setSpriteIndex( item.imageId );
+			// game.player.notify( 'You Loot a '+item.type );
+		},
+		
+		removeItem: function() {
+			
+			// if( _DEBUG )
+			CAAT.log( "[Mage] Removing Item: ",this.item )
+			game.UI.itemBtn.setVisible( false );
+			this.item = null;
+			spellIndex = 0;
+		},
+		
+		useItem: function( ) {
+			
+			// if( _DEBUG )
+			CAAT.log( "[Mage] Selecting Item: ",this.item );
+			game.player.item.use();
+			if ( ! _.has( game.player.item, 'charges' ) ) {
+				game.player.removeItem();
+			}
 		},
 		
 		die: function() {

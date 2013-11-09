@@ -6,7 +6,7 @@ game.spellBook = {
 	'Magic Missile':{
 
 		level: 			1,
-		cost: 			10,
+		cost: 			7,
 		element: 		"force",
 		school:			"invocation", 
 		cooldown: 		false,
@@ -42,7 +42,9 @@ game.spellBook = {
 			return [
 				null,
 				function( target ){
-					target && target.damage( roll( 1, 6, ( game.status.level / 2 ).toFixed( 0 ), 2 ), 'force' );
+					var bonusDamage = game.status.level / 2;
+					var damage = roll( 1, 6, bonusDamage );
+					target && target.damage( damage, 'force' );
 					return true;
 				}
 			];
@@ -102,7 +104,7 @@ game.spellBook = {
 							t && t.damage( roll( 2, 4 ), 'nature' );
 						}
 					} );
-					// dot.modSpeed = 0.5; //slows enemy
+					// dot.modSpeed = 0.3; //slows enemy
 					target.addBuff( dot );
 					return true;
 				}
@@ -197,9 +199,9 @@ game.spellBook = {
 		}
 	},
 	
-	'Wilting': {
+	'Finger-of-Death': {
 		level: 			5,
-		cost: 			55,
+		cost: 			50,
 		cooldown: 		10,
 		element: 		"unholy",
 		school: 		"necromancy", 
@@ -209,14 +211,14 @@ game.spellBook = {
 			image: 	{ name: 'empty' }
 		},
 		splash : {
-			duration: 		4200,
-			image : {
-				name : "hwilting",
-				frame: { h: 4, w: 2 }
-			},
-			animation: {
-				frames: 	[ 0, 2, 4, 6, 1, 3, 5, 7, 1, 3, 5, 7, 1, 5, 3, 7, 1, 3, 5, 7, 1, 6, 6, 4, 4, 2, 2, 0 ],
-				duration: 	150
+			duration: 		3000,
+			image : { 
+				name : "void-sphere", 
+				frame: { h: 2, w: 2 },
+				animation: {
+					frames: 	[ 0, 1, 3, 2 ],
+					duration: 	100
+				}
 			}
 		},
 		
@@ -224,43 +226,14 @@ game.spellBook = {
 			return [ 
 				null, 
 				function( target ){
-					var dot = new game.Buff();
-					dot.init( 7, function( t ){
-						if ( this.getDurationLeft() % 2 === 1 ) {
-							t && t.damage( roll( this.getDurationLeft(), 6 ), 'nature' );
-						}
-					} );
-					target.addBuff( dot );
+					//if ( target.isBoss() ){
+					//	target.damage( 100 );
+					//} else
+					target && target.die( );
 					return true;
 				}
 			];
 		}
 	}
 };
-game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning', 'Wilting' ];
-
-// ========================================================
-// Projectiles
-// ========================================================
-
-game.projBook = {
-	'rock': {
-		speed: 			1.5,
-		damage: 		3
-	},
-	'arrow': {
-		speed: 			1.5,
-		damage: 		2
-	},
-	'mmissile':{
-		speed: 			2,
-		damage: 		3,
-		frameW: 		3,
-		frameH: 		2
-	},
-	'fireball':{
-		speed: 			2,
-		damage: 		12
-	}
-};
-game.projList = [ 'arrow', 'rock', 'mmissile', 'fireball' ];
+game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning', 'Finger-of-Death' ];

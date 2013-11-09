@@ -30,6 +30,7 @@
 		game.UI = {
 			emptySprite :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
 			icons :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 ),
+			items :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'items' ), 2, 3 ),
 			listBg : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-bg' ), 1, 1 ),
 			levelUp :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'level-up' ), 1, 1 ),
 			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 5 ),
@@ -38,7 +39,14 @@
 			optionsBg :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'options-bg' ), 1, 1 ),
 			infoCharBg :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'info-char-bg' ), 1, 1 )
 		};
-
+	
+	
+	// Audio Manager ================================================================================================
+		
+		// director.addAudio( '0', document.getElementById('audio_01') );
+		director.addAudio( 'boom', "audio/spells/boom.mp3" );
+		// director.audioPlay( 'boom' );
+		
 	// ( Scene 0 ) Main menu ================================================================================================
 
 		menuScene.bg = new CAAT.Foundation.ActorContainer( ).
@@ -142,7 +150,7 @@
 				4, 4, 9, 9, 
 				function( button ){ 
 					// TODO toggle music
-					button.setSpriteIndex( 9 ) 
+					// button.setSpriteIndex( 9 ) 
 				} ).
 			setPositionAnchor( 1, 1 ).
 			setLocation( 40+WW/2, HH )

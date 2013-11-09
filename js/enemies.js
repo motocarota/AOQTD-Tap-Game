@@ -1,112 +1,9 @@
-var AI = {
-
-	ranged: function( ) {
-	
-		if ( this.cooldown > 0 && !this.moving  ) {
-			var dest = game.options.enemies.destinations.ranged;
-			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
-		} else {
-			if ( this.moving ) {
-				return;
-			}
-			if ( this.cooldown <= 0 ) {
-				this.cooldown = this.attackSpeed;
-				var p = new CAAT.Projectile( this.projectile );
-				p.setup( this );
-				p.add( );
-				this.playAnimation( 'attack' );
-			}
-		}
-	},
-	
-	melee: function( ) {
-	
-		if ( this.cooldown > 0 && !this.moving  ) {
-			var dest = game.options.enemies.destinations.melee;
-			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
-		} else {
-			if ( this.moving ) {
-				this.halt( );
-			}
-			if ( this.cooldown <= 0 ) {
-				this.cooldown = this.attackSpeed;
-				var p = new CAAT.Projectile( this.projectile );
-				p.setup( this );
-				p.add( );
-				this.playAnimation( 'attack' );
-			}
-		}
-	},
-	
-	caster: function( ) {
-	
-		if ( this.cooldown > 0 && !this.moving  ) {
-			var dest = game.options.enemies.destinations.ranged;
-			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
-		} else {
-			if ( this.moving ) {
-				return;
-			}
-			if ( this.cooldown <= 0 ) {
-				var id = roll( this.spellsKnown );
-				var chosenSpell = this.spellsKnown[ id ];
-				if ( _DEBUG ) CAAT.log( '[Enemies] caster is casting '+chosenSpell.id, chosenSpell );
-				chosenSpell.effect( this );
-				this.cooldown = this.attackSpeed;
-				this.playAnimation( 'attack' );
-			}
-		}
-	},
-	
-	summoner: function( ) {
-	
-		if ( this.cooldown > 0 && !this.moving  ) {
-			var dest = game.options.enemies.destinations.ranged;
-			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
-		} else {
-			if ( this.moving ) {
-				return;
-			}
-			if ( this.cooldown <= 0 ) {
-				game.summon( 'skeleton' );
-				this.say( 'summon' );
-				this.cooldown = this.attackSpeed;
-				this.playAnimation( 'attack' );
-			}
-		}
-	},
-	
-	healer: function( ) {
-	
-		if ( this.cooldown > 0 && !this.moving  ) {
-			var dest = game.options.enemies.destinations.healer;
-			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
-		} else {
-			if ( this.moving ) {
-				return;
-			}
-			if ( this.cooldown <= 0 ) {
-				for (var i=0; i < game.enemies.length; i++) {
-					var amount = ( game.enemies[i].wounds / 2 ).toFixed( 0 );
-					if ( amount > 0 ) {
-						this.target = game.enemies[i];
-						this.target.say( "+"+amount, "green" );
-						this.target.wounds = amount;
-						this.cooldown = this.attackSpeed;
-						this.playAnimation( 'attack' );
-						return;
-					}
-				};
-			}
-		}
-	}
-};
-
 game.enemiesList = [];
 
 game.enemiesBook = {
 	
 	kobold: {
+		ai: AI.melee,
 		level: 1,
 		speed: 0.6,
 		frameW: 3, 
@@ -128,9 +25,9 @@ game.enemiesBook = {
 			}
 		}
 	},
-	
 	troll: {
-		level: 5,
+		ai: AI.melee,
+		level: 7,
 		speed: 0.7,
 		frameW: 3, 
 		frameH: 3,
@@ -150,17 +47,17 @@ game.enemiesBook = {
 			}
 		}
 	},
-	
+	zombie: {
+		ai: AI.melee,
+		level:  5,
+		speed: .3
+	},
 	skeleton: {
+		ai: AI.melee,
 		level:  3,
 		speed: .8,
 		frameH: 2,
 		frameW: 3,
-		dropTable: [
-			{ chance: 100, id: 'smallXp', qty: 1 },
-			{ chance: 5, id: 'lifePotion', qty: 1 },
-			{ chance: 5, id: 'manaPotion', qty: 1 }
-		],
 		animations: {
 			stand: {
 				frames: [0,1], duration: 400
@@ -173,8 +70,8 @@ game.enemiesBook = {
 			}
 		}
 	},
-	
 	shadow: {
+		ai: AI.summoner,
 		level:  2,
 		speed: .45,
 		frameW: 3, frameH: 2,
@@ -189,28 +86,10 @@ game.enemiesBook = {
 			stand: {
 				frames: [0], duration: 200
 			}
-		},
-		
-		ai: function() {
-			var t = ( this.time / 1000 ).toFixed( 0 );
-			if ( t % 4 === 0 ) { //ogni 4 sec
-				game.player.notifyAt( t, { x: 500, y:500 } )
-				if ( this.moving ) {
-					this.halt( );
-				}
-				if ( this.cooldown <= 0 ) {
-					game.summon( this.summons, { qty:roll(), extra:true } );
-				}
-			} else {
-				if ( !this.moving ) {
-					this.move( roll( 1, 100, 400 ) , roll( 1, 500, 100 )  );
-				}
-				
-			}   
 		}
 	},
-	
 	elem_fire: {
+		ai: AI.melee,
 		level: 5,
 		speed: .84,
 		attackSpeed: 2,
@@ -236,8 +115,8 @@ game.enemiesBook = {
 			return amount;
 		}
 	},
-	
 	elem_earth: {
+		ai: AI.melee,
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
@@ -264,8 +143,8 @@ game.enemiesBook = {
 			return amount;
 		}
 	},
-	
 	elem_air: {
+		ai: AI.melee,
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
@@ -292,8 +171,8 @@ game.enemiesBook = {
 			return amount;
 		}
 	},
-	
 	elem_water: {
+		ai: AI.melee,
 		level: 5,
 		speed: .84,
 		frameW: 3, frameH: 2,
@@ -320,8 +199,8 @@ game.enemiesBook = {
 			return amount;
 		}
 	},
-	
 	orc: {
+		ai: AI.melee,
 		level: 4,
 		speed: .6,
 		frameW: 3, frameH: 3,
@@ -342,7 +221,6 @@ game.enemiesBook = {
 			}
 		}
 	},
-
 	goblin: {
 		level: 2,
 		speed: .6,
@@ -351,8 +229,9 @@ game.enemiesBook = {
 		attackSpeed: 2,
 		dropTable: [
 			{ chance: 50, id: 'xp', qty:1 },
-			{ chance: 10, id: 'lifePotion', qty: 1 },
-			{ chance: 5, id: 'manaPotion', qty: 1 }
+			{ chance: 5, id: 'wand', qty: 1 },
+			{ chance: 5, id: 'scroll', qty: 1 },
+			{ chance: 5, id: 'lifePotion', qty: 1 },
 		],
 		animations: {
 			walk: {
@@ -369,14 +248,13 @@ game.enemiesBook = {
 		projectile: 1,
 		ai: AI.ranged
 	},
-	
 	necromancer:{
 		level: 3,
 		ai: AI.summoner,
 		creatures: [ "skeleton" ]
 	},
 	duergar:{
-		level: 2,
+		level: 3,
 		ai: AI.healer
 	},
 	giant:{
@@ -385,10 +263,12 @@ game.enemiesBook = {
 		projectile: 2
 	},
 	iron_golem:{
-		level: 10
+		level: 10,
+		ai: AI.melee
 	},
 	clay_golem:{
-		level: 10
+		level: 10,
+		ai: AI.melee
 	},
 	ghost: {
 		level: 5,
@@ -425,30 +305,14 @@ game.enemiesBook = {
 			
 		}
 	},
+	ogre_magi:{
+		level: 5,
+		ai: AI.caster,
+		spellsKnown: [ 'fireball', 'magic_missile', 'rock' ]
+	},
 	rakshaaza:{
 		level: 10,
 		ai: AI.caster,
-		spellsKnown: [
-			{
-				id: 'teleport',
-				cd: 20,
-				effect: function( en ) {
-					// game.playSound( 'teleport' );
-					en.x = roll( 0, WW );
-					en.y = roll( 0, HH );
-				}
-			}, 
-			{
-				id: 'fireball',
-				cd: 10,
-				effect: function( en ) {
-					// game.playSound( 'cast' );
-					var p = new CAAT.Projectile( 3 );
-					p.setup( en );
-					p.add( );
-				}
-			},
-			{ id:'bluff', cd:2, effect:function( en ){ en.say( 'abracadabra' ) } }
-		]
+		spellsKnown: [ 'teleport', 'fireball', 'magic_missile' ]
 	}
 };

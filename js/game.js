@@ -48,12 +48,12 @@
 			game.level = level;
 		}
 		
-		//TODO
-		//load custom song, based on level
+		//TODO : load custom song, based on level
 
 		game.phase = 0;
 		game.active = true;
 		waiting = false;
+		gameScene.timerManager.timerList = []; //clear previous timers
 		
 		menu.resumeBtn.setVisible( true );
 		
@@ -73,7 +73,7 @@
 		 );
 		
 		game.bg.mouseDown = function( ev ) {
-			game.player.castSpell( spellIndex, ev.point.x, ev.point.y );
+			game.player.castSpell( ev.point.x, ev.point.y );
 		};
 		
 		//Player
@@ -96,7 +96,6 @@
 					setBackgroundImage( game.UI.icons ).
 					enableEvents( true ).
 					setSpriteIndex( i );
-				
 				game.UI.spellsBtn[i].mouseDown = loopHelper( i );
 				gameScene.addChild( game.UI.spellsBtn[i] );
 			} else {
@@ -111,6 +110,17 @@
 				game.refreshSpellsBtn( );
 			}
 		}
+		
+		//UI - Item Button		
+		game.UI.itemBtn = new CAAT.Foundation.Actor( ).
+			setLocation( 30, director.height-170 ).
+			setBackgroundImage( game.UI.items ).
+			setScale( 0.8, 0.8 ).
+			setVisible( false ).
+			enableEvents( true );
+		
+		game.UI.itemBtn.mouseDown = game.player.useItem;
+		gameScene.addChild( game.UI.itemBtn );
 		
 		// Main string
 		game.UI.mainString = new CAAT.Foundation.UI.TextActor( ).
@@ -245,7 +255,7 @@
 	};
 	
 	game.refreshSpellsBtn = function( ) {
-		
+
 		for ( var id=0; id < game.UI.spellsBtn.length; id++ ) {
 			if( id === spellIndex ) {
 				game.UI.spellsBtn[id].setSpriteIndex( id+5 ); 			//selected spell icon
@@ -256,6 +266,12 @@
 					game.UI.spellsBtn[id].setSpriteIndex( id ); 		//normal spell icon
 				}
 			}
+		}
+		
+		if ( spellIndex === "item" ) {
+			game.UI.itemBtn.setScale( 1.3, 1.3 );
+		} else {
+			game.UI.itemBtn.setScale( 0.8, 0.8 );
 		}
 	};
 	
@@ -328,9 +344,17 @@
 		if ( _DEBUG ) CAAT.log( '[Game] setupDifficulty '+d+' to enemy '+enemy.id );
 		if ( d === 0 ) {
 			enemy.hp = ( enemy.hp/2 ).toFixed( 0 );
-		} 
+		}
+		if ( d === 1 ) {
+			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
+				enemy.dropTable = [ { chance: 20, id: 'smallXp', qty: 1 } ];
+			}
+		}
 		if ( d === 2 ) {
 			enemy.hp = enemy.hp*2;
+			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
+				enemy.dropTable = [ { chance: 50, id: 'xp', qty: 1 } ];
+			}
 		}
 		return enemy;
 	};

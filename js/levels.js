@@ -1,8 +1,7 @@
 (function(){ 
 	game.waves = [
 		null, 
-		// [ { goblin:30 } ], //test only
-		[ { goblin:1 }, { rakshaaza:1 }, { necromancer:1 }, { duergar:1, troll:1 }, { giant:1 }, { iron_golem:1 }, { clay_golem:1 } ],
+		// [  { ogre_magi:1 }, { goblin:1 }, { goblin:1 }, { goblin:1 }, { rakshaaza:1 }, { necromancer:1 }, { duergar:1, troll:1 }, { giant:1 }, { iron_golem:1 }, { clay_golem:1 } ],
 		[ // 1 Campagna - Sloth (1...3) : [ coboldi, goblin, orchi, troll ] 4/4 ---> ranged( goblin )
 			{ kobold:4 }, 
 			{ kobold:3, goblin:3 }, 
