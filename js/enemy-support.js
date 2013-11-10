@@ -83,11 +83,9 @@ window.AI = {
 			}
 			if ( this.cooldown <= 0 ) {
 				for (var i=0; i < game.enemies.length; i++) {
-					var amount = ( game.enemies[i].wounds / 2 ).toFixed( 0 );
-					if ( amount > 0 ) {
+					if ( game.enemies[i].wounds > 0 ) {
 						this.target = game.enemies[i];
-						this.target.say( "+"+amount, "green" );
-						this.target.wounds = amount;
+						this.target.heal( 12 );
 						this.cooldown = this.attackSpeed;
 						this.playAnimation( 'attack' );
 						return;

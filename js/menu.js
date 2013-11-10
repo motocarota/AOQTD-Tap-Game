@@ -10,6 +10,7 @@
 
 	window.menu = {};
 	game.difficulty = 0;
+	game.version = "BETA 1001";
 
 	menu.setupScene = function( images ) {
 		
@@ -24,7 +25,7 @@
 		window.creditsScene = director.createScene( );
 		window.reportScene = director.createScene( );
 		
-		CAAT.setCoordinateClamping( false ); // This should improve performance...
+		CAAT.setCoordinateClamping( false );
 		
 		// UI - Strings and Bars
 		game.UI = {
@@ -43,8 +44,7 @@
 	
 	// Audio Manager ================================================================================================
 		
-		// director.addAudio( '0', document.getElementById('audio_01') );
-		director.addAudio( 'boom', "audio/spells/boom.mp3" );
+		director.addAudio( 'boom', "audio/spells/boom.ogg" );
 		// director.audioPlay( 'boom' );
 		
 	// ( Scene 0 ) Main menu ================================================================================================
@@ -59,6 +59,15 @@
 				setBounds( 0, 0, WW, HH ).
 				setBackgroundImage( director.getImage( 'cover' ), false ).
 				setLocation( 1, 1 )
+		 );
+		
+		// Main menu - Version Number
+		menuScene.addChild( 
+			new CAAT.Foundation.UI.TextActor( ).
+				setText( "version: "+game.version ).
+				setFont( game.options.fontAlt ).
+				setTextFillStyle( "white" ).
+				setLocation( 20, HH-50 )
 		 );
 		
 		// Main menu - Play Button
@@ -219,16 +228,16 @@
 		reportScene.addChild( reportScene.bg );
 		
 		// Report - gold
-		reportScene.goldLabel = new CAAT.Foundation.UI.TextActor( ).
-			setText( "0" ).
-			setTextFillStyle( "white" ).
-			setFont( game.options.fontBig ).
-			setTextAlign( 'center' ).
-			setPositionAnchor( 0.5, 0 ).
-			setVisible( false ). //TODO rimuovere
-			setLocation( 760, 140 );
+		// reportScene.goldLabel = new CAAT.Foundation.UI.TextActor( ).
+		// 	setText( "0" ).
+		// 	setTextFillStyle( "white" ).
+		// 	setFont( game.options.fontBig ).
+		// 	setTextAlign( 'center' ).
+		// 	setPositionAnchor( 0.5, 0 ).
+		// 	setVisible( false ). //TODO rimuovere
+		// 	setLocation( 760, 140 );
 			
-		reportScene.bg.addChild( reportScene.goldLabel );
+		// reportScene.bg.addChild( reportScene.goldLabel );
 		
 		// Report - xp
 		reportScene.xpLabel = new CAAT.Foundation.UI.TextActor( ).
@@ -237,6 +246,7 @@
 			setFont( game.options.fontBig ).
 			setTextAlign( 'center' ).
 			setPositionAnchor( 0.5, 0 ).
+			enableEvents( false ).
 			setLocation( 760, 300 );
 			
 		reportScene.bg.addChild( reportScene.xpLabel );
@@ -246,6 +256,7 @@
 			setLocation( 730, 480 ).
 			setBackgroundImage( game.UI.stars ).
 			setPositionAnchor( 0.5, 0 ).
+			enableEvents( false ).
 			setScale( 1.8, 1.8 );
 			
 		reportScene.addChild( reportScene.starsImg );
@@ -255,6 +266,7 @@
 			setLocation( WW/2, HH/2 ).
 			setBackgroundImage( game.UI.levelUp ).
 			setPositionAnchor( 0.5, 0.5 ).
+			enableEvents( false ).
 			setVisible( false );
 			
 		reportScene.addChild( reportScene.levelUp );

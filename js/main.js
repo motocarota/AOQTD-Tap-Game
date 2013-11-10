@@ -77,6 +77,7 @@
 			addElement( "iron_golem",	"img/sprites/enemies/iron_golem.png" ).
 			addElement( "clay_golem",	"img/sprites/enemies/clay_golem.png" ).
 			addElement( "zombie",		"img/sprites/enemies/zombie.png" ).
+			addElement( "imp",			"img/sprites/enemies/imp.png" ).
 			addElement( "ogre_magi",	"img/sprites/enemies/ogre_magi.png" ).
 			addElement( "rakshaaza",	"img/sprites/enemies/rakshaaza.png" ).
 			

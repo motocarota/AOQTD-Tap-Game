@@ -305,6 +305,11 @@ game.enemiesBook = {
 			
 		}
 	},
+	imp:{
+		level: 2,
+		ai: AI.caster,
+		spellsKnown: [ 'magic_missile', 'rock' ]
+	},
 	ogre_magi:{
 		level: 5,
 		ai: AI.caster,
@@ -313,6 +318,6 @@ game.enemiesBook = {
 	rakshaaza:{
 		level: 10,
 		ai: AI.caster,
-		spellsKnown: [ 'teleport', 'fireball', 'magic_missile' ]
+		spellsKnown: [ 'teleport', 'fireball', 'magic_missile', 'void-sphere' ]
 	}
 };

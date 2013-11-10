@@ -44,8 +44,9 @@ game.dropTable = {
 							game.player.addItem( {
 								imageId: 3,
 								charges: 1,
-								spellId: roll( 0, 3 ),
+								spellId: roll( 1, 3 ),
 								use: function() {
+									game.player.notify( game.spellList[ this.spellId ] );
 									spellIndex = 'item';
 								}
 							} );
@@ -61,6 +62,7 @@ game.dropTable = {
 								charges: 5,
 								spellId: roll( 0, 3 ),
 								use: function() {
+									game.player.notify( game.spellList[ this.spellId ] );
 									spellIndex = 'item';
 								}
 							} );

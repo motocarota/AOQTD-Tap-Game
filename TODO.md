@@ -5,10 +5,12 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 ## TODO
 
+ * il gioco diventa man mano piu' lento, capire che cosa potrebbe essere
+
 ( GRAPHICS )
 
 	* mostri rimanenti
-	* Rifare livelli 3(bosco/foresta tramonto) e 7(cimitero notturno)
+	* Rifare livelli 3(bosco/foresta tramonto)
 	* Sprite dell'albero per ogni livello
 		1,3: albero
 		2: cactus
@@ -26,7 +28,6 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 	* aggiungere i fg per gli sfondi
 	* inserire Suoni e Musica
-		// director.audioPlay( 'boom' );
 	* creare la funzione "stampEffect" per scritta "you win", "level up" e i px
 	
 ( DOPO )
@@ -79,18 +80,16 @@ drow 			// sr
 giant
 
 	// caster
-????			// healer
 rakshasa    	// evocatore (elementali) HARD
+imp
+ogre magi
 
 necromancer		// evocatore (dretch) EASY
-vampiro			// evocatore (progenie vamp) MEDIUM
 
 	// healer
 duergar 		// healer, sr
 
     // melee
-progenie vampirica
-dretch
 zombie
 melma
 ghoul
@@ -102,7 +101,7 @@ minotauro
 
 golem argilla
 golem ferro
-golem roccia
+gigante
 
 	// custom
 giant turtle    // fase invulnerabilita'

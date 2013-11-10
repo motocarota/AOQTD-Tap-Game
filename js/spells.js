@@ -9,7 +9,7 @@ game.spellBook = {
 		cost: 			7,
 		element: 		"force",
 		school:			"invocation", 
-		cooldown: 		false,
+		cooldown: 		1,
 		// icon: 		"id" su cui cercare nell'immagine che contiene tutte le icone, che sara' simile al file "base"
 			
 		travel : {
@@ -226,10 +226,14 @@ game.spellBook = {
 			return [ 
 				null, 
 				function( target ){
-					//if ( target.isBoss() ){
-					//	target.damage( 100 );
-					//} else
-					target && target.die( );
+					if ( !target ) {
+						return false
+					}
+					if ( target.boss ){
+						target.damage( 100 );
+					} else {
+						target.die(  );
+					}
 					return true;
 				}
 			];

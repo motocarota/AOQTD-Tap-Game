@@ -1,7 +1,6 @@
 (function(){ 
 	game.waves = [
 		null, 
-		// [  { ogre_magi:1 }, { goblin:1 }, { goblin:1 }, { goblin:1 }, { rakshaaza:1 }, { necromancer:1 }, { duergar:1, troll:1 }, { giant:1 }, { iron_golem:1 }, { clay_golem:1 } ],
 		[ // 1 Campagna - Sloth (1...3) : [ coboldi, goblin, orchi, troll ] 4/4 ---> ranged( goblin )
 			{ kobold:4 }, 
 			{ kobold:3, goblin:3 }, 
@@ -55,7 +54,7 @@
 			{ imp:1 },
 			{ necromancer:3, orc:5, imp:2 }
 		],
-		[ // 5 Torre del mago - Pride (5...7) : [ tutti elementali, scheletri, golem argilla, golem ferro, dragonkind ] 5/8 ---> caster hard ( Rakshaaza )
+		[ // 5 Torre del mago - Pride (5...7) : [ tutti elementali, scheletri, golem argilla, golem ferro ] 5/8 ---> caster hard ( Rakshaaza )
 			{ necromancer:5 }, 
 			{ necromancer:2, imp:4 }, 
 			{ skeleton:20, imp:1 }, 
@@ -80,8 +79,9 @@
 			{ giant:1 }, 
 			{ clay_golem:2, elem_earth:5 }, 
 			{ orc:10, kobold:10, elem_air:2, elem_earth:2, elem_fire:2 }, 
-			{ kobold:20, giant:1, duergar:2 },
-			{ clay_golem:3, elem_earth:15 }
+			{ kobold:20, clay_golem:1, duergar:2 },
+			{ clay_golem:1, elem_earth:15 },
+			{ giant:1, duergar:2 }
 		],
 		[ // 7 Cimitero - Envy (7...9) : [ zombi, scheletri, necromancer, iron_golem, ghost ] 1/6
 			{ skeleton:1 },

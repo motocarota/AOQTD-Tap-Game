@@ -344,6 +344,9 @@
 		if ( _DEBUG ) CAAT.log( '[Game] setupDifficulty '+d+' to enemy '+enemy.id );
 		if ( d === 0 ) {
 			enemy.hp = ( enemy.hp/2 ).toFixed( 0 );
+			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
+				enemy.dropTable = [ { chance: 5, id: 'scroll', qty: 1 }, { chance: 2, id: 'wand', qty: 1 } ];
+			}
 		}
 		if ( d === 1 ) {
 			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
