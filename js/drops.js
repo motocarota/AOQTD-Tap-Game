@@ -95,5 +95,49 @@ game.dropTable = {
 								}
 							} );
 						}
+	},
+	phoenixPotion : {
+		type: 			"phoenixPotion",
+		imageId: 		1,
+		effect : 		function() {
+							game.player.notify( 'You get a Phoenix Potion' );
+							game.player.addItem( {
+								imageId: 1,
+								use: function() {
+									game.player.heal( 100 );
+									game.player.addMana( 100 )
+									game.player.removeItem();
+								}
+							} );
+						}
+	},
+	BFG : {
+		type: 			"BFG",
+		imageId: 		1,
+		effect : 		function() {
+							game.player.notify( 'Armageddon!!!' );
+							game.player.addItem( {
+								imageId: 1,
+								use: function() {
+									for (var i = game.enemies.length - 1; i >= 0; i--){
+										game.enemies[i].die( false );
+									};
+								}
+							} );
+						}
+	},
+	regenPotion : {
+		type: 			"regen-potion",
+		imageId: 		1,
+		effect : 		function() {
+							game.player.notify( 'You drink a regeneration potion' );
+							game.player.addItem( {
+								imageId: 1,
+								use: function() {
+									var c = new Buff();
+									game.player.addBuff( c );
+								}
+							} );
+						}
 	}
 };

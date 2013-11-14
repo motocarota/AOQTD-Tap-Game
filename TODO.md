@@ -3,9 +3,35 @@
 L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
+
 ## TODO
 
+- Implementare una scheda del personaggio
+- Aggiungere stringa di testo che mostri a che punto del livello sei (es. wave 7 / 12 )
+- Usare una barretta per i px al posto della scritta ( es. Livello: 3 Exp: [====    ] )
+A- "non serve nessun tipo di abilità devo solo cliccare"
+B- "puo' darsi che ci sia della ciccia, ma devi anticiparla"
+C- "il gioco ci mette troppo a partire"
+- abbassare i px richiesti per passare di livello
+- semplificare i primi livelli
  * il gioco diventa man mano piu' lento, capire che cosa potrebbe essere
+ * a volte i nemici smettono di arrivare (non si passa alla wave successiva)
+		mettere un timer per passare alla prossima wave se sono passati N secondi
+ * far attaccare gli healer
+ * All the monsterS (menu > help)
+ * Giocare -> Aprire Menu/Resume -> Giocare -> Riaprire Menu/ scelgi livello -> Giocare . ecc...  
+
+	Ripetere queste operazioni sembra rallentare il gioco. 
+
+	Sono passato da 58/61 FPS  a 51/59 FPS  e cosi via .... 
+	in 2 minuti ero a 19/23 FPS medi (con il NESUN 4)
+ * 	A livello 2 per ben 2 volte mi si è piantato il gioco. 
+
+	Piantato = Tutto si ferma e non arrivano nemici MA i FPS del gioco vanno su e giù come se qualcosa stesse succedendo comunque 
+	ma senza refresh di interfaccia. 
+ * 	Cliccando più volte su un ogre ad un certo punto il mago è scomparso dallo schermo. E' rimasto solo l'ogre bloccato. 
+	Il pulsante menu ha funzionato e ho ricliccato "Gioca"
+
 
 ( GRAPHICS )
 

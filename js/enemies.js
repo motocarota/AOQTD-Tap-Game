@@ -90,7 +90,7 @@ game.enemiesBook = {
 	},
 	elem_fire: {
 		ai: AI.melee,
-		level: 5,
+		level: 4,
 		speed: .84,
 		attackSpeed: 2,
 		frameW: 2, frameH: 2,
@@ -117,7 +117,7 @@ game.enemiesBook = {
 	},
 	elem_earth: {
 		ai: AI.melee,
-		level: 5,
+		level: 4,
 		speed: .84,
 		frameW: 3, frameH: 2,
 		element: 'physical',
@@ -145,7 +145,7 @@ game.enemiesBook = {
 	},
 	elem_air: {
 		ai: AI.melee,
-		level: 5,
+		level: 4,
 		speed: .84,
 		frameW: 3, frameH: 2,
 		element: 'electricity',
@@ -173,7 +173,7 @@ game.enemiesBook = {
 	},
 	elem_water: {
 		ai: AI.melee,
-		level: 5,
+		level: 4,
 		speed: .84,
 		frameW: 3, frameH: 2,
 		element: 'water',
@@ -222,8 +222,8 @@ game.enemiesBook = {
 		}
 	},
 	goblin: {
-		level: 2,
-		speed: .6,
+		level: 1,
+		speed: .5,
 		frameH: 2,
 		frameW: 3,
 		attackSpeed: 2,

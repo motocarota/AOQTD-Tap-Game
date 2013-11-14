@@ -30,8 +30,9 @@ window.AI = {
 			this.move( roll( 1, dest.w, dest.x ), roll( 1, dest.h, dest.y ) );
 			this.ready = true;
 		} else {
-			if ( this.cooldown < 1 && !this.moving )
+			if ( this.cooldown < 1 && !this.moving ) {
 				this.attack( this.getDamage() );
+			}
 		}
 	},
 	
@@ -50,6 +51,7 @@ window.AI = {
 				if ( _DEBUG ) CAAT.log( '[Enemies] caster is casting '+chosenSpell.id, chosenSpell );
 				chosenSpell.effect( this );
 				this.cooldown = this.attackSpeed;
+				// game.playSound( 'cast' );
 				this.playAnimation( 'attack' );
 			}
 		}
@@ -67,6 +69,7 @@ window.AI = {
 			if ( this.cooldown <= 0 ) {
 				game.summon( this.creatures[ roll( this.creatures ) ] );
 				this.cooldown = this.attackSpeed;
+				// game.playSound( 'cast' );
 				this.playAnimation( 'attack' );
 			}
 		}
@@ -87,6 +90,7 @@ window.AI = {
 						this.target = game.enemies[i];
 						this.target.heal( 12 );
 						this.cooldown = this.attackSpeed;
+						// game.playSound( 'cast' );
 						this.playAnimation( 'attack' );
 						return;
 					}
@@ -102,52 +106,88 @@ window.AI = {
 
 
 window.enemySpellBook = {
-	'teleport':{
+	'teleport': {
 		cd: 20,
 		effect: function( en ) {
-			// game.playSound( 'teleport' );
 			var dest = game.options.enemies.destinations.ranged;
 			en.x = roll( 1, dest.w, dest.x );
 			en.y = roll( 1, dest.h, dest.y );
 		}
 	}, 
-	'fireball':{
+	'fireball': {
 		cd: 10,
 		effect: function( en ) {
-			// game.playSound( 'cast' );
 			var p = new CAAT.Projectile( 3 );
 			p.setup( en );
 			p.add( );
 		}
 	},
-	'magic_missile':{ 
+	'magic_missile': { 
 		cd: 5,
 		effect: function( en ) {
-			// game.playSound( 'cast' );
 			var p = new CAAT.Projectile( 2 );
 			p.setup( en );
 			p.add( );
 		}
 	},
-	'void_sphere':{ 
+	'void_sphere': { 
 		cd: 25,
 		effect: function( en ) {
-			// game.playSound( 'cast' );
 			var p = new CAAT.Projectile( 4 );
 			p.setup( en );
 			p.add( );
 		}
 	},
+	'minor-heal':{
+		cd: 5,
+		effect: function( en ){
+			for ( var i=0; i < game.enemies.length; i++ ) {
+				if ( game.enemies[i].wounds > 0 ) {
+					en.target = game.enemies[i];
+					en.target.heal( 12 );
+					return;
+				}
+			};
+		}
+	},
+	'heal': {
+		cd: 5,
+		effect: function( en ){
+			for ( var i=0; i < game.enemies.length; i++ ) {
+				if ( game.enemies[i].wounds > 0 ) {
+					en.target = game.enemies[i];
+					en.target.heal( 50 );
+					return;
+				}
+			};
+		}
+	},
+	'aoe_heal': { 
+		cd: 5,
+		effect: function( en ) {
+			for ( var i=0; i < game.enemies.length; i++ ) {
+				game.enemies[i].heal( 2 );
+			};
+		}
+	},
+	'empower': { 
+		cd: 5,
+		effect: function( en ) {
+			for ( var i=0; i < game.enemies.length; i++ ) {
+				game.enemies[i].say( 'rawr!' );
+			};
+		}
+	},
 	'rock':{
 		cd: 2,
 		effect: function( en ) {
-			// game.playSound( 'cast' );
 			var p = new CAAT.Projectile( 1 );
 			p.setup( en );
 			p.add( );
 		}
 	}
 }
+
 
 // ========================================================
 // Projectiles

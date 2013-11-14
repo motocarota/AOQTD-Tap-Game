@@ -16,10 +16,7 @@
 	};
 	
 	game.getStatus = function( ) {
-		var s = game.status;
-		var str = "Level "+s.level+"   XP "+s.xp;//+"   Gold "+s.gold;
-		if ( _DEBUG ) CAAT.log( str );
-		return str;
+		return game.status;
 	};
 	
 	game.save = function( ) {
@@ -96,14 +93,14 @@
 					setBackgroundImage( game.UI.icons ).
 					enableEvents( true ).
 					setSpriteIndex( i );
-				game.UI.spellsBtn[i].mouseDown = loopHelper( i );
+				game.UI.spellsBtn[i].mouseDown = btnHelper( i );
 				gameScene.addChild( game.UI.spellsBtn[i] );
 			} else {
 				if ( _DEBUG ) CAAT.log( "[Game] You can't cast "+game.spellList[i]+"! you are level "+game.status.level )
 			}
 		};
 		
-		function loopHelper( i ) {
+		function btnHelper( i ) {
 			return function( button ) {
 				CAAT.log( "[Game] you choose this spell: ",game.spellList[i] )
 				spellIndex = i;
@@ -167,6 +164,16 @@
 			setTextAlign( 'center' ).
 			setLocation( 53, -10 )
 		);
+		
+		//wave
+		game.UI.waveLabel = new CAAT.Foundation.UI.TextActor( ).
+			setText( "wave: 6/7" ).
+			setFont( game.options.fontAlt ).
+			setTextFillStyle( "white" ).
+			setLocation( WW-10, HH ).
+			setPositionAnchor( 1, 1 );
+		
+		gameScene.addChild( game.UI.waveLabel );
 		
 		//bg
 		// gameScene.addChild( new CAAT.Foundation.Actor( ).
@@ -287,9 +294,9 @@
 		}
 		
 		game.status.xp += game.player.xp;
-		var delta = game.status.xp - ( ( 2 * game.status.level ) * 1000 );
+		var delta = game.status.xp - ( game.status.level * 1000 );
 		
-		if ( delta > 0 ) {
+		if ( delta > 0 && game.status.level < game.options.levelCap ) {
 			game.status.xp = delta;
 			game.status.level++;
 			game.save( );
@@ -312,19 +319,20 @@
 		
 		//UPDATE ENEMIES
 		game.enemies = _.sortBy( game.enemies, 'y' );
-		for (var i=0; i < game.enemies.length; i++) {
+		for ( var i=0; i < game.enemies.length; i++ ) {
 			game.enemies[i].tick();
 			game.bg.setZOrder( game.enemies[i], i+2 ); //+2 perche'ci sono anche l'albero e il mage
 		};
 		
 		// Enemies generation
 		if ( waiting ) {
-			if ( game.active && game.enemies.length === 0 && game.toCreate <= 0 ) {
+			if ( game.active && game.enemies.length <= 1 && game.toCreate <= 0 ) {
 				waiting = false;
 				game.phase++;
 			}
 		} else {
 			var currentWave = game.waves[ game.level ][ game.phase ];
+			game.UI.waveLabel.setText( "wave: "+game.phase+"/"+game.waves[ game.level ].length );
 			if ( !currentWave ) { 
 				game.over( true );
 			} else {
@@ -336,7 +344,7 @@
 				};
 				waiting = true;
 			}
-		}		
+		}
 	};
 	
 	game.setupDifficulty = function( enemy ) {

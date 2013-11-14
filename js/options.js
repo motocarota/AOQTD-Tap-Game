@@ -5,13 +5,13 @@ function setupOptions( ) {
 	window.game = window.game || {};
 	
 	game.options = {
-		tick_mana: 			4,
+		tick_mana: 			7,
 		global_cooldown :	50,
 		volume :			10,
 		font :				'50px fof',
 		fontAlt : 			'40px md',
 		fontBig : 			'70px md',
-			
+		levelCap: 			10,
 		dropChance: 		50,
 		player: {
 			max_level: 			10,
@@ -27,7 +27,7 @@ function setupOptions( ) {
 			}
 		},
 		drop : {
-			lifespan : 		80
+			lifespan : 		100
 		}
 	};
 }

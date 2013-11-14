@@ -21,6 +21,7 @@
 			addElement( "options-bg", 	"img/UI/options-bg.png" ).
 			addElement( "logo", 		"img/UI/logo.png" ).
 			addElement( "items",		"img/sprites/items.png" ).
+			addElement( "badge",		"img/UI/badge.png" ).
 			
 			//splash screens
 			addElement( "cover",		"img/cover.png" ).

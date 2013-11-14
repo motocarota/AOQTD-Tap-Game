@@ -10,7 +10,7 @@
 
 	window.menu = {};
 	game.difficulty = 0;
-	game.version = "BETA 1001";
+	game.version = "BETA 1002";
 
 	menu.setupScene = function( images ) {
 		
@@ -32,6 +32,7 @@
 			emptySprite :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
 			icons :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 ),
 			items :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'items' ), 2, 3 ),
+			badge : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'badge' ), 1, 1 ),
 			listBg : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-bg' ), 1, 1 ),
 			levelUp :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'level-up' ), 1, 1 ),
 			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 5 ),
@@ -270,6 +271,7 @@
 			setVisible( false );
 			
 		reportScene.addChild( reportScene.levelUp );
+		//TODO arricchire!!
 		
 		//Report - Events		
 		reportScene.bg.mouseDown = function( ev ) {
@@ -350,14 +352,28 @@
 			setLocation( 480, 560 );
 		levelsScene.addChild( levelsScene.difficultySprite );
 		
+		
+		// List - Badge
+		levelsScene.bg.addChild( new CAAT.Foundation.Actor( ).
+			setLocation( WW-170, 0 ).
+			setBackgroundImage( game.UI.badge )
+		);
+		
 		// List - text
+		//TODO questo diventa il numero di livello
 		game.UI.listStr = new CAAT.Foundation.UI.TextActor( ).
-			setText( game.getStatus( ) ).
-			setFont( game.options.fontAlt ).
-			setTextFillStyle( "black" ).
-			setTextAlign( 'right' ).
-			setLocation( WW-30, 130 );
+			setText( "1" ).
+			setFont( game.options.font ).
+			setTextFillStyle( "white" ).
+			setTextAlign( 'center' ).
+			setLocation( WW-105, 5 );
 		levelsScene.bg.addChild( game.UI.listStr );
+		
+		game.UI.xpBar = new CAAT.Foundation.Actor( ).
+			setFillStyle( '#FE0' ).
+			setSize( 100, 10 ).
+			setLocation( 746, 117 );
+		levelsScene.bg.addChild( game.UI.xpBar );
 		
 		levelsScene.grid = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, WW, HH );
@@ -466,14 +482,19 @@
 					if ( is( 'Number', score ) && score >= 0 && score <= 3 ) 
 					levelsScene.grid.addChild( 
 						new CAAT.Foundation.Actor( ).
-							setLocation( x+20, y+84 ).
+							setLocation( x+20, y+90 ).
 							setBackgroundImage( game.UI.stars ).
 							setSpriteIndex( score-1 )
 					 );
 				}
 			}
 		};
-		game.UI.listStr.setText( game.getStatus( ) );
+		
+		//Update xp bar and player level
+		var status = game.getStatus( );
+		var xpWidth = status.xp / ( status.level * 10 );
+		game.UI.listStr.setText( status.level );
+		game.UI.xpBar.setSize( xpWidth, 10 );
 		
 		levelsScene.difficultySprite.mouseDown = function( ev ) {
 			if ( game.unlockedDifficulty === 0 ) {

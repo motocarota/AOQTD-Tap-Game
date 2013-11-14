@@ -17,12 +17,12 @@
 		[ // 2 Deserto - Greed (2...4) : [ goblin, scheletri, troll, orchi, el.fuoco ] 5/6  ---> summoner( necromancer )
 			{ skeleton:5 }, 
 			{ goblin:3, skeleton:5 }, 
-			{ skeleton:10 }, 
-			{ skeleton:7, goblin:1 }, 
+			{ skeleton:7 }, 
+			{ skeleton:6, goblin:1 }, 
 			{ necromancer:1, goblin:2 }, 
 			{ goblin:3, orc:5, skeleton:5 }, 
 			{ skeleton:5, orc:3, troll:1, elem_fire:2 }, 
-			{ elem_fire:7 },
+			{ elem_fire:6 },
 			{ troll:3, goblin:3, skeleton:3, necromancer:2 } 
 		],
 		[ // 3 Foresta - Gluttony (3...5) : [ goblin, troll, el.terra, el.fuoco, minotauro,summoner ] 4/5 ---> healer( duergar )
