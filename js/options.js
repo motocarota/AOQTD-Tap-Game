@@ -19,6 +19,9 @@ function setupOptions( ) {
 			max_mana: 			100
 		},
 		enemies : {
+			bar_width: 		80,
+			bar_height: 	3,
+			bar_color: 		"#f00",
 			baseSpeed : 	10,
 			destinations:{
 				melee:		{ x:200, y:350, w:50,  h:100 },

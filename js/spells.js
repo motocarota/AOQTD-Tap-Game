@@ -98,14 +98,8 @@ game.spellBook = {
 			return [
 				null,
 				function( target ){
-					var dot = new game.Buff();
-					dot.init( game.status.level*5, function( t ){
-						if ( this.getDurationLeft() % 3 === 0 ) {
-							t && t.damage( roll( 2, 4 ), 'nature' );
-						}
-					} );
-					// dot.modSpeed = 0.3; //slows enemy
-					target.addBuff( dot );
+					target && target.damage( roll( 2, 4 ), 'acid' );
+					target.addBuff( new game.Buff().initWithName( 'acid_dot' ) );
 					return true;
 				}
 			];
@@ -238,6 +232,34 @@ game.spellBook = {
 				}
 			];
 		}
+	},
+	'Explosion': {
+		cooldown: 		false,
+		element: 		"fire",
+		
+		travel: {
+			duration: 		10,
+			image: 	{ name: 'empty' }
+		},
+		splash : {
+			duration:		600,
+			rotation:		false,
+			image : {
+				name : "fb-splash",
+				frame: { w: 3, h: 2 }
+			},
+			animation: {
+				frames: [0,1,2,3,4,5], duration: 100
+			}
+		},
+		
+		initEffect : function(  ){
+			var fx = function( target ){
+				target && target.damage( roll( 5, 6, 12 ), 'fire' );
+				return true;
+			};
+			return [ null, fx ];
+		}
 	}
 };
-game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning', 'Finger-of-Death' ];
+game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning', 'Finger-of-Death', 'Explosion' ];

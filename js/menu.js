@@ -1,16 +1,16 @@
 ( function( ) {	
 	
-	var _DEBUG 				= false;
+	var _DEBUG 				=1//= false;
 	var MENU_SCENE_ID 		= 0,
 		LIST_SCENE_ID 		= 1,
 		GAME_SCENE_ID 		= 2,
 		HELP_SCENE_ID 		= 3,
 		CREDITS_SCENE_ID 	= 4,
-		ENDGAME_SCENE_ID 	= 5;
+		ENDGAME_SCENE_ID 	= 5,
+		CHAR_SCENE_ID 		= 6;
 
 	window.menu = {};
 	game.difficulty = 0;
-	game.version = "BETA 1002";
 
 	menu.setupScene = function( images ) {
 		
@@ -24,6 +24,7 @@
 		window.helpScene = director.createScene( );
 		window.creditsScene = director.createScene( );
 		window.reportScene = director.createScene( );
+		window.charScene = director.createScene( );
 		
 		CAAT.setCoordinateClamping( false );
 		
@@ -47,7 +48,7 @@
 		
 		director.addAudio( 'boom', "audio/spells/boom.ogg" );
 		// director.audioPlay( 'boom' );
-		
+	
 	// ( Scene 0 ) Main menu ================================================================================================
 
 		menuScene.bg = new CAAT.Foundation.ActorContainer( ).
@@ -201,8 +202,7 @@
 			if( _DEBUG ) CAAT.log( '[Credits] Menu' );
 			menu.slideTo( MENU_SCENE_ID, false, false );
 		};
-		
-		
+				
 	// ( Scene 3 ) Help ================================================================================================
 		
 		helpScene.bg = new CAAT.Foundation.ActorContainer( ).
@@ -318,7 +318,20 @@
 			menu.slideTo( ENDGAME_SCENE_ID, false, false );
 		};
 		
-		
+	// ( Scene 6 ) Character Sheet ==========================================================================================
+
+		charScene.bg = new CAAT.Foundation.ActorContainer( ).
+			setBounds( 0, 0, WW, HH ).
+			setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'char' ), 1, 1 ) ).
+			enableEvents( true );
+		charScene.addChild( charScene.bg );
+
+		// Char - events
+		charScene.bg.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log( '[Char] Menu' );
+			menu.slideTo( LIST_SCENE_ID, false, true );
+		};
+			
 	// ( Scene 1 ) List ================================================================================================
 
 		//Main Bg
@@ -354,26 +367,38 @@
 		
 		
 		// List - Badge
-		levelsScene.bg.addChild( new CAAT.Foundation.Actor( ).
+		game.UI.badge = new CAAT.Foundation.ActorContainer( ).
 			setLocation( WW-170, 0 ).
-			setBackgroundImage( game.UI.badge )
-		);
+			setBackgroundImage( game.UI.badge ).
+			enableEvents( true );
+			
+		levelsScene.addChild( game.UI.badge );
+
+		game.UI.badge.mouseDown = function( ev ) {
+			if( _DEBUG ) CAAT.log( '[Info] Menu' );
+			menu.slideTo( CHAR_SCENE_ID, false, false );
+		};
 		
 		// List - text
-		//TODO questo diventa il numero di livello
+		
 		game.UI.listStr = new CAAT.Foundation.UI.TextActor( ).
 			setText( "1" ).
 			setFont( game.options.font ).
 			setTextFillStyle( "white" ).
 			setTextAlign( 'center' ).
-			setLocation( WW-105, 5 );
-		levelsScene.bg.addChild( game.UI.listStr );
+			enableEvents( true ).
+			setLocation( 65, 5 );
+		game.UI.badge.addChild( game.UI.listStr );
 		
+		game.UI.listStr.mouseDown = function( ev ){
+			if( _DEBUG ) CAAT.log( '[List] go to Char' );
+			menu.slideTo( CHAR_SCENE_ID, false, false );
+		};
 		game.UI.xpBar = new CAAT.Foundation.Actor( ).
 			setFillStyle( '#FE0' ).
 			setSize( 100, 10 ).
-			setLocation( 746, 117 );
-		levelsScene.bg.addChild( game.UI.xpBar );
+			setLocation( 16, 117 );
+		game.UI.badge.addChild( game.UI.xpBar );
 		
 		levelsScene.grid = new CAAT.Foundation.ActorContainer( ).
 			setBounds( 0, 0, WW, HH );
@@ -456,7 +481,7 @@
 							i, i, i, i,
 							function( button ){ 
 								if( _DEBUG ) CAAT.log( '[List] Menu' );
-								menu.slideTo( MENU_SCENE_ID, true, true );
+								menu.slideTo( MENU_SCENE_ID, false, true );
 							} 
 						 ) 
 				 );
@@ -528,9 +553,10 @@
 			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
     }
 
-    function createGL( ) {
-        return new CAAT.Director( ).initializeGL( WW, HH ).
-            setClear( false ).
+    function createGl( ) {
+        return new CAAT.Director( ).
+			initializeGL( WW, HH ).
+			setClear( false ).
 			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
     }
 } )( );

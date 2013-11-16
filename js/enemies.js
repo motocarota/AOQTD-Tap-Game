@@ -9,7 +9,6 @@ game.enemiesBook = {
 		frameW: 3, 
 		frameH: 3,
 		dropTable: [
-			{ chance: 100, id: 'smallXp', qty:1 },
 			{ chance: 10, id: 'lifePotion', qty: 1 },
 			{ chance: 15, id: 'manaPotion', qty: 1 }
 		],
@@ -31,8 +30,8 @@ game.enemiesBook = {
 		speed: 0.7,
 		frameW: 3, 
 		frameH: 3,
+		regeneration: 5,
 		dropTable: [
-			{ chance: 100, id: 'xp', qty:3 },
 			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
@@ -97,7 +96,6 @@ game.enemiesBook = {
 		element: 'fire',
 		getDamage: function(){ return roll( 1, 3 ) },
 		dropTable: [
-			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
@@ -122,7 +120,6 @@ game.enemiesBook = {
 		frameW: 3, frameH: 2,
 		element: 'physical',
 		dropTable: [
-			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
@@ -150,7 +147,6 @@ game.enemiesBook = {
 		frameW: 3, frameH: 2,
 		element: 'electricity',
 		dropTable: [
-			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
@@ -176,9 +172,8 @@ game.enemiesBook = {
 		level: 4,
 		speed: .84,
 		frameW: 3, frameH: 2,
-		element: 'water',
+		element: 'acid',
 		dropTable: [
-			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
@@ -205,7 +200,6 @@ game.enemiesBook = {
 		speed: .6,
 		frameW: 3, frameH: 3,
 		dropTable: [
-			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 10, id: 'lifePotion', qty: 1 },
 			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
@@ -228,7 +222,6 @@ game.enemiesBook = {
 		frameW: 3,
 		attackSpeed: 2,
 		dropTable: [
-			{ chance: 50, id: 'xp', qty:1 },
 			{ chance: 5, id: 'wand', qty: 1 },
 			{ chance: 5, id: 'scroll', qty: 1 },
 			{ chance: 5, id: 'lifePotion', qty: 1 },
@@ -250,24 +243,33 @@ game.enemiesBook = {
 	},
 	necromancer:{
 		level: 3,
+		speed: 0.3,
 		ai: AI.summoner,
 		creatures: [ "skeleton" ]
 	},
 	duergar:{
 		level: 3,
-		ai: AI.healer
+		speed: 0.4,
+		ai: AI.caster,
+		spellsKnown: [ 'minor_heal', 'aoe_heal', 'magic_missile'/*, 'empower'*/ ] //Buggato, todo correggere
 	},
 	giant:{
 		level: 8,
+		boss: true,
+		speed: 0.2,
 		ai: AI.ranged,
 		projectile: 2
 	},
 	iron_golem:{
+		boss: true,
 		level: 10,
+		speed: 0.2,
 		ai: AI.melee
 	},
 	clay_golem:{
-		level: 10,
+		boss: true,
+		level: 8,
+		speed: 0.3,
 		ai: AI.melee
 	},
 	ghost: {
@@ -277,7 +279,6 @@ game.enemiesBook = {
 		frameW: 3,
 		attackSpeed: 12,
 		dropTable: [
-			{ chance: 100, id: 'xp', qty:2 },
 			{ chance: 5, id: 'manaPotion', qty: 1 }
 		],
 		animations: {
@@ -305,19 +306,37 @@ game.enemiesBook = {
 			
 		}
 	},
-	imp:{
+	tinker:{
+		level: 4,
+		speed: 0.4,
+		boss: true,
+		ai: AI.kamikaze
+	},
+	bandit: {
 		level: 2,
+		speed: 1.5,
+		ai: AI.rogue,
+		dropTable: [
+			{ chance: 50, id: 'wand', qty:1 },
+			{ chance: 50, id: 'scroll', qty:1 },
+			{ chance: 50, id: 'lifePotion', qty:1 },
+			{ chance: 50, id: 'manaPotion', qty:1 }
+		]
+	},
+	imp:{
+		level: 1,
 		ai: AI.caster,
-		spellsKnown: [ 'magic_missile', 'rock' ]
+		spellsKnown: [ 'fire_bolt', 'haste' ]
 	},
 	ogre_magi:{
 		level: 5,
 		ai: AI.caster,
-		spellsKnown: [ 'fireball', 'magic_missile', 'rock' ]
+		spellsKnown: [ 'fireball', 'magic_missile', 'fire_bolt' ]
 	},
 	rakshaaza:{
+		boss: true,
 		level: 10,
 		ai: AI.caster,
-		spellsKnown: [ 'teleport', 'fireball', 'magic_missile', 'void-sphere' ]
+		spellsKnown: [ 'teleport', 'fireball', 'magic_missile', 'void-sphere', 'haste' ]
 	}
 };

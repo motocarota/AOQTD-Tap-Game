@@ -1,8 +1,8 @@
 ( function( ) {	
 	
-	CAAT.DEBUG = 0;
-	var _DEBUG = false,
-		_FILE_VERSION = 1001;
+	CAAT.DEBUG = false;
+	var _DEBUG = false;
+	game.version = "BETA 1010";
 			
 	window.spellIndex = 0;
 	window.addEventListener( 'load', load, false );
@@ -30,6 +30,7 @@
 			addElement( "eg-die",		"img/splash/UI-lose.png" ).
 			addElement( "about",		"img/splash/about.png" ).
 			addElement( "help",		    "img/splash/help.png" ).
+			addElement( "char",		    "img/splash/char-demo.png" ).
 			
 			//backgrounds
 			addElement( "bg-1",			"img/bg/level-1.png" ).
@@ -53,6 +54,7 @@
 			addElement( "fb-splash",	"img/sprites/spells/fireball-splash.png" ).
 			addElement( "hwilting",		"img/sprites/spells/horrid-wilting-big.png" ).
 			addElement( "void-sphere",	"img/sprites/spells/void-sphere.png" ).
+			addElement( "fire_bolt",	"img/sprites/spells/fire-bolt.png" ).
 			addElement( "spell",		"img/empty.png" ).
 			
 			//projectiles
@@ -81,6 +83,8 @@
 			addElement( "imp",			"img/sprites/enemies/imp.png" ).
 			addElement( "ogre_magi",	"img/sprites/enemies/ogre_magi.png" ).
 			addElement( "rakshaaza",	"img/sprites/enemies/rakshaaza.png" ).
+			addElement( "tinker",		"img/sprites/enemies/tinker.png" ).
+			addElement( "bandit",		"img/sprites/enemies/bandit.png" ).
 			
 			//other
 			addElement( "empty",		"img/empty.png" ).

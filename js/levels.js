@@ -2,7 +2,8 @@
 	game.waves = [
 		null, 
 		[ // 1 Campagna - Sloth (1...3) : [ coboldi, goblin, orchi, troll ] 4/4 ---> ranged( goblin )
-			{ kobold:4 }, 
+			// { kobold:3, duergar:1, imp:1 }, 
+			{ kobold:3 }, 
 			{ kobold:3, goblin:3 }, 
 			{ kobold:3 }, 
 			{ kobold:3, goblin:2, orc:1 }, 
@@ -22,8 +23,8 @@
 			{ necromancer:1, goblin:2 }, 
 			{ goblin:3, orc:5, skeleton:5 }, 
 			{ skeleton:5, orc:3, troll:1, elem_fire:2 }, 
-			{ elem_fire:6 },
-			{ troll:3, goblin:3, skeleton:3, necromancer:2 } 
+			{ elem_fire:5 },
+			{ troll:2, goblin:1, skeleton:3, necromancer:1, duergar:1 } 
 		],
 		[ // 3 Foresta - Gluttony (3...5) : [ goblin, troll, el.terra, el.fuoco, minotauro,summoner ] 4/5 ---> healer( duergar )
 			{ goblin:10 }, 
@@ -40,6 +41,7 @@
 			{ duergar:2, troll:1, elem_earth:2, goblin:2 } 
 		],
 		[ // 4 Neve - Lust (4...6) : [ orchi, el.acqua, scheletro, gigante gelo ] 3/4  ---> caster( imp )
+			{ imp:2 },
 			{ orc:5 }, 
 			{ orc:5, duergar:2, elem_water:2 }, 
 			{ skeleton:10 }, 

@@ -167,9 +167,9 @@
 		
 		//wave
 		game.UI.waveLabel = new CAAT.Foundation.UI.TextActor( ).
-			setText( "wave: 6/7" ).
+			setText( "" ).
 			setFont( game.options.fontAlt ).
-			setTextFillStyle( "white" ).
+			setTextFillStyle( "#f00" ).
 			setLocation( WW-10, HH ).
 			setPositionAnchor( 1, 1 );
 		
@@ -324,6 +324,15 @@
 			game.bg.setZOrder( game.enemies[i], i+2 ); //+2 perche'ci sono anche l'albero e il mage
 		};
 		
+		// Extra Enemies
+		//QUI
+		if ( roll( 1, 100 ) < 2 ){
+			game.summon( 'bandit', true );
+		}
+		if ( roll( 1, 100 ) < 5 ){
+			game.summon( 'tinker', true );
+		}
+		
 		// Enemies generation
 		if ( waiting ) {
 			if ( game.active && game.enemies.length <= 1 && game.toCreate <= 0 ) {
@@ -334,7 +343,9 @@
 			var currentWave = game.waves[ game.level ][ game.phase ];
 			game.UI.waveLabel.setText( "wave: "+game.phase+"/"+game.waves[ game.level ].length );
 			if ( !currentWave ) { 
-				game.over( true );
+				if ( game.enemies.length < 1 ){
+					game.over( true );
+				}
 			} else {
 				for ( en in currentWave ) {
 					for (var i=0; i < currentWave[ en ]; i++) {
@@ -356,16 +367,16 @@
 				enemy.dropTable = [ { chance: 5, id: 'scroll', qty: 1 }, { chance: 2, id: 'wand', qty: 1 } ];
 			}
 		}
-		if ( d === 1 ) {
-			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
-				enemy.dropTable = [ { chance: 20, id: 'smallXp', qty: 1 } ];
-			}
-		}
+		// if ( d === 1 ) {
+		// 	// if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
+		// 	// 	enemy.dropTable = [ { chance: 20, id: '...', qty: 1 } ];
+		// 	// }
+		// }
 		if ( d === 2 ) {
 			enemy.hp = enemy.hp*2;
-			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
-				enemy.dropTable = [ { chance: 50, id: 'xp', qty: 1 } ];
-			}
+			// if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
+			// 	enemy.dropTable = [ { chance: 50, id: '...', qty: 1 } ];
+			// }
 		}
 		return enemy;
 	};

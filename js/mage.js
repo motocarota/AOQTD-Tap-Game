@@ -66,11 +66,12 @@
 		},
 		
 		
-		castSpell : function ( x, y ) {
+		castSpell : function ( x, y, id ) {
 			
-			var id = spellIndex;
+			if ( !id ) {
+				id = spellIndex;
+			}
 			var spell = null;
-			//TODO
 			if ( spellIndex === 'item' && this.item.charges > 0 ) {
 				if ( _DEBUG ) CAAT.log('[Mage] casts a spell id:'+this.item.spellId+' at ('+x+','+y+')');
 				CAAT.log( "CARICHE "+this.item.charges )
@@ -120,17 +121,14 @@
 		
 		addItem: function( item ) {
 			
-			// if( _DEBUG )
-			CAAT.log( "[Mage] Adding Item: ", item )
+			if( _DEBUG ) CAAT.log( "[Mage] Adding Item: ", item )
 			this.item = item;
 			game.UI.itemBtn.setVisible( true ).setSpriteIndex( item.imageId );
-			// game.player.notify( 'You Loot a '+item.type );
 		},
 		
 		removeItem: function() {
 			
-			// if( _DEBUG )
-			CAAT.log( "[Mage] Removing Item: ",this.item )
+			if( _DEBUG ) CAAT.log( "[Mage] Removing Item: ",this.item )
 			game.UI.itemBtn.setVisible( false );
 			this.item = null;
 			spellIndex = 0;
@@ -138,8 +136,7 @@
 		
 		useItem: function( ) {
 			
-			// if( _DEBUG )
-			CAAT.log( "[Mage] Selecting Item: ",this.item );
+			if( _DEBUG ) CAAT.log( "[Mage] Selecting Item: ",this.item );
 			game.player.item.use();
 			if ( ! _.has( game.player.item, 'charges' ) ) {
 				game.player.removeItem();
