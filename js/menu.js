@@ -1,6 +1,6 @@
 ( function( ) {	
 	
-	var _DEBUG 				=1//= false;
+	var _DEBUG 				= false;
 	var MENU_SCENE_ID 		= 0,
 		LIST_SCENE_ID 		= 1,
 		GAME_SCENE_ID 		= 2,
@@ -38,7 +38,7 @@
 			levelUp :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'level-up' ), 1, 1 ),
 			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 5 ),
 			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 ),
-			stars :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 1, 3 ),
+			stars :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 2, 2 ),
 			optionsBg :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'options-bg' ), 1, 1 ),
 			infoCharBg :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'info-char-bg' ), 1, 1 )
 		};
@@ -248,7 +248,7 @@
 			setTextAlign( 'center' ).
 			setPositionAnchor( 0.5, 0 ).
 			enableEvents( false ).
-			setLocation( 760, 300 );
+			setLocation( 760, 295 );
 			
 		reportScene.bg.addChild( reportScene.xpLabel );
 		
@@ -312,7 +312,7 @@
 			} else {
 				reportScene.bg.setBackgroundImage( director.getImage( 'eg-die' ), false );
 				// reportScene.goldLabel.setVisible( false );
-				reportScene.xpLabel.setText( "+"+game.player.xp*2+" /2" );
+				reportScene.xpLabel.setText( "+"+game.player.xp );
 				reportScene.starsImg.setVisible( false );
 			}
 			menu.slideTo( ENDGAME_SCENE_ID, false, false );
@@ -451,7 +451,7 @@
 		var x, y;
 		game.load( );
 		
-		game.unlockedDifficulty = _.min( game.status.scores ) -1;
+		game.unlockedDifficulty = _.min( game.status.scores );
 		if ( game.unlockedDifficulty === Infinity || game.unlockedDifficulty < 0 ) {
 			game.unlockedDifficulty = 0;
 		}
@@ -507,7 +507,7 @@
 					if ( is( 'Number', score ) && score >= 0 && score <= 3 ) 
 					levelsScene.grid.addChild( 
 						new CAAT.Foundation.Actor( ).
-							setLocation( x+20, y+90 ).
+							setLocation( x+20, y+93 ).
 							setBackgroundImage( game.UI.stars ).
 							setSpriteIndex( score-1 )
 					 );

@@ -247,14 +247,14 @@
 		
 		game.active = false;
 		if ( victory ) {
-		    game.player.xp += 500 * game.level;
+			game.player.xp += 500 * game.level;
 			var score = game.difficulty+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
 				// game.status.gold += game.player.gold;
 			}
 		} else {
-			game.player.xp = game.player.xp/2; //in caso di sconfitta prendi meta' dei px
+			game.player.xp += 100 * game.level; //in caso di sconfitta prendi meta' dei px
 		}
 		game.save( );
 		menu.updateReport( victory, score );
@@ -341,7 +341,7 @@
 			}
 		} else {
 			var currentWave = game.waves[ game.level ][ game.phase ];
-			game.UI.waveLabel.setText( "wave: "+game.phase+"/"+game.waves[ game.level ].length );
+			game.UI.waveLabel.setText( "wave: "+(game.phase+1)+"/"+game.waves[ game.level ].length );
 			if ( !currentWave ) { 
 				if ( game.enemies.length < 1 ){
 					game.over( true );
