@@ -2,7 +2,7 @@
 	
 	CAAT.DEBUG = false;
 	var _DEBUG = false;
-	game.version = "BETA 1011";
+	game.version = "BETA 1012-CSS";
 			
 	window.spellIndex = 0;
 	window.addEventListener( 'load', load, false );

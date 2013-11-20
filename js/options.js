@@ -12,7 +12,17 @@ function setupOptions( ) {
 		fontAlt : 			'40px md',
 		fontBig : 			'70px md',
 		levelCap: 			10,
-		dropChance: 		50,
+		drop:{
+			lifespan : 		100,
+			file: 			"items", 
+			frameW: 		3, 
+			frameH: 		3,
+			dest: {
+				x: 260, y: 220, w: 640, h: 340
+			},
+			powerUps: 			[ 'BFG', 'time_stop', 'phoenixPotion', 'greenPotion', 'shield' ],
+		},
+		
 		player: {
 			max_level: 			10,
 			max_hp: 			100,
@@ -28,9 +38,6 @@ function setupOptions( ) {
 				ranged:		{ x:400, y:200, w:300, h:300 },
 				healer:		{ x:700, y:200, w:150, h:300 }
 			}
-		},
-		drop : {
-			lifespan : 		100
 		}
 	};
 }

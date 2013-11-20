@@ -14,10 +14,10 @@
 
 	menu.setupScene = function( images ) {
 		
-		window.director = createCanvas( );
-		// window.director = createCSS( );
+		// window.director = createCanvas( );
+		window.director = createCSS( );
 		// window.director = createGl( );
-		window.director.setImagesCache( images );
+		
 		window.menuScene = director.createScene( );
 		window.levelsScene = director.createScene( );
 		window.gameScene = director.createScene( );
@@ -26,13 +26,14 @@
 		window.reportScene = director.createScene( );
 		window.charScene = director.createScene( );
 		
+		window.director.setImagesCache( images );
 		CAAT.setCoordinateClamping( false );
 		
 		// UI - Strings and Bars
 		game.UI = {
 			emptySprite :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
 			icons :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 ),
-			items :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'items' ), 2, 3 ),
+			items :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'items' ), 3, 3 ),
 			badge : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'badge' ), 1, 1 ),
 			listBg : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-bg' ), 1, 1 ),
 			levelUp :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'level-up' ), 1, 1 ),
@@ -533,7 +534,7 @@
 	
 	function helper( i ) {
 		return function( ) {
-			if( _DEBUG ) CAAT.log( '[List] Play level: '+i );
+			if( _DEBUG ) CAAT.log( '[List] Play level: '+i+' at difficulty: '+game.difficulty+"/"+game.unlockedDifficulty );
 			game.setupScene( i );
 			menu.slideTo( GAME_SCENE_ID, false, false );
 		}

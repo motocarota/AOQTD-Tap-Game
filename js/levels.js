@@ -1,6 +1,7 @@
 (function(){ 
 	game.waves = [
 		null, 
+		// [ { kobold:2 }, { goblin:2 }, { kobold:2 } ],
 		[ // 1 Campagna - Sloth (1...3) : [ coboldi, goblin, orchi, troll ] 4/4 ---> ranged( goblin )
 			// { kobold:3, duergar:1, imp:1 }, 
 			{ kobold:3 }, 

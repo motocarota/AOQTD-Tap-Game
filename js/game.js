@@ -7,6 +7,7 @@
 		waiting = false;
 	game.toCreate = 0;
 	game.active = false;
+	game.waveTimer = 1;
 	
 	game.status = {
 		xp:		0,
@@ -20,6 +21,9 @@
 	};
 	
 	game.save = function( ) {
+		if ( game.status.level >= 10 && game.status.xp >= 10000 ) {
+			game.status.xp = 10000;
+		}
 		localStorage.setItem( "status", JSON.stringify( this.status ) );
 	};
 	
@@ -175,34 +179,6 @@
 		
 		gameScene.addChild( game.UI.waveLabel );
 		
-		//bg
-		// gameScene.addChild( new CAAT.Foundation.Actor( ).
-		// 	enableEvents( false ).
-		// 	setLocation( WW, HH-10 ).
-		// 	setPositionAnchor( 1, 1 ).
-		// 	setBackgroundImage( game.UI.bgSmall ) 
-		// );
-		
-		//xp
-		// gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
-		// 	setText( game.status.xp+" xp" ).
-		// 	setFont( game.options.fontAlt ).
-		// 	setTextFillStyle( "black" ).
-		// 	setTextAlign( 'right' ).
-		// 	setLocation( WW, 10 ).
-		// 	setPositionAnchor( 0, 0 )
-		// );
-		
-		//gold - Temporaneamente disattivato
-		// gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
-		// 	setText( "Gold: "+game.status.gold ).
-		// 	setFont( game.options.fontAlt ).
-		// 	setTextFillStyle( "white" ).
-		// 	setTextAlign( 'right' ).
-		// 	setLocation( WW, HH-50 ).
-		// 	setPositionAnchor( 1, 1 )
-		// );
-		
 		// Pause game Button
 		gameScene.addChild( 
 			new CAAT.Foundation.Actor( ).
@@ -237,7 +213,7 @@
 				if( game.time-- < 0 ) {
 					game.tick( );
 					game.time = game.options.global_cooldown;
-				} 
+				}
 			},
 			null 
 		 );
@@ -247,14 +223,15 @@
 		
 		game.active = false;
 		if ( victory ) {
-			game.player.xp += 500 * game.level;
+			game.player.xp += ( 500 * game.level ) + ( 50 * game.difficulty );
 			var score = game.difficulty+1;
 			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
 				game.status.scores[ game.level-1 ] = score;
 				// game.status.gold += game.player.gold;
 			}
 		} else {
-			game.player.xp += 100 * game.level; //in caso di sconfitta prendi meta' dei px
+			//in caso di sconfitta prendi meno i px
+			game.player.xp += ( 100 * game.level ) + ( 10 * game.difficulty ); 
 		}
 		game.save( );
 		menu.updateReport( victory, score );
@@ -307,6 +284,38 @@
 		}
 	};
 	
+	game.nextWave = function() {
+		waiting = false;
+		game.waveTimer = 1;
+		if ( game.phase < game.waves[ game.level ].length ) {
+			if ( _DEBUG ) CAAT.log( '[Game] Next Wave:'+game.phase+" / "+game.waves[ game.level ].length );
+			game.phase++;
+		} else {
+			if ( _DEBUG ) CAAT.log( '[Game] No more waves'+game.phase+" / "+game.waves[ game.level ].length );
+		}
+	}
+
+	game.wipe = function( seriously ){
+		for (var i = game.enemies.length - 1; i >= 0; i--){
+			if ( !seriously && game.enemies[i].boss ) {
+				game.enemies[i].damage( 50 );
+			} else {
+				game.enemies[i].die( true );
+			}
+		};
+	}
+	
+	game.nextPhase = function(){
+		if ( game.phase < game.waves[ game.level ].length ) {
+			waiting = false;
+			game.phase++;
+			game.waveTimer = 1;
+			game.UI.waveLabel.setText( "wave: "+(game.phase+1)+"/"+game.waves[ game.level ].length );
+		} else {
+			CAAT.log( "No more phases" );
+		}
+	}
+	
 	game.tick = function( ) {
 		
 		//UPDATE PLAYER
@@ -324,29 +333,14 @@
 			game.bg.setZOrder( game.enemies[i], i+2 ); //+2 perche'ci sono anche l'albero e il mage
 		};
 		
-		// Extra Enemies
-		//QUI
-		if ( roll( 1, 100 ) < 2 ){
-			game.summon( 'bandit', true );
-		}
-		if ( roll( 1, 100 ) < 5 ){
-			game.summon( 'tinker', true );
-		}
-		
-		// Enemies generation
+		//ENEMIES CREATION
 		if ( waiting ) {
 			if ( game.active && game.enemies.length <= 1 && game.toCreate <= 0 ) {
-				waiting = false;
-				game.phase++;
+				game.nextPhase();
 			}
 		} else {
-			var currentWave = game.waves[ game.level ][ game.phase ];
-			game.UI.waveLabel.setText( "wave: "+(game.phase+1)+"/"+game.waves[ game.level ].length );
-			if ( !currentWave ) { 
-				if ( game.enemies.length < 1 ){
-					game.over( true );
-				}
-			} else {
+			var currentWave = game.waves[ game.level ][ game.phase ] || false;
+			if ( currentWave ) { 
 				for ( en in currentWave ) {
 					for (var i=0; i < currentWave[ en ]; i++) {
 						game.toCreate++;
@@ -354,7 +348,29 @@
 					};
 				};
 				waiting = true;
+			} else {
+				if ( game.enemies.length < 1 ) {
+					if ( _DEBUG ) CAAT.log( '[Game] All enemies killed! You win' );
+					game.over( true );
+				}
 			}
+		}
+		// prossima dopo 30 secondi circa
+		if ( ++game.waveTimer % 50 === 0 ) {
+			game.nextPhase();
+		}
+		// Extra Enemies
+		if ( roll( 1, 100 ) < 2 ) {
+			game.summon( 'bandit', { qty:1, extra:true } );
+		}
+		if ( roll( 1, 100 ) < 3 ) {
+			game.summon( 'tinker', { qty:1, extra:true } );
+		}
+		//POWER UPS
+		if ( roll( 1, 100 ) < 2 ) {
+			var c = randomFrom( game.dropList );
+			if ( _DEBUG ) CAAT.log( "[Game] drop a random powerup:"+c );
+			new CAAT.Drop().add( c );
 		}
 	};
 	
@@ -367,21 +383,23 @@
 				enemy.dropTable = [ { chance: 5, id: 'scroll', qty: 1 }, { chance: 2, id: 'wand', qty: 1 } ];
 			}
 		}
-		// if ( d === 1 ) {
-		// 	// if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
-		// 	// 	enemy.dropTable = [ { chance: 20, id: '...', qty: 1 } ];
-		// 	// }
-		// }
+		if ( d === 1 ) {
+			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
+				enemy.dropTable = [ { chance: 2, id: 'scroll', qty: 1 }, { chance: 1, id: 'wand', qty: 1 } ];
+			}
+		}
 		if ( d === 2 ) {
 			enemy.hp = enemy.hp*2;
-			// if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
-			// 	enemy.dropTable = [ { chance: 50, id: '...', qty: 1 } ];
-			// }
+		}
+		if ( d === 3 ) {
+			enemy.boss = true;
 		}
 		return enemy;
 	};
 	
 	game.summon = function( enemies, opts ){
+		
+		if ( _DEBUG ) CAAT.log( "[Game] Summoning ",enemies, opts );
 		var en;
 		if ( is( 'Array', enemies ) ) {
 			en = en[ roll( 0, en.length ) ];
@@ -400,7 +418,7 @@
 				( opts.extra ) ? 0 : 250*roll( 1, 30 ), 
 				function(){ 
 					var enemy = new CAAT.Enemy( );
-					enemy.add( en );
+					enemy.add( en, opts.extra );
 					enemy.target = game.roots;
 					enemy.ai( );
 					if ( !opts.extra ) {

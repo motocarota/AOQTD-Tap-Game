@@ -100,6 +100,7 @@ game.spellBook = {
 				function( target ){
 					target && target.damage( roll( 2, 4 ), 'acid' );
 					target.addBuff( new game.Buff().initWithName( 'acid_dot' ) );
+					// target.addBuff( new game.Buff().initWithName( 'slow' ) );
 					return true;
 				}
 			];
@@ -224,9 +225,9 @@ game.spellBook = {
 						return false
 					}
 					if ( target.boss ){
-						target.damage( 100 );
+						target.damage( 50 );
 					} else {
-						target.die(  );
+						target.die( false );
 					}
 					return true;
 				}

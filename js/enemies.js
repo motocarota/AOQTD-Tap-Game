@@ -253,25 +253,6 @@ game.enemiesBook = {
 		ai: AI.caster,
 		spellsKnown: [ 'minor_heal', 'aoe_heal', 'magic_missile'/*, 'empower'*/ ] //Buggato, todo correggere
 	},
-	giant:{
-		level: 8,
-		boss: true,
-		speed: 0.2,
-		ai: AI.ranged,
-		projectile: 2
-	},
-	iron_golem:{
-		boss: true,
-		level: 10,
-		speed: 0.2,
-		ai: AI.melee
-	},
-	clay_golem:{
-		boss: true,
-		level: 8,
-		speed: 0.3,
-		ai: AI.melee
-	},
 	ghost: {
 		level: 5,
 		speed: .6,
@@ -332,6 +313,26 @@ game.enemiesBook = {
 		level: 5,
 		ai: AI.caster,
 		spellsKnown: [ 'fireball', 'magic_missile', 'fire_bolt' ]
+	},
+	//BOSS
+	giant:{
+		level: 8,
+		boss: true,
+		speed: 0.2,
+		ai: AI.ranged,
+		projectile: 2
+	},
+	iron_golem:{
+		boss: true,
+		level: 10,
+		speed: 0.1,
+		ai: AI.melee
+	},
+	clay_golem:{
+		boss: true,
+		level: 8,
+		speed: 0.1,
+		ai: AI.melee
 	},
 	rakshaaza:{
 		boss: true,

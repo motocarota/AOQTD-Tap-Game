@@ -3,20 +3,21 @@
 L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
-## TODO
+- abilitato il rendering via CSS
+- abilitato un timer che fa passare alla prossima wave dopo N secondi
+- aggiunti nuovi drop (effetti NYI)
+- attivati i nemici extra nuovi (tinker e bandit)
+- corretto il bug che portava sporadicamente al crash del dispositivo
 
-- capire perche' empower mi fa spostare il coboldo
-- capire perche' mi da errore nella versione webGl
-* All the monsterS (menu > help)
+## TODO	
+
+- introdurre i mostri elite, forti ma non forti come il boss
+- abilitare webgl
+	capire perche' mi da errore nella versione webGl
+
+- capire perche' empower, slow, haste? mi fa spostare il coboldo
 
 -----
-Pensare a questo:
-	A- "non serve nessun tipo di abilità devo solo cliccare"
-		Come posso rendere il gioco piu' interessante?
-		skill differenti?
-		power up temporanei?
-	
-	B- "puo' darsi che ci sia della ciccia, ma devi anticiparla"
 
 
 ( GRAPHICS )
@@ -191,6 +192,3 @@ POI se avro' voglia li implementero' diversamente
 		
 
 ## BUGS
-
-- A volte il gioco si pianta (cannot find x of undefined)
-- I melee fanno pochi danni
