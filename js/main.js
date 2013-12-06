@@ -1,8 +1,8 @@
 ( function( ) {	
 	
 	CAAT.DEBUG = false;
-	var _DEBUG = false;
-	game.version = "BETA 1012-CSS";
+	var _DEBUG = 1;//false;
+	game.version = "BETA 1013";
 			
 	window.spellIndex = 0;
 	window.addEventListener( 'load', load, false );

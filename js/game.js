@@ -1,6 +1,6 @@
 ( function( ) {	
 	
-	var _DEBUG = false,
+	var _DEBUG = 1;//false,
 		_FILE_VERSION = 1001,
 		_MAX_BAR_HEIGHT = 22,
 		_MAX_BAR_WIDTH = 345,
@@ -47,6 +47,11 @@
 			game.level = 1;
 		} else {
 			game.level = level;
+		}
+		
+		//TODO if difficulty = 3 (extra) carica l'ultimo livello
+		if ( game.difficulty > 2 ) {
+			level = 7;
 		}
 		
 		//TODO : load custom song, based on level
@@ -312,7 +317,7 @@
 			game.waveTimer = 1;
 			game.UI.waveLabel.setText( "wave: "+(game.phase+1)+"/"+game.waves[ game.level ].length );
 		} else {
-			CAAT.log( "No more phases" );
+			if ( _DEBUG ) CAAT.log( "[Game] No more enemies to spawn, game over soon" );
 		}
 	}
 	
@@ -355,8 +360,8 @@
 				}
 			}
 		}
-		// prossima dopo 30 secondi circa
-		if ( ++game.waveTimer % 50 === 0 ) {
+		// prossima dopo 40 secondi circa
+		if ( ++game.waveTimer % 40 === 0 ) {
 			game.nextPhase();
 		}
 		// Extra Enemies
@@ -390,9 +395,6 @@
 		}
 		if ( d === 2 ) {
 			enemy.hp = enemy.hp*2;
-		}
-		if ( d === 3 ) {
-			enemy.boss = true;
 		}
 		return enemy;
 	};

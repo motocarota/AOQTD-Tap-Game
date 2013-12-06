@@ -1,6 +1,6 @@
 ( function( ) {	
 	
-	var _DEBUG 				= false;
+	var _DEBUG 				= 1;//false;
 	var MENU_SCENE_ID 		= 0,
 		LIST_SCENE_ID 		= 1,
 		GAME_SCENE_ID 		= 2,
@@ -451,17 +451,17 @@
 		
 		var x, y;
 		game.load( );
-		
-		game.unlockedDifficulty = _.min( game.status.scores );
+		var scores = [ 0, 0, 0, 0, 0, 0, 0 ];
+		for ( var i=0; i < 7; i++ ) {
+			scores[i] = game.status.scores[i] || 0;
+		};
+		CAAT.log( 'Scores:', scores )
+		game.unlockedDifficulty = _.min( scores );
 		if ( game.unlockedDifficulty === Infinity || game.unlockedDifficulty < 0 ) {
 			game.unlockedDifficulty = 0;
 		}
 		game.difficulty = game.unlockedDifficulty;
 		levelsScene.difficultySprite.setSpriteIndex( game.difficulty );
-		if ( game.unlockedDifficulty === 3 ) { 
-			//TODO enable secret level
-			CAAT.log( '[Menu List] Gratz! you unlocked the secret level' );
-		}
 		
 		levelsScene.grid.emptyChildren( );
 		for ( var i=0; i < 8; i++ ) {
@@ -556,7 +556,7 @@
 
     function createGl( ) {
         return new CAAT.Director( ).
-			initializeGL( WW, HH ).
+			initializeGL( WW, HH, 'game' ).
 			setClear( false ).
 			enableResizeEvents( CAAT.Director.prototype.RESIZE_PROPORTIONAL );
     }

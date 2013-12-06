@@ -3,19 +3,13 @@
 L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
-- abilitato il rendering via CSS
-- abilitato un timer che fa passare alla prossima wave dopo N secondi
-- aggiunti nuovi drop (effetti NYI)
-- attivati i nemici extra nuovi (tinker e bandit)
-- corretto il bug che portava sporadicamente al crash del dispositivo
-
 ## TODO	
 
+- capire perche' a criso continua a crashare
 - introdurre i mostri elite, forti ma non forti come il boss
-- abilitare webgl
-	capire perche' mi da errore nella versione webGl
-
-- capire perche' empower, slow, haste? mi fa spostare il coboldo
+- capire perche' empower, slow, haste mi fa spostare il coboldo
+- completare UN livello ad una stella mi porta a sbloccare due stelle
+- waves waves waves
 
 -----
 
@@ -50,21 +44,22 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
 ( Animazione iniziale )
-		1. Superdrow raggiunge i suoi amici alla locanda, tutto sorridente, aspetta un po', gli amici lo ignorano
-		2. [primo piano] "I've found the way to become the most powerful mage in the world!!"
-		3. gli amici si guardano
-		4. sd2 srotola un foglio blu con il piano
-		5. visuale del foglio con il piano disegnato e il dito che segue le fasi:
-		    - poke an enemy
-		    - run like hell
-		    - go high (jump on a tree or something)
-		    - kill everything
-		    - ????
-		    - profit
-		6. amici perplessi, scoppiano a ridere
-		7. sd2 si allontana offeso, per poi voltarsi minaccioso
-		8. "WE'LL SEE WHEN I'LL BE... THE BEST MAGE EVER!!1!" logo copertina fica ecc
-		9. Si chiude nel cesso, passa un po', poi "crap"
+
+	1. Superdrow raggiunge i suoi amici alla locanda, tutto sorridente, aspetta un po', gli amici lo ignorano
+	2. [primo piano] "I've found the way to become the most powerful mage in the world!!"
+	3. gli amici si guardano
+	4. sd2 srotola un foglio blu con il piano
+	5. visuale del foglio con il piano disegnato e il dito che segue le fasi:
+	    - poke an enemy
+	    - run like hell
+	    - go high (jump on a tree or something)
+	    - kill everything
+	    - ????
+	    - profit
+	6. amici perplessi, scoppiano a ridere
+	7. sd2 si allontana offeso, per poi voltarsi minaccioso
+	8. "WE'LL SEE WHEN I'LL BE... THE BEST MAGE EVER!!1!" logo copertina fica ecc
+	9. Si chiude nel cesso, passa un po', poi "crap"
 
 
 ## LISTA MOSTRI

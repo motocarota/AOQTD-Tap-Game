@@ -22,7 +22,6 @@ function setupOptions( ) {
 			},
 			powerUps: 			[ 'BFG', 'time_stop', 'phoenixPotion', 'greenPotion', 'shield' ],
 		},
-		
 		player: {
 			max_level: 			10,
 			max_hp: 			100,
