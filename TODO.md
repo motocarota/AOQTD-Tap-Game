@@ -7,14 +7,20 @@ piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per d
 
 - capire perche' a criso continua a crashare
 - introdurre i mostri elite, forti ma non forti come il boss
-- capire perche' empower, slow, haste mi fa spostare il coboldo
-- completare UN livello ad una stella mi porta a sbloccare due stelle
-- waves waves waves
+- capire perche' empower, slow, haste mi fa spostare il coboldo (o meglio gli cambia l'AI, probabilmente la prende da chi lo casta)
+- waves ogni tot cicli
+- scheda del personaggio
 
 -----
 
 
 ( GRAPHICS )
+
+ripensare al concetto : 
+il mago arrampicato sull'albero non regge: meglio allora il mago che difende il suo castello o un picchiaduro 2d classico
+
+movimento sulla sinistra (tipo dboss)
+azioni sulla dx
 
 	* mostri rimanenti
 	* Rifare livelli 3(bosco/foresta tramonto)

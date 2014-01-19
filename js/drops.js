@@ -1,4 +1,4 @@
-game.dropList = [ 'lifePotion', 'manaPotion', 'scroll', 'wand', 'phoenixPotion', 'BFG', 'greenPotion', 'shield', 'time_stop'  ];
+game.dropList = [ 'lifePotion', 'manaPotion', 'scroll', 'wand', 'phoenixPotion', 'BFG' ];
 game.dropTable = {
 	scroll : {
 		type: 			"scroll",

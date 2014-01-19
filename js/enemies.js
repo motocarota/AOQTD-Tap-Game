@@ -243,7 +243,7 @@ game.enemiesBook = {
 	},
 	necromancer:{
 		level: 3,
-		speed: 0.3,
+		speed: 0.4,
 		ai: AI.summoner,
 		creatures: [ "skeleton" ]
 	},
