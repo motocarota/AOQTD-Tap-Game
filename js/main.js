@@ -1,8 +1,8 @@
 ( function( ) {	
 	
 	CAAT.DEBUG = false;
-	var _DEBUG = 1;//false;
-	game.version = "BETA 1013";
+	var _DEBUG = false;
+	game.version = "1020";
 			
 	window.spellIndex = 0;
 	window.addEventListener( 'load', load, false );
@@ -99,7 +99,6 @@
 	function startGame( images ) {
 
 		WW= 900; HH = 600;
-		
 		setupOptions( );
 		menu.setupScene( images );
 		CAAT.loop( 30 );

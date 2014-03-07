@@ -1,13 +1,13 @@
 ( function( ) {	
 	
-	var _DEBUG = 1;//false,
+	var _DEBUG = 1,//false,
 		_FILE_VERSION = 1001,
 		_MAX_BAR_HEIGHT = 22,
 		_MAX_BAR_WIDTH = 345,
 		waiting = false;
 	game.toCreate = 0;
 	game.active = false;
-	game.waveTimer = 1;
+	game.waveTimer = 0;
 	
 	game.status = {
 		xp:		0,
@@ -41,22 +41,7 @@
 	game.setupScene = function( level, options ) {
 		
 		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level+" at difficulty: "+game.difficulty );
-				
-		if ( !is( "Number", level ) ) {
-			CAAT.log( "[Game] level is fucked up: "+level+" so I set it to 1" );
-			game.level = 1;
-		} else {
-			game.level = level;
-		}
-		
-		//TODO if difficulty = 3 (extra) carica l'ultimo livello
-		if ( game.difficulty > 2 ) {
-			level = 7;
-		}
-		
-		//TODO : load custom song, based on level
 
-		game.phase = 0;
 		game.active = true;
 		waiting = false;
 		gameScene.timerManager.timerList = []; //clear previous timers
@@ -227,17 +212,6 @@
 	game.over = function( victory ) {
 		
 		game.active = false;
-		if ( victory ) {
-			game.player.xp += ( 500 * game.level ) + ( 50 * game.difficulty );
-			var score = game.difficulty+1;
-			if ( !game.status.scores[ game.level-1 ] || game.status.scores[ game.level-1 ] < score ) {
-				game.status.scores[ game.level-1 ] = score;
-				// game.status.gold += game.player.gold;
-			}
-		} else {
-			//in caso di sconfitta prendi meno i px
-			game.player.xp += ( 100 * game.level ) + ( 10 * game.difficulty ); 
-		}
 		game.save( );
 		menu.updateReport( victory, score );
 		game.bg.emptyChildren();
@@ -289,38 +263,6 @@
 		}
 	};
 	
-	game.nextWave = function() {
-		waiting = false;
-		game.waveTimer = 1;
-		if ( game.phase < game.waves[ game.level ].length ) {
-			if ( _DEBUG ) CAAT.log( '[Game] Next Wave:'+game.phase+" / "+game.waves[ game.level ].length );
-			game.phase++;
-		} else {
-			if ( _DEBUG ) CAAT.log( '[Game] No more waves'+game.phase+" / "+game.waves[ game.level ].length );
-		}
-	}
-
-	game.wipe = function( seriously ){
-		for (var i = game.enemies.length - 1; i >= 0; i--){
-			if ( !seriously && game.enemies[i].boss ) {
-				game.enemies[i].damage( 50 );
-			} else {
-				game.enemies[i].die( true );
-			}
-		};
-	}
-	
-	game.nextPhase = function(){
-		if ( game.phase < game.waves[ game.level ].length ) {
-			waiting = false;
-			game.phase++;
-			game.waveTimer = 1;
-			game.UI.waveLabel.setText( "wave: "+(game.phase+1)+"/"+game.waves[ game.level ].length );
-		} else {
-			if ( _DEBUG ) CAAT.log( "[Game] No more enemies to spawn, game over soon" );
-		}
-	}
-	
 	game.tick = function( ) {
 		
 		//UPDATE PLAYER
@@ -339,75 +281,18 @@
 		};
 		
 		//ENEMIES CREATION
-		if ( waiting ) {
-			if ( game.active && game.enemies.length <= 1 && game.toCreate <= 0 ) {
-				game.nextPhase();
-			}
-		} else {
-			var currentWave = game.waves[ game.level ][ game.phase ] || false;
-			if ( currentWave ) { 
-				for ( en in currentWave ) {
-					for (var i=0; i < currentWave[ en ]; i++) {
-						game.toCreate++;
-						game.summon( en, { qty: 1, extra: false } );
-					};
-				};
-				waiting = true;
-			} else {
-				if ( game.enemies.length < 1 ) {
-					if ( _DEBUG ) CAAT.log( '[Game] All enemies killed! You win' );
-					game.over( true );
-				}
-			}
-		}
-		// prossima dopo 40 secondi circa
-		if ( ++game.waveTimer % 40 === 0 ) {
-			game.nextPhase();
-		}
-		// Extra Enemies
-		if ( roll( 1, 100 ) < 2 ) {
-			game.summon( 'bandit', { qty:1, extra:true } );
-		}
-		if ( roll( 1, 100 ) < 3 ) {
-			game.summon( 'tinker', { qty:1, extra:true } );
-		}
-		//POWER UPS
-		if ( roll( 1, 100 ) < 2 ) {
-			var c = randomFrom( game.dropList );
-			if ( _DEBUG ) CAAT.log( "[Game] drop a random powerup:"+c );
-			new CAAT.Drop().add( c );
+		var wave = 1;
+		if ( game.waveTimer++ % 20 === 0 ) {
+			console.log( "game.waveTimer"+game.waveTimer+" OK" );
+			game.UI.waveLabel.setText( 'Wave: '+wave );
+			game.summon( { qty: 5+wave, extra: false } );
+			wave++;
 		}
 	};
 	
-	game.setupDifficulty = function( enemy ) {
-		var d = game.difficulty;
-		if ( _DEBUG ) CAAT.log( '[Game] setupDifficulty '+d+' to enemy '+enemy.id );
-		if ( d === 0 ) {
-			enemy.hp = ( enemy.hp/2 ).toFixed( 0 );
-			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
-				enemy.dropTable = [ { chance: 5, id: 'scroll', qty: 1 }, { chance: 2, id: 'wand', qty: 1 } ];
-			}
-		}
-		if ( d === 1 ) {
-			if ( !_.has( enemy, 'dropTable' ) || enemy.dropTable.length === 0 ) {
-				enemy.dropTable = [ { chance: 2, id: 'scroll', qty: 1 }, { chance: 1, id: 'wand', qty: 1 } ];
-			}
-		}
-		if ( d === 2 ) {
-			enemy.hp = enemy.hp*2;
-		}
-		return enemy;
-	};
-	
-	game.summon = function( enemies, opts ){
+	game.summon = function( opts ){
 		
-		if ( _DEBUG ) CAAT.log( "[Game] Summoning ",enemies, opts );
-		var en;
-		if ( is( 'Array', enemies ) ) {
-			en = en[ roll( 0, en.length ) ];
-		} else {
-			en = enemies;
-		}
+		if ( _DEBUG ) CAAT.log( "[Game] Summoning ", opts );
 		if ( !opts ) {
 			opts = { qty:1, extra:true };
 		}
@@ -420,13 +305,14 @@
 				( opts.extra ) ? 0 : 250*roll( 1, 30 ), 
 				function(){ 
 					var enemy = new CAAT.Enemy( );
+					var en = game.enemiesList[ _.random( game.enemiesList.length ) ];
+					console.log( 'summoning a '+en )
 					enemy.add( en, opts.extra );
 					enemy.target = game.roots;
 					enemy.ai( );
 					if ( !opts.extra ) {
 						game.toCreate--;
 					}
-					enemy = game.setupDifficulty( enemy );
 				},
 				null,
 				null

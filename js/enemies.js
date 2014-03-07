@@ -1,4 +1,4 @@
-game.enemiesList = [];
+game.enemiesList = [ 'kobold', 'troll', 'zombie', 'skeleton', 'shadow', 'elem_fire', 'elem_water', 'elem_earth', 'elem_air', 'orc', 'goblin', 'necromancer', 'duergar', 'ghost', 'imp', 'ogre_magi' ];
 
 game.enemiesBook = {
 	
@@ -286,23 +286,6 @@ game.enemiesBook = {
 			}
 			
 		}
-	},
-	tinker:{
-		level: 4,
-		speed: 0.4,
-		boss: true,
-		ai: AI.kamikaze
-	},
-	bandit: {
-		level: 2,
-		speed: 1.5,
-		ai: AI.rogue,
-		dropTable: [
-			{ chance: 50, id: 'wand', qty:1 },
-			{ chance: 50, id: 'scroll', qty:1 },
-			{ chance: 50, id: 'lifePotion', qty:1 },
-			{ chance: 50, id: 'manaPotion', qty:1 }
-		]
 	},
 	imp:{
 		level: 1,

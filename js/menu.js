@@ -1,6 +1,6 @@
 ( function( ) {	
 	
-	var _DEBUG 				= 1;//false;
+	var _DEBUG 				= false;
 	var MENU_SCENE_ID 		= 0,
 		LIST_SCENE_ID 		= 1,
 		GAME_SCENE_ID 		= 2,
@@ -229,16 +229,6 @@
 		
 		reportScene.addChild( reportScene.bg );
 		
-		// Report - gold
-		// reportScene.goldLabel = new CAAT.Foundation.UI.TextActor( ).
-		// 	setText( "0" ).
-		// 	setTextFillStyle( "white" ).
-		// 	setFont( game.options.fontBig ).
-		// 	setTextAlign( 'center' ).
-		// 	setPositionAnchor( 0.5, 0 ).
-		// 	setVisible( false ). //TODO rimuovere
-		// 	setLocation( 760, 140 );
-			
 		// reportScene.bg.addChild( reportScene.goldLabel );
 		
 		// Report - xp
@@ -297,13 +287,12 @@
 		
 		menu.updateReport = function( victory, score ) {
 
+			score = 2;
 			menu.resumeBtn.setVisible( false );
 			reportScene.firstClick = true;
 			if( victory ){
 				reportScene.bg.setBackgroundImage( director.getImage( 'eg-win' ), false );
 				// reportScene.goldLabel.
-				// 	setText( "+"+game.player.gold ). //gained gold
-				// 	setVisible( true );
 				reportScene.xpLabel.
 					setText( "+"+game.player.xp ); //gained exp
 				reportScene.starsImg.
@@ -312,7 +301,6 @@
 				
 			} else {
 				reportScene.bg.setBackgroundImage( director.getImage( 'eg-die' ), false );
-				// reportScene.goldLabel.setVisible( false );
 				reportScene.xpLabel.setText( "+"+game.player.xp );
 				reportScene.starsImg.setVisible( false );
 			}

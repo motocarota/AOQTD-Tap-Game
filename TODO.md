@@ -3,33 +3,31 @@
 L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' attaccato da orde di nemici 
 piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
 
+Il mago sta fisso sull'albero, in un solo livello.
+Hai a disposizione tutti gli incantesimi da subito e affronti una sequenza infinita di mostri.
+
+Rimuovere i livelli, renderlo un survival game. 
+A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul referto medico)
+
 ## TODO	
 
-- capire perche' a criso continua a crashare
-- introdurre i mostri elite, forti ma non forti come il boss
-- capire perche' empower, slow, haste mi fa spostare il coboldo (o meglio gli cambia l'AI, probabilmente la prende da chi lo casta)
-- waves ogni tot cicli
-- scheda del personaggio
+- waves infinite ogni tot cicli
+- aggiungere
+	kill counter
+- togliere 
+	pozioni di vita
+	wave counter
+	schermata livelli
+	mostri extra (ladro e nano esplosivo)
+- disegnare ultimi mostri
+- mostrare counter mostri uccisi
 
 -----
 
 
 ( GRAPHICS )
 
-ripensare al concetto : 
-il mago arrampicato sull'albero non regge: meglio allora il mago che difende il suo castello o un picchiaduro 2d classico
-
-movimento sulla sinistra (tipo dboss)
-azioni sulla dx
-
 	* mostri rimanenti
-	* Rifare livelli 3(bosco/foresta tramonto)
-	* Sprite dell'albero per ogni livello
-		1,3: albero
-		2: cactus
-		4,7: albero secco
-		5: albero evocato
-		6: stalagmite
 	* Sprite dell'albero danneggiato in 3-4 fasi
 	* screen iniziale:
 		rifare il logo piu' grosso
@@ -39,14 +37,11 @@ azioni sulla dx
 
 ( CODE )
 
-	* aggiungere i fg per gli sfondi
 	* inserire Suoni e Musica
-	* creare la funzione "stampEffect" per scritta "you win", "level up" e i px
+	* creare la funzione "stampEffect" per scritta "you win" e i punti
 	
 ( DOPO )
 
-	* livello nascosto survival mode con sempre piu' mucche
-	* pensare ad un modello con cui specializzi il protagonista o compri oggetti
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
 ( Animazione iniziale )
@@ -124,72 +119,17 @@ blink dog		// teleport
 
 Rivista lista dei nemici, classificandoli per tipo
 
-			Easy			Medium			Hard			Boss
------------------------------------------------------------------
-Melee		coboldo			orco			troll			
+			Easy			Medium			Hard
+-------------------------------------------------------
+Melee		coboldo			orco			troll
 			elem			scheletro		golem
 			dretch			zombie			minotauro
-Ranged		goblin			drow			giant			
-Caster		imp				dragonkind		rakshaaza		
-Healer		duergar			-				-				
-Summoner	vrock			vampiro			-				
+Ranged		goblin			drow			giant
+Caster		imp				dragonkind		rakshaaza
+Healer		duergar			evil cleric		-
+Summoner	vrock			necromancer		vampiro
 
-
-## LISTA LIVELLI
-
---------------------------------------------------------------------
-	* Campagna (1...3) : [ coboldi, goblin, orchi, troll ] 4/4
-
-	* Deserto (2...4) : [ goblin, scheletri, troll, orchi, el.fuoco ] 5/6  mummie
-		
-	* Neve (3...5) : [ orchi, el.acqua, scheletro, gigante gelo ] 3/4  gnoll / girallon / lupo
-		
-	* Savana (4...6) : [ goblin, troll, el.terra, el.fuoco, minotauro, blink dog ] 4/6
-		
-	* Torre del mago (5...7) : [ tutti elementali, scheletri, golem argilla, golem ferro, dragonkind ] 5/8
-	
-	* Vulcano (6...8) : [ coboldi, orchi, el.fuoco, el.terra, el.aria, dragonkind ] 5/6
-	
-	* Cimitero (7...9) : [ zombi, scheletri, ghoul, mummie, minotauro, spettri ] 1/6
-
-## BOSS	
-
-Per il momento i boss saranno dei semplici npc con un sacco di vita e una ai un po' particolare
-POI se avro' voglia li implementero' diversamente
-
-    * Folletto : Avarizia ( verde )
-	    cieca sete di ricchezza, scarsa disponibilità a spendere e a donare ciò che si possiede
-	    - Add droppano monetine: lui torna indietro a raccoglierle
-
-	* Ogre : Accidia ( arancione )
-        torpore malinconico, inerzia nel vivere e nel compiere opere di bene
-		- caster
-		- quando viene colpito si sposta
-		- 
-
-	* Vermone gigante : Gola ( giallo )
-	    abbandono ed esagerazione nei piaceri della tavola
-		- 
-
-	* Ninfa Druida : Lussuria ( azzurro )
-		desiderio irrefrenabile del piacere sessuale fine a sé stesso
-		- curatrice
-		- evocatrice
-		- ranged (cuoricini, tolgono vita e danno mana)
-
-	* Drago : Ira ( rosso )
-		irrefrenabile desiderio di vendicare violentemente un torto subito
-		- Tana del drago / Vulcano in eruzione, magma e roccia bruciata
-
-	* Golem di Argilla : Superbia ( blu )
-		desiderio irrefrenabile di essere superiori, fino al disprezzo di ordini, leggi, rispetto altrui
-		- Torre del mago / Librerie, corridoi, terrazza
-
-	* Demi-Lich : Invidia ( viola )
-		tristezza per il bene altrui, percepito come male proprio
-		- Piano Astrale / tutto assurdo e fuori dal tempo
-		- Cimitero di notte
-		faccio uno schizzo per entrambi e vedo quale mi convince di piu'
-		
 
 ## BUGS
+
+non evoca piu' i nemici, capire che minchia succede

@@ -10,7 +10,6 @@ game.spellBook = {
 		element: 		"force",
 		school:			"invocation", 
 		cooldown: 		false,
-		// icon: 		"id" su cui cercare nell'immagine che contiene tutte le icone, che sara' simile al file "base"
 			
 		travel : {
 			duration: 		800,

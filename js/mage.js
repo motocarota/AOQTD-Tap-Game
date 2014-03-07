@@ -1,5 +1,5 @@
 (function() {	
-	var _DEBUG = 1;//false;
+	var _DEBUG = false;
 	
 	CAAT.Mage = function( ) {
 		CAAT.Mage.superclass.constructor.call( this );
@@ -8,7 +8,6 @@
 		this.y = 130;
 		
 		this.xp = 0;
-		this.gold = 0;
 		this.mana = 100;
 		this.targetSpell = 0;
 		this.item = { 
@@ -161,7 +160,6 @@
 		damage : function( amount, element ) {
 			
 			if ( _DEBUG ) CAAT.log('[Roots] receive '+amount+' points of '+element+" damage" );
-			
 			game.player.notifyAt( "-"+amount, { x: this.x, y: this.y }, 'red' );
 			game.player.damage( amount, element );
 		}
