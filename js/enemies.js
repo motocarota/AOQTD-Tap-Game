@@ -206,15 +206,24 @@ game.enemiesBook = {
 	},
 	zombie:{
 		level: 9,
-		speed: 0.5,
+		speed: 1.3,
 		boss: true,
 		ai: AI.kamikaze
 	},
 	necromancer:{
 		level: 7,
 		speed: 0.9,
+		frameW: 4, frameH: 1,
 		ai: AI.summoner,
 		summons: [ "skeleton", "zombie", "ghost", "elem_air", "elem_fire", "elem_earth", "elem_water" ],
+		animations: {
+			walk: {
+			 frames: [0,1], duration: 300
+			},
+			attack: {
+			 frames: [2,3,2,3], duration: 250
+			}
+		}
 	},
 	skeleton: {
 		ai: AI.melee,

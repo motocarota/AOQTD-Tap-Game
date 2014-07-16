@@ -34,11 +34,7 @@
 			emptySprite :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'empty' ), 1, 1 ),
 			icons :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'icons' ), 3, 5 ),
 			items :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'items' ), 3, 3 ),
-			badge : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'badge' ), 1, 1 ),
-			listBg : 		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-bg' ), 1, 1 ),
-			levelUp :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'level-up' ), 1, 1 ),
 			btns :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'game-btns' ), 2, 5 ),
-			listBtns :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-btns' ), 2, 4 ),
 			stars :			new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'list-stars' ), 2, 2 ),
 			optionsBg :		new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'options-bg' ), 1, 1 ),
 			infoCharBg :	new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'info-char-bg' ), 1, 1 )

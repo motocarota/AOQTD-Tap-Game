@@ -1,26 +1,20 @@
 # [ AOQTD Tap Game ] (http://www.simone-poggi.com/)
 
-L'obiettivo e' creare un gioco tipo archmage defense in cui il giocatore e' attaccato da orde di nemici 
-piu' o meno forti che avanzano verso di lui, su cui si sparano incantesimi per difendersi
+Il giocatore e' attaccato da orde di nemici su cui spara incantesimi per difendersi
 
 Il mago sta fisso sull'albero, in un solo livello.
 Hai a disposizione tutti gli incantesimi da subito e affronti una sequenza infinita di mostri.
 
-Rimuovere i livelli, renderlo un survival game. 
-A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul referto medico)
+A fine partita viene assegnato un punteggio in base a quanti nemici hai ucciso.
 
 ## TODO	
 
 - rivedere il report (via la scritta fail, you lose: mettere un generico game over, your score is: N e sotto le stelline)
 - rivedere anche la barra della vita
 
------
-
-
 ( GRAPHICS )
 
 	* mostri rimanenti
-		necromancer
 		shaman
 		kamikaze (aumentare velocita')
 	* Sprite dell'albero danneggiato in 3-4 fasi
@@ -36,7 +30,6 @@ A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul re
 		GZ! your score was 34! <medaglia>
 		niente, wood, bronze, silver, gold, platinum, mithril
 	* inserire Suoni e Musica
-	* creare la funzione "stampEffect" per scritta "you win" e i punti
 	
 ( DOPO )
 

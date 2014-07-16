@@ -12,34 +12,21 @@
 		new CAAT.Module.Preloader.Preloader( ).
 			//UI
 			addElement( "icons",		"img/UI/icons.png" ).
-			addElement( "list-bg",		"img/UI/list-bg.png" ).
-			addElement( "list-btns",	"img/UI/list-btns.png" ).
 			addElement( "list-stars",	"img/UI/list-stars.png" ).
 			addElement( "game-btns",	"img/UI/game-btns.png" ).
 			addElement( "info-char-bg",	"img/UI/info-char-bg.png" ).
-			addElement( "level-up", 	"img/UI/level-up.png" ).
 			addElement( "options-bg", 	"img/UI/options-bg.png" ).
 			addElement( "logo", 		"img/UI/logo.png" ).
 			addElement( "items",		"img/sprites/items.png" ).
-			addElement( "badge",		"img/UI/badge.png" ).
 			
 			//splash screens
 			addElement( "cover",		"img/cover.png" ).
-			addElement( "splash",		"img/splash/splash0.jpg" ).
-			addElement( "eg-win",		"img/splash/UI-win.png" ).
 			addElement( "eg-die",		"img/splash/UI-lose.png" ).
 			addElement( "about",		"img/splash/about.png" ).
 			addElement( "help",		    "img/splash/help.png" ).
-			addElement( "char",		    "img/splash/char-demo.png" ).
 			
 			//backgrounds
 			addElement( "bg-1",			"img/bg/level-1.png" ).
-			addElement( "bg-2",			"img/bg/level-2.png" ).
-			addElement( "bg-3",			"img/bg/level-3.png" ).
-			addElement( "bg-4",			"img/bg/level-4.png" ).
-			addElement( "bg-5",			"img/bg/level-5.png" ).
-			addElement( "bg-6",			"img/bg/level-6.png" ).
-			addElement( "bg-7",			"img/bg/level-7.png" ).
 			
 			//player
 			addElement( "tree",			"img/sprites/tree.png" ).
