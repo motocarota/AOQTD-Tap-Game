@@ -11,16 +11,8 @@ A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul re
 
 ## TODO	
 
-- waves infinite ogni tot cicli
-- aggiungere
-	kill counter
-- togliere 
-	pozioni di vita
-	wave counter
-	schermata livelli
-	mostri extra (ladro e nano esplosivo)
-- disegnare ultimi mostri
-- mostrare counter mostri uccisi
+- rivedere il report (via la scritta fail, you lose: mettere un generico game over, your score is: N e sotto le stelline)
+- rivedere anche la barra della vita
 
 -----
 
@@ -28,6 +20,9 @@ A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul re
 ( GRAPHICS )
 
 	* mostri rimanenti
+		necromancer
+		shaman
+		kamikaze (aumentare velocita')
 	* Sprite dell'albero danneggiato in 3-4 fasi
 	* screen iniziale:
 		rifare il logo piu' grosso
@@ -37,6 +32,9 @@ A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul re
 
 ( CODE )
 
+	* rivedere report View
+		GZ! your score was 34! <medaglia>
+		niente, wood, bronze, silver, gold, platinum, mithril
 	* inserire Suoni e Musica
 	* creare la funzione "stampEffect" per scritta "you win" e i punti
 	
@@ -46,21 +44,13 @@ A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul re
 
 ( Animazione iniziale )
 
-	1. Superdrow raggiunge i suoi amici alla locanda, tutto sorridente, aspetta un po', gli amici lo ignorano
-	2. [primo piano] "I've found the way to become the most powerful mage in the world!!"
-	3. gli amici si guardano
-	4. sd2 srotola un foglio blu con il piano
-	5. visuale del foglio con il piano disegnato e il dito che segue le fasi:
-	    - poke an enemy
-	    - run like hell
-	    - go high (jump on a tree or something)
-	    - kill everything
-	    - ????
-	    - profit
-	6. amici perplessi, scoppiano a ridere
-	7. sd2 si allontana offeso, per poi voltarsi minaccioso
-	8. "WE'LL SEE WHEN I'LL BE... THE BEST MAGE EVER!!1!" logo copertina fica ecc
-	9. Si chiude nel cesso, passa un po', poi "crap"
+	Superdrow passeggia per la foresta
+	tira un calcio ad una pietra, che vola in testa ad un coboldo
+	scappando sbatte contro un troll
+	scappando dal troll si infila in un accampamento e nella confusione fa incazzare tutti
+	per scappare sale su una catapulta e taglia la corda
+	ma viene lanciato su un albero vicinissimo
+	i nemici lo caricano
 
 
 ## LISTA MOSTRI
@@ -68,66 +58,24 @@ A fine partita viene assegnato un punteggio (tipo scolpito sulla lapide o sul re
 fatti
 ---------------------------------------
 
-// melee
-	coboldo
-	orco
-	elementale acqua
-	elementale terra
-	elementale fuoco
-	elementale aria
-	troll
-	scheletro
-
-// ranged
-	goblin
-	ghost
+	Easy: 		coboldo
+	Medium: 	orco
+	Hard: 		troll
+	Ranged: 	goblin
+	Healer: 	shaman
+					elementale acqua
+					elementale terra
+					elementale fuoco
+					elementale aria
+	Summoner:	necromancer
+					scheletro
+					ghost
 
 da fare
 ---------------------------------------
-    // ranged
-drow 			// sr
-giant
 
-	// caster
-rakshasa    	// evocatore (elementali) HARD
-imp
-ogre magi
-
-necromancer		// evocatore (dretch) EASY
-
-	// healer
-duergar 		// healer, sr
-
-    // melee
-zombie
-melma
-ghoul
-ogre
-mummia
-bulette
-shadow
-minotauro
-
-golem argilla
-golem ferro
-gigante
-
-	// custom
-giant turtle    // fase invulnerabilita'
-luci fatue		// fase inisibilita'
-blink dog		// teleport
-
-Rivista lista dei nemici, classificandoli per tipo
-
-			Easy			Medium			Hard
--------------------------------------------------------
-Melee		coboldo			orco			troll
-			elem			scheletro		golem
-			dretch			zombie			minotauro
-Ranged		goblin			drow			giant
-Caster		imp				dragonkind		rakshaaza
-Healer		duergar			evil cleric		-
-Summoner	vrock			necromancer		vampiro
+	shaman
+	necromancer
 
 
 ## BUGS

@@ -31,7 +31,7 @@ function setupOptions( ) {
 			bar_width: 		80,
 			bar_height: 	3,
 			bar_color: 		"#f00",
-			baseSpeed : 	10,
+			baseSpeed : 	15,
 			destinations:{
 				melee:		{ x:200, y:350, w:50,  h:100 },
 				ranged:		{ x:400, y:200, w:300, h:300 },

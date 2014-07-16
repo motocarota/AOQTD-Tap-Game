@@ -1,4 +1,4 @@
-game.dropList = [ 'lifePotion', 'manaPotion', 'scroll', 'wand' ];
+game.dropList = [ 'manaPotion', 'scroll', 'wand' ];
 game.dropTable = {
 	scroll : {
 		type: 			"scroll",
@@ -8,36 +8,24 @@ game.dropTable = {
 			game.player.addItem( {
 				imageId: 3,
 				charges: 1,
-				spellId: roll( 1, 3 ),
-				use: function() {
-					game.player.notify( game.spellList[ this.spellId ] );
-					spellIndex = 'item';
-				}
+				spellId: roll( 1, 3 )
 			} );
+			game.player.notify( game.spellList[ this.spellId ] );
+			spellIndex = 'item';
 		}
 	},
 	wand : {
 		type: 			"wand",
 		imageId: 		4,
-		effect : 		function() { 			
+		effect : 		function() {
 			game.player.notify( 'You get a magic wand' );
 			game.player.addItem( {
 				imageId: 4,
 				charges: 5,
-				spellId: roll( 0, 3 ),
-				use: function() {
-					game.player.notify( game.spellList[ this.spellId ] );
-					spellIndex = 'item';
-				}
+				spellId: roll( 0, 3 )
 			} );
-		}
-	},
-	lifePotion : {
-		type: 			"lifePotion",
-		imageId: 		1,
-		effect : 		function() {
-			game.player.notify( 'You get a Life Potion' );
-			game.player.heal( 20 );
+			game.player.notify( game.spellList[ this.spellId ] );
+			spellIndex = 'item';
 		}
 	},
 	manaPotion: {

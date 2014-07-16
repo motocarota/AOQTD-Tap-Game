@@ -3,10 +3,10 @@
 // ========================================================
 
 game.spellBook = {
-	'Magic Missile':{
+	"Magic Missile":{
 
 		level: 			1,
-		cost: 			7,
+		cost: 			8,
 		element: 		"force",
 		school:			"invocation", 
 		cooldown: 		false,
@@ -17,7 +17,7 @@ game.spellBook = {
 			interpolator: 	null,
 			rotation: 		false, 
 			image: {
-				name: 		'mmissile', 
+				name: 		"mmissile", 
 				sprite: 	null,
 				frame: 		{ h: 2, w: 3 }
 			},
@@ -41,9 +41,8 @@ game.spellBook = {
 			return [
 				null,
 				function( target ){
-					var bonusDamage = game.status.level / 2;
-					var damage = roll( 1, 6, bonusDamage );
-					target && target.damage( damage, 'force' );
+					var damage = roll( 1, 6, 1 );
+					target && target.damage( damage, "force" );
 					return true;
 				}
 			];
@@ -66,14 +65,14 @@ game.spellBook = {
 	},
 	
 	"Acid Arrow": {
-		cooldown: 3,
-		cost: 15,
+		cooldown: 13,
+		cost: 5,
 		travel : {
 			path: 			null,
 			interpolator: 	new CAAT.Behavior.Interpolator( ).createExponentialOutInterpolator( 2, false ),
 			rotation: 		false, 
 			image: {
-				name: 		'aarrow', 
+				name: 		"aarrow", 
 				frame: 		{ h: 3, w: 2 }
 			},
 			animation: {
@@ -85,7 +84,7 @@ game.spellBook = {
 			duration: 		300,
 			rotation: 		true, 
 			image: {
-				name: 		'aarrows',
+				name: 		"aarrows",
 				frame: 		{ h: 1, w: 3 }
 			},
 			animation: {
@@ -97,18 +96,18 @@ game.spellBook = {
 			return [
 				null,
 				function( target ){
-					target && target.damage( roll( 2, 4 ), 'acid' );
-					target.addBuff( new game.Buff().initWithName( 'acid_dot' ) );
-					// target.addBuff( new game.Buff().initWithName( 'slow' ) );
+					target && target.damage( roll( 2, 4 ), "acid" );
+					target.addBuff( new game.Buff().initWithName( "acid_dot" ) );
+					// target.addBuff( new game.Buff().initWithName( "slow" ) );
 					return true;
 				}
 			];
 		}
 	},
 	
-	'Fireball': {
+	"Fireball": {
 		level: 			3,
-		cost: 			35, 
+		cost: 			30, 
 		element: 		"fire",
 		school: 		"invocation",
 		cooldown: 		5,
@@ -116,7 +115,7 @@ game.spellBook = {
 		travel : {
 			interpolator : new CAAT.Behavior.Interpolator( ).createExponentialInInterpolator( 3, false ),
 			image: 	{
-				name: 		'fireball'
+				name: 		"fireball"
 			}
 		},
 		
@@ -134,7 +133,7 @@ game.spellBook = {
 		
 		initEffect : function(  ){
 			var fx = function( target ){
-				target && target.damage( roll( game.status.level, 6 ), 'fire' );
+				target && target.damage( roll( 4, 6 ), "fire" );
 				return true;
 			};
 			return [ null, fx ];
@@ -151,10 +150,10 @@ game.spellBook = {
 		}
 	},
 	
-	'Lightning': {
+	"Lightning": {
 		level: 			4,
-		cost: 			30, 
-		cooldown: 		0,
+		cost: 			17, 
+		cooldown: 		10,
 		element: 		"nature",
 		school: 		"invocation", 
 		
@@ -162,7 +161,7 @@ game.spellBook = {
 			rotation: 		false,
 			duration: 		10,
 			image: 	{
-				name: 		'empty'
+				name: 		"empty"
 			}
 		},
 		
@@ -186,26 +185,26 @@ game.spellBook = {
 			return [ 
 				null, 
 				function( target ){
-					target && target.damage( roll( game.status.level, 6 ), 'nature' );
+					target && target.damage( roll( 6, 6, 6 ), "nature" );
 					return true;
 				}
 			];
 		}
 	},
 	
-	'Finger-of-Death': {
+	"Finger-of-Death": {
 		level: 			5,
-		cost: 			50,
-		cooldown: 		10,
-		element: 		"unholy",
+		cost: 			1,
+		cooldown: 		30,
+		element: 		"force",
 		school: 		"necromancy", 
 		
 		travel: {
 			duration: 		10,
-			image: 	{ name: 'empty' }
+			image: 	{ name: "empty" }
 		},
 		splash : {
-			duration: 		3000,
+			duration: 		1200,
 			image : { 
 				name : "void-sphere", 
 				frame: { h: 2, w: 2 },
@@ -233,13 +232,13 @@ game.spellBook = {
 			];
 		}
 	},
-	'Explosion': {
+	"Explosion": {
 		cooldown: 		false,
 		element: 		"fire",
 		
 		travel: {
 			duration: 		10,
-			image: 	{ name: 'empty' }
+			image: 	{ name: "empty" }
 		},
 		splash : {
 			duration:		600,
@@ -255,11 +254,11 @@ game.spellBook = {
 		
 		initEffect : function(  ){
 			var fx = function( target ){
-				target && target.damage( roll( 5, 6, 12 ), 'fire' );
+				target && target.damage( roll( 4, 6 ), "fire" );
 				return true;
 			};
 			return [ null, fx ];
 		}
 	}
 };
-game.spellList = [ 'Magic Missile', 'Acid Arrow', 'Fireball', 'Lightning', 'Finger-of-Death', 'Explosion' ];
+game.spellList = [ "Magic Missile", "Acid Arrow", "Fireball", "Lightning", "Finger-of-Death", "Explosion" ];

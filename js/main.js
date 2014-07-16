@@ -55,6 +55,7 @@
 			addElement( "hwilting",		"img/sprites/spells/horrid-wilting-big.png" ).
 			addElement( "void-sphere",	"img/sprites/spells/void-sphere.png" ).
 			addElement( "fire_bolt",	"img/sprites/spells/fire-bolt.png" ).
+			addElement( "explosion",	"img/sprites/spells/fireball-splash.png" ).
 			addElement( "spell",		"img/empty.png" ).
 			
 			//projectiles
@@ -64,8 +65,6 @@
 			//monsters
 			addElement( "kobold",		"img/sprites/enemies/kobold.png" ).
 			addElement( "troll",	    "img/sprites/enemies/troll.png" ).
-			addElement( "shadow",		"img/sprites/enemies/shadow.png" ).
-			addElement( "gel_cube",		"img/sprites/enemies/gel_cube.png" ).
 			addElement( "orc",			"img/sprites/enemies/orc.png" ).
 			addElement( "elem_fire",	"img/sprites/enemies/elem-fire.png" ).
 			addElement( "elem_earth",	"img/sprites/enemies/elem-earth.png" ).
@@ -75,16 +74,8 @@
 			addElement( "goblin",	    "img/sprites/enemies/goblin.png" ).
 			addElement( "ghost",	    "img/sprites/enemies/ghost.png" ).
 			addElement( "necromancer",	"img/sprites/enemies/necromancer.png" ).
-			addElement( "duergar",	    "img/sprites/enemies/duergar.png" ).
-			addElement( "giant",	    "img/sprites/enemies/giant.png" ).
-			addElement( "iron_golem",	"img/sprites/enemies/iron_golem.png" ).
-			addElement( "clay_golem",	"img/sprites/enemies/clay_golem.png" ).
 			addElement( "zombie",		"img/sprites/enemies/zombie.png" ).
-			addElement( "imp",			"img/sprites/enemies/imp.png" ).
-			addElement( "ogre_magi",	"img/sprites/enemies/ogre_magi.png" ).
-			addElement( "rakshaaza",	"img/sprites/enemies/rakshaaza.png" ).
-			addElement( "tinker",		"img/sprites/enemies/tinker.png" ).
-			addElement( "bandit",		"img/sprites/enemies/bandit.png" ).
+			addElement( "shaman",		"img/sprites/enemies/shaman.png" ).
 			
 			//other
 			addElement( "empty",		"img/empty.png" ).

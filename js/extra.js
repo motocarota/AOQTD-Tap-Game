@@ -109,7 +109,7 @@ window.AI = {
 				return;
 			}
 			if ( this.cooldown <= 0 ) {
-				game.summon( this.creatures[ _.random( this.creatures.length ) ], true, 1 );
+				game.summon( { summoned:true, qty:1, x:this.x-50, y:this.y } );
 				this.cooldown = this.attackSpeed;
 				// game.playSound( 'cast' );
 				this.playAnimation( 'attack' );

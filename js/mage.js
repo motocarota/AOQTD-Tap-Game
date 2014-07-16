@@ -144,7 +144,7 @@
 		
 		die: function() {
 			
-			game.over( false );
+			game.over( game.killCount );
 		}
 	};
 	

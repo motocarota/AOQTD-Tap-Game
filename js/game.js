@@ -1,51 +1,35 @@
 ( function( ) {	
 	
-	var _DEBUG = 1,//false,
-		_FILE_VERSION = 1001,
+	var _DEBUG = false,
+		_FILE_VERSION = 2000,
 		_MAX_BAR_HEIGHT = 22,
 		_MAX_BAR_WIDTH = 345,
 		waiting = false;
 	game.toCreate = 0;
 	game.active = false;
-	game.waveTimer = 0;
-	
-	game.status = {
-		xp:		0,
-		gold: 	0,
-		level:	1,
-		scores:	[ ]
-	};
+	game.timer = 0;
+	game.wave = 1;
 	
 	game.getStatus = function( ) {
-		return game.status;
+		return game.score;
 	};
 	
-	game.save = function( ) {
-		if ( game.status.level >= 10 && game.status.xp >= 10000 ) {
-			game.status.xp = 10000;
-		}
-		localStorage.setItem( "status", JSON.stringify( this.status ) );
+	game.save = function( score ) {
+		localStorage.setItem( "score", score );
 	};
 	
 	game.load = function( ) {
 		
-		var info = {
-			xp:		0,
-			gold: 	0,
-			level:	1,
-			scores:	[ ]
-		};
-		this.status = localStorage.getItem( "status" ) ? JSON.parse( localStorage.getItem( "status" ) ) : info;
+		this.score = localStorage.getItem( "score" ) || 0;
 	};
 	
-	game.setupScene = function( level, options ) {
+	game.setupScene = function( ) {
 		
-		if ( _DEBUG ) CAAT.log( "[Game] Loading level "+level+" at difficulty: "+game.difficulty );
+		if ( _DEBUG ) CAAT.log( "[Game] Loading level");
 
 		game.active = true;
 		waiting = false;
 		gameScene.timerManager.timerList = []; //clear previous timers
-		
 		menu.resumeBtn.setVisible( true );
 		
 		// Background
@@ -59,7 +43,7 @@
 		game.bg.addChild( 
 			new CAAT.Foundation.Actor( ).
 				setBounds( 0, 0, director.width, director.height ).
-				setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg-'+level ), 1, 1 ) ).
+				setBackgroundImage( new CAAT.Foundation.SpriteImage( ).initialize( director.getImage( 'bg-1' ), 1, 1 ) ).
 				enableEvents( false )	
 		 );
 		
@@ -73,25 +57,22 @@
 		game.killCount = 0;
 		
 		for (var i = game.enemies.length - 1; i >= 0; i--){ //loop inverso per non fottersi con gli splice
-			game.enemies[i].die( { loot: false } );
+			game.enemies[i].die( );
 		};
 		game.enemies = [];
 		game.spells = [];
 		
 		//UI - Spell Buttons
 		game.UI.spellsBtn = [];
-		for ( var i=0; i < game.spellList.length; i++ ) {
-			if ( game.status.level / 2 > i ) {
-				game.UI.spellsBtn[i] = new CAAT.Foundation.Actor( ).
-					setLocation( 30+i*120, director.height-70 ).
-					setBackgroundImage( game.UI.icons ).
-					enableEvents( true ).
-					setSpriteIndex( i );
-				game.UI.spellsBtn[i].mouseDown = btnHelper( i );
-				gameScene.addChild( game.UI.spellsBtn[i] );
-			} else {
-				if ( _DEBUG ) CAAT.log( "[Game] You can't cast "+game.spellList[i]+"! you are level "+game.status.level )
-			}
+		//TODO ogni 20 nemici, sbloccare uno spell
+		for ( var i=0; i < game.spellList.length-1; i++ ) {
+			game.UI.spellsBtn[i] = new CAAT.Foundation.Actor( ).
+				setLocation( 30+i*120, director.height-70 ).
+				setBackgroundImage( game.UI.icons ).
+				enableEvents( true ).
+				setSpriteIndex( i );
+			game.UI.spellsBtn[i].mouseDown = btnHelper( i );
+			gameScene.addChild( game.UI.spellsBtn[i] );
 		};
 		
 		function btnHelper( i ) {
@@ -150,15 +131,6 @@
 			setBackgroundImage( game.UI.infoCharBg ) 
 		);
 		
-		//level
-		gameScene.addChild( new CAAT.Foundation.UI.TextActor( ).
-			setText( game.status.level ).
-			setFont( game.options.font ).
-			setTextFillStyle( "white" ).
-			setTextAlign( 'center' ).
-			setLocation( 53, -10 )
-		);
-		
 		//wave
 		game.UI.waveLabel = new CAAT.Foundation.UI.TextActor( ).
 			setText( "" ).
@@ -209,11 +181,11 @@
 		 );
 	};
 
-	game.over = function( victory ) {
+	game.over = function( score ) {
 		
 		game.active = false;
 		game.save( );
-		menu.updateReport( victory, score );
+		menu.updateReport( score );
 		game.bg.emptyChildren();
 	};
 	
@@ -240,26 +212,15 @@
 	
 	game.checkLevelUp = function ( ) {
 		
-		if ( !is( "Number", game.player.xp ) ){
-			CAAT.log( '[Game] warning: error with xp gained format' );
-		}
-		if ( !is( "Number", game.status.xp ) || !is( "Number", game.status.level ) ) {
-			CAAT.log( '[Game] warning: error with xp / level format' );
-			game.status.xp = 0;
-			game.status.level = 1;
+		if ( !is( "Number", game.score ) ) {
+			CAAT.log( '[Game] warning: bad score saved' );
+			game.score = 0;
 		}
 		
-		game.status.xp += game.player.xp;
-		var delta = game.status.xp - ( game.status.level * 1000 );
-		
-		if ( delta > 0 && game.status.level < game.options.levelCap ) {
-			game.status.xp = delta;
-			game.status.level++;
-			game.save( );
+		if ( game.score < game.killCount ) { 
+			// new record
+			game.save( game.killCount );
 			return true;
-		} else {
-			game.save( );
-			return false;
 		}
 	};
 	
@@ -269,7 +230,8 @@
 		game.player.tick( );
 		
 		//UPDATE UI
-		game.refreshSpellsBtn( );		
+		game.refreshSpellsBtn( );
+		game.UI.waveLabel.setText( 'Kills: '+game.killCount );
 		game.UI.hpBar.setSize( _MAX_BAR_WIDTH * game.player.hp / game.options.player.max_hp, _MAX_BAR_HEIGHT );
 		game.UI.manaBar.setSize( _MAX_BAR_WIDTH * game.player.mana / game.options.player.max_mana, _MAX_BAR_HEIGHT );
 		
@@ -281,12 +243,9 @@
 		};
 		
 		//ENEMIES CREATION
-		var wave = 1;
-		if ( game.waveTimer++ % 20 === 0 ) {
-			console.log( "game.waveTimer"+game.waveTimer+" OK" );
-			game.UI.waveLabel.setText( 'Wave: '+wave );
-			game.summon( { qty: 5+wave, extra: false } );
-			wave++;
+		if ( game.timer++ % 15 === 0 ) {
+			game.summon( { qty: 5+game.wave, extra: false } );
+			game.wave++;
 		}
 	};
 	
@@ -302,15 +261,16 @@
 		for (var i=0; i < opts.qty; i++) {
 			gameScene.createTimer(
 				gameScene.time,
-				( opts.extra ) ? 0 : 250*roll( 1, 30 ), 
+				( opts.summoned ) ? 0 : 250*roll( 1, 30 ), 
 				function(){ 
 					var enemy = new CAAT.Enemy( );
-					var en = game.enemiesList[ _.random( game.enemiesList.length ) ];
-					console.log( 'summoning a '+en )
-					enemy.add( en, opts.extra );
+					var src = opts.summoned ? game.summonsList : game.enemiesList;
+					var en = src[ _.random( src.length -1 ) ];
+					if ( _DEBUG ) CAAT.log( '[Game] summoning a '+en )
+					enemy.add( en, opts );
 					enemy.target = game.roots;
 					enemy.ai( );
-					if ( !opts.extra ) {
+					if ( !opts.summoned ) {
 						game.toCreate--;
 					}
 				},
