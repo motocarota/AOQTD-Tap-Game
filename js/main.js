@@ -21,7 +21,7 @@
 			
 			//splash screens
 			addElement( "cover",		"img/cover.png" ).
-			addElement( "eg-die",		"img/splash/UI-lose.png" ).
+			addElement( "score",		"img/splash/score.png" ).
 			addElement( "about",		"img/splash/about.png" ).
 			addElement( "help",		    "img/splash/help.png" ).
 			

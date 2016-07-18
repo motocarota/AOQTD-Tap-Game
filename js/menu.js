@@ -261,7 +261,7 @@
 			//TODO decidere il numero di stelle a seconda del risultato
 			// es 100+: 1 stella, 200+: 2 stelle, 300+: 3 stelle
 			// reportScene.starsImg.setVisible( true ).setSpriteIndex( score-1 );
-			reportScene.bg.setBackgroundImage( director.getImage( 'eg-die' ), false );
+			reportScene.bg.setBackgroundImage( director.getImage( 'score' ), false );
 			reportScene.xpLabel.setText( game.killCount );
 			reportScene.starsImg.setVisible( true );
 			

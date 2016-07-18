@@ -9,8 +9,11 @@ A fine partita viene assegnato un punteggio in base a quanti nemici hai ucciso.
 
 ## TODO	
 
-- rivedere il report (via la scritta fail, you lose: mettere un generico game over, your score is: N e sotto le stelline)
-- rivedere anche la barra della vita
+( UI )
+
+ 	barra della vita
+	pagina help
+	report (via la scritta fail, you lose: mettere un generico game over, your score is: N e sotto le stelline)
 
 ( GRAPHICS )
 
@@ -35,15 +38,6 @@ A fine partita viene assegnato un punteggio in base a quanti nemici hai ucciso.
 
 	* html5 games prime, leggere ( http://buildnewgames.com/mobile-game-primer/ )
 
-( Animazione iniziale )
-
-	Superdrow passeggia per la foresta
-	tira un calcio ad una pietra, che vola in testa ad un coboldo
-	scappando sbatte contro un troll
-	scappando dal troll si infila in un accampamento e nella confusione fa incazzare tutti
-	per scappare sale su una catapulta e taglia la corda
-	ma viene lanciato su un albero vicinissimo
-	i nemici lo caricano
 
 
 ## LISTA MOSTRI
@@ -67,8 +61,8 @@ fatti
 da fare
 ---------------------------------------
 
-	shaman
-	necromancer
+	healer (shaman)
+	kamikaze (zombie)
 
 
 ## BUGS

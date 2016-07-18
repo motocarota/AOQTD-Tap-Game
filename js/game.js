@@ -187,6 +187,7 @@
 		game.save( );
 		menu.updateReport( score );
 		game.bg.emptyChildren();
+		game.killCount = 0;
 	};
 	
 	game.refreshSpellsBtn = function( ) {
